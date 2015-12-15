@@ -51,25 +51,25 @@
 
 
 
-<meta name="description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
+<meta name="description" content="stop mysql and modify my.cnf1service mysql stop
+add below to my.cnf12[mysqld]skip-grant-tables
+reset password of user root1mysql
+1234USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WH">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL forget password of root">
 <meta property="og:url" content="http://yoursite.com/2015/12/12/MySQL-forget-password/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
+<meta property="og:description" content="stop mysql and modify my.cnf1service mysql stop
+add below to my.cnf12[mysqld]skip-grant-tables
+reset password of user root1mysql
+1234USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WH">
 <meta property="og:updated_time" content="2015-12-11T18:16:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL forget password of root">
-<meta name="twitter:description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
+<meta name="twitter:description" content="stop mysql and modify my.cnf1service mysql stop
+add below to my.cnf12[mysqld]skip-grant-tables
+reset password of user root1mysql
+1234USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WH">
 
 
 
@@ -267,12 +267,12 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
       
 
       
-        <span itemprop="articleBody"><h2 id="stop_mysql_and_modify_my-cnf"><a href="#stop_mysql_and_modify_my-cnf" class="headerlink" title="stop mysql and modify my.cnf"></a>stop mysql and modify my.cnf</h2><figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">service mysql <span class="literal">stop</span></span><br></pre></td></tr></table></figure>
-<p>add below to my.cnf<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">skip-<span class="operator"><span class="keyword">grant</span>-<span class="keyword">tables</span></span></span><br></pre></td></tr></table></figure></p>
-<h2 id="reset_password_of_user_root"><a href="#reset_password_of_user_root" class="headerlink" title="reset password of user root"></a>reset password of user root</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">mysql</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">USE</span> mysql;</span></span><br><span class="line"><span class="operator"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> <span class="keyword">Password</span>=<span class="keyword">password</span>(<span class="string">'your-new-password'</span>) <span class="keyword">WHERE</span> <span class="keyword">User</span>=<span class="string">'root'</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span></span><br><span class="line">quit;</span><br></pre></td></tr></table></figure>
-<h2 id="modify_my-cnf_again"><a href="#modify_my-cnf_again" class="headerlink" title="modify my.cnf again"></a>modify my.cnf again</h2><p>remove below from [mysqld]<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">skip-<span class="operator"><span class="keyword">grant</span>-<span class="keyword">tables</span></span></span><br></pre></td></tr></table></figure></p>
-<h2 id="restart_mysql"><a href="#restart_mysql" class="headerlink" title="restart mysql"></a>restart mysql</h2><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">service</span> mysql restart</span><br></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><h2 id="stop_mysql_and_modify_my-cnf"><a href="#stop_mysql_and_modify_my-cnf" class="headerlink" title="stop mysql and modify my.cnf"></a>stop mysql and modify my.cnf</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysql <span class="literal">stop</span></span><br></pre></td></tr></table></figure>
+<p>add below to my.cnf<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">skip-<span class="operator"><span class="keyword">grant</span>-<span class="keyword">tables</span></span></span><br></pre></td></tr></table></figure></p>
+<h2 id="reset_password_of_user_root"><a href="#reset_password_of_user_root" class="headerlink" title="reset password of user root"></a>reset password of user root</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">USE</span> mysql;</span></span><br><span class="line"><span class="operator"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> <span class="keyword">Password</span>=<span class="keyword">password</span>(<span class="string">'your-new-password'</span>) <span class="keyword">WHERE</span> <span class="keyword">User</span>=<span class="string">'root'</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span></span><br><span class="line">quit;</span><br></pre></td></tr></table></figure>
+<h2 id="modify_my-cnf_again"><a href="#modify_my-cnf_again" class="headerlink" title="modify my.cnf again"></a>modify my.cnf again</h2><p>remove below from [mysqld]<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip-<span class="operator"><span class="keyword">grant</span>-<span class="keyword">tables</span></span></span><br></pre></td></tr></table></figure></p>
+<h2 id="restart_mysql"><a href="#restart_mysql" class="headerlink" title="restart mysql"></a>restart mysql</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">service</span> mysql restart</span><br></pre></td></tr></table></figure>
 </span>
       
     </div>
