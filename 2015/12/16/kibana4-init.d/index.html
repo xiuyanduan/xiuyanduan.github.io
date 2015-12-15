@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MySQL," />
+  <meta name="keywords" content="elk,linux," />
 
 
 
@@ -53,25 +53,16 @@
 
 
 
-<meta name="description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
+<meta name="description" content="Tested in Ubuntu 14.04 LTSvim /etc/init.d/kibana4#!/bin/sh## /etc/init.d/kibana4 -- startup script for kibana4# bsmith@the408.com 2015-02-20; used elasticsearch init script as template# https://github">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL forget password of root">
-<meta property="og:url" content="http://yoursite.com/2015/12/12/MySQL-forget-password/index.html">
+<meta property="og:title" content="kibana4 run as service">
+<meta property="og:url" content="http://yoursite.com/2015/12/16/kibana4-init.d/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
-<meta property="og:updated_time" content="2015-12-11T18:16:38.000Z">
+<meta property="og:description" content="Tested in Ubuntu 14.04 LTSvim /etc/init.d/kibana4#!/bin/sh## /etc/init.d/kibana4 -- startup script for kibana4# bsmith@the408.com 2015-02-20; used elasticsearch init script as template# https://github">
+<meta property="og:updated_time" content="2015-12-15T19:51:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL forget password of root">
-<meta name="twitter:description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
+<meta name="twitter:title" content="kibana4 run as service">
+<meta name="twitter:description" content="Tested in Ubuntu 14.04 LTSvim /etc/init.d/kibana4#!/bin/sh## /etc/init.d/kibana4 -- startup script for kibana4# bsmith@the408.com 2015-02-20; used elasticsearch init script as template# https://github">
 
 
 
@@ -83,7 +74,7 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
   };
 </script>
 
-  <title> MySQL forget password of root | xyduan </title>
+  <title> kibana4 run as service | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -239,7 +230,7 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
             
             
               
-                MySQL forget password of root
+                kibana4 run as service
               
             
           </h1>
@@ -248,8 +239,8 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-12T02:16:38+08:00" content="2015-12-12">
-              2015-12-12
+            <time itemprop="dateCreated" datetime="2015-12-16T03:51:43+08:00" content="2015-12-16">
+              2015-12-16
             </time>
           </span>
 
@@ -259,8 +250,8 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/12/MySQL-forget-password/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/12/MySQL-forget-password/" itemprop="commentsCount"></span>
+                <a href="/2015/12/16/kibana4-init.d/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/16/kibana4-init.d/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -279,12 +270,8 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
       
 
       
-        <span itemprop="articleBody"><h2 id="stop_mysql_and_modify_my-cnf"><a href="#stop_mysql_and_modify_my-cnf" class="headerlink" title="stop mysql and modify my.cnf"></a>stop mysql and modify my.cnf</h2><figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">service mysql <span class="literal">stop</span></span><br></pre></td></tr></table></figure>
-<p>add below to my.cnf<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">skip-<span class="operator"><span class="keyword">grant</span>-<span class="keyword">tables</span></span></span><br></pre></td></tr></table></figure></p>
-<h2 id="reset_password_of_user_root"><a href="#reset_password_of_user_root" class="headerlink" title="reset password of user root"></a>reset password of user root</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">mysql</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">USE</span> mysql;</span></span><br><span class="line"><span class="operator"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> <span class="keyword">Password</span>=<span class="keyword">password</span>(<span class="string">'your-new-password'</span>) <span class="keyword">WHERE</span> <span class="keyword">User</span>=<span class="string">'root'</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span></span><br><span class="line">quit;</span><br></pre></td></tr></table></figure>
-<h2 id="modify_my-cnf_again"><a href="#modify_my-cnf_again" class="headerlink" title="modify my.cnf again"></a>modify my.cnf again</h2><p>remove below from [mysqld]<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">skip-<span class="operator"><span class="keyword">grant</span>-<span class="keyword">tables</span></span></span><br></pre></td></tr></table></figure></p>
-<h2 id="restart_mysql"><a href="#restart_mysql" class="headerlink" title="restart mysql"></a>restart mysql</h2><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">service</span> mysql restart</span><br></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04 LTS</code><br><code>vim /etc/init.d/kibana4</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># /etc/init.d/kibana4 -- startup script for kibana4</span></span><br><span class="line"><span class="comment"># bsmith@the408.com 2015-02-20; used elasticsearch init script as template</span></span><br><span class="line"><span class="comment"># https://github.com/akabdog/scripts/edit/master/kibana4_init</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">### BEGIN INIT INFO</span></span><br><span class="line"><span class="comment"># Provides:          kibana4</span></span><br><span class="line"><span class="comment"># Required-Start:    $network $remote_fs $named</span></span><br><span class="line"><span class="comment"># Required-Stop:     $network $remote_fs $named</span></span><br><span class="line"><span class="comment"># Default-Start:     2 3 4 5</span></span><br><span class="line"><span class="comment"># Default-Stop:      0 1 6</span></span><br><span class="line"><span class="comment"># Short-Description: Starts kibana4</span></span><br><span class="line"><span class="comment"># Description:       Starts kibana4 using start-stop-daemon</span></span><br><span class="line"><span class="comment">### END INIT INFO</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#configure this with wherever you unpacked kibana:</span></span><br><span class="line">KIBANA_BIN=/opt/kibana-<span class="number">4.3</span>.<span class="number">0</span>-linux-x64/bin/</span><br><span class="line"></span><br><span class="line">PID_FILE=/var/run/<span class="variable">$NAME</span>.pid</span><br><span class="line">PATH=/bin:/usr/bin:/sbin:/usr/sbin:<span class="variable">$KIBANA_BIN</span></span><br><span class="line">DAEMON=<span class="variable">$KIBANA_BIN</span>/kibana</span><br><span class="line">NAME=kibana4</span><br><span class="line">DESC=<span class="string">"Kibana4"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ `id -u` <span class="operator">-ne</span> <span class="number">0</span> ]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"You need root privileges to run this script"</span></span><br><span class="line">	<span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">. /lib/lsb/init-functions</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -r /etc/default/rcS ]; <span class="keyword">then</span></span><br><span class="line">	. /etc/default/rcS</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></span><br><span class="line">  start)</span><br><span class="line">	<span class="built_in">log</span>_daemon_msg <span class="string">"Starting <span class="variable">$DESC</span>"</span></span><br><span class="line"></span><br><span class="line">	pid=`pidofproc -p <span class="variable">$PID_FILE</span> kibana`</span><br><span class="line">	<span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$pid</span>"</span> ] ; <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">log</span>_begin_msg <span class="string">"Already running."</span></span><br><span class="line">		<span class="built_in">log</span>_end_msg <span class="number">0</span></span><br><span class="line">		<span class="built_in">exit</span> <span class="number">0</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Start Daemon</span></span><br><span class="line">	start-stop-daemon --start --pidfile <span class="string">"<span class="variable">$PID_FILE</span>"</span> --make-pidfile --background --exec <span class="variable">$DAEMON</span></span><br><span class="line">	<span class="built_in">log</span>_end_msg $?</span><br><span class="line">	;;</span><br><span class="line">  stop)</span><br><span class="line">	<span class="built_in">log</span>_daemon_msg <span class="string">"Stopping <span class="variable">$DESC</span>"</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> [ <span class="operator">-f</span> <span class="string">"<span class="variable">$PID_FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">		start-stop-daemon --stop --pidfile <span class="string">"<span class="variable">$PID_FILE</span>"</span> \</span><br><span class="line">			--retry=TERM/<span class="number">20</span>/KILL/<span class="number">5</span> &gt;/dev/null</span><br><span class="line">		<span class="keyword">if</span> [ $? <span class="operator">-eq</span> <span class="number">1</span> ]; <span class="keyword">then</span></span><br><span class="line">			<span class="built_in">log</span>_progress_msg <span class="string">"<span class="variable">$DESC</span> is not running but pid file exists, cleaning up"</span></span><br><span class="line">		<span class="keyword">elif</span> [ $? <span class="operator">-eq</span> <span class="number">3</span> ]; <span class="keyword">then</span></span><br><span class="line">			PID=<span class="string">"`cat <span class="variable">$PID_FILE</span>`"</span></span><br><span class="line">			<span class="built_in">log</span>_failure_msg <span class="string">"Failed to stop <span class="variable">$DESC</span> (pid <span class="variable">$PID</span>)"</span></span><br><span class="line">			<span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line">		<span class="keyword">fi</span></span><br><span class="line">		rm <span class="operator">-f</span> <span class="string">"<span class="variable">$PID_FILE</span>"</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">log</span>_progress_msg <span class="string">"(not running)"</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	<span class="built_in">log</span>_end_msg <span class="number">0</span></span><br><span class="line">	;;</span><br><span class="line">  status)</span><br><span class="line">	status_of_proc -p <span class="variable">$PID_FILE</span> kibana kibana &amp;&amp; <span class="built_in">exit</span> <span class="number">0</span> || <span class="built_in">exit</span> $?</span><br><span class="line">    ;;</span><br><span class="line">  restart|force-reload)</span><br><span class="line">	<span class="keyword">if</span> [ <span class="operator">-f</span> <span class="string">"<span class="variable">$PID_FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">		<span class="variable">$0</span> stop</span><br><span class="line">		sleep <span class="number">1</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	<span class="variable">$0</span> start</span><br><span class="line">	;;</span><br><span class="line">  *)</span><br><span class="line">	<span class="built_in">log</span>_success_msg <span class="string">"Usage: <span class="variable">$0</span> &#123;start|stop|restart|force-reload|status&#125;"</span></span><br><span class="line">	<span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line">	;;</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p><code>update-rc.d kibana4 defaults 96 9</code><br><code>service kibana4 status</code><br><code>/etc/init.d/kibana4 restart</code></p>
 </span>
       
     </div>
@@ -293,7 +280,9 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL/" rel="tag">#MySQL</a>
+            <a href="/tags/elk/" rel="tag">#elk</a>
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
           
         </div>
       
@@ -302,17 +291,13 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/11/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2015/12/16/elk-install/" rel="next" title="install elk">
+                <i class="fa fa-chevron-left"></i> install elk
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/16/logstash-service-notwork/" rel="prev" title="logstash service not work">
-                logstash service not work <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -339,8 +324,8 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/12/MySQL-forget-password/"
-           data-title="MySQL forget password of root" data-url="http://yoursite.com/2015/12/12/MySQL-forget-password/">
+      <div class="ds-thread" data-thread-key="2015/12/16/kibana4-init.d/"
+           data-title="kibana4 run as service" data-url="http://yoursite.com/2015/12/16/kibana4-init.d/">
       </div>
     
   </div>
@@ -448,7 +433,7 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#stop_mysql_and_modify_my-cnf"><span class="nav-number">1.</span> <span class="nav-text">stop mysql and modify my.cnf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reset_password_of_user_root"><span class="nav-number">2.</span> <span class="nav-text">reset password of user root</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#modify_my-cnf_again"><span class="nav-number">3.</span> <span class="nav-text">modify my.cnf again</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#restart_mysql"><span class="nav-number">4.</span> <span class="nav-text">restart mysql</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
