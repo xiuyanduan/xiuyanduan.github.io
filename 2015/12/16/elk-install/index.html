@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MySQL," />
+  <meta name="keywords" content="elk," />
 
 
 
@@ -53,25 +53,22 @@
 
 
 
-<meta name="description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
+<meta name="description" content="This articale has been test successful in Ubuntu 14.04 LTS
+install keyDownload and install the Public Signing Key:wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+add">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL forget password of root">
-<meta property="og:url" content="http://yoursite.com/2015/12/12/MySQL-forget-password/index.html">
+<meta property="og:title" content="install elk">
+<meta property="og:url" content="http://yoursite.com/2015/12/16/elk-install/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
-<meta property="og:updated_time" content="2015-12-11T18:16:38.000Z">
+<meta property="og:description" content="This articale has been test successful in Ubuntu 14.04 LTS
+install keyDownload and install the Public Signing Key:wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+add">
+<meta property="og:updated_time" content="2015-12-15T18:04:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL forget password of root">
-<meta name="twitter:description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
+<meta name="twitter:title" content="install elk">
+<meta name="twitter:description" content="This articale has been test successful in Ubuntu 14.04 LTS
+install keyDownload and install the Public Signing Key:wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+add">
 
 
 
@@ -83,7 +80,7 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
   };
 </script>
 
-  <title> MySQL forget password of root | xyduan </title>
+  <title> install elk | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -239,7 +236,7 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
             
             
               
-                MySQL forget password of root
+                install elk
               
             
           </h1>
@@ -248,8 +245,8 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-12T02:16:38+08:00" content="2015-12-12">
-              2015-12-12
+            <time itemprop="dateCreated" datetime="2015-12-16T02:04:37+08:00" content="2015-12-16">
+              2015-12-16
             </time>
           </span>
 
@@ -259,8 +256,8 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/12/MySQL-forget-password/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/12/MySQL-forget-password/" itemprop="commentsCount"></span>
+                <a href="/2015/12/16/elk-install/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/16/elk-install/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -279,12 +276,12 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
       
 
       
-        <span itemprop="articleBody"><h2 id="stop_mysql_and_modify_my-cnf"><a href="#stop_mysql_and_modify_my-cnf" class="headerlink" title="stop mysql and modify my.cnf"></a>stop mysql and modify my.cnf</h2><figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">service mysql <span class="literal">stop</span></span><br></pre></td></tr></table></figure>
-<p>add below to my.cnf<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">skip-<span class="operator"><span class="keyword">grant</span>-<span class="keyword">tables</span></span></span><br></pre></td></tr></table></figure></p>
-<h2 id="reset_password_of_user_root"><a href="#reset_password_of_user_root" class="headerlink" title="reset password of user root"></a>reset password of user root</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">mysql</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">USE</span> mysql;</span></span><br><span class="line"><span class="operator"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> <span class="keyword">Password</span>=<span class="keyword">password</span>(<span class="string">'your-new-password'</span>) <span class="keyword">WHERE</span> <span class="keyword">User</span>=<span class="string">'root'</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span></span><br><span class="line">quit;</span><br></pre></td></tr></table></figure>
-<h2 id="modify_my-cnf_again"><a href="#modify_my-cnf_again" class="headerlink" title="modify my.cnf again"></a>modify my.cnf again</h2><p>remove below from [mysqld]<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">skip-<span class="operator"><span class="keyword">grant</span>-<span class="keyword">tables</span></span></span><br></pre></td></tr></table></figure></p>
-<h2 id="restart_mysql"><a href="#restart_mysql" class="headerlink" title="restart mysql"></a>restart mysql</h2><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">service</span> mysql restart</span><br></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><p>This articale has been test successful in <code>Ubuntu 14.04 LTS</code></p>
+<h2 id="install_key"><a href="#install_key" class="headerlink" title="install key"></a>install key</h2><p>Download and install the Public Signing Key:<br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">wget -qO - http<span class="variable">s:</span>//packages.elastic.<span class="keyword">co</span>/GPG-KEY-elasticsearch | sudo apt-key <span class="built_in">add</span> -</span><br></pre></td></tr></table></figure></p>
+<h2 id="add_to_the_repository"><a href="#add_to_the_repository" class="headerlink" title="add to the repository"></a>add to the repository</h2><figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line">root<span class="variable">@test</span>:<span class="regexp">/# cat /etc</span><span class="regexp">/apt/sources</span>.list.d/elk.list </span><br><span class="line">deb <span class="symbol">https:</span>/<span class="regexp">/packages.elastic.co/beats</span><span class="regexp">/apt stable main</span><br><span class="line">deb http:/</span><span class="regexp">/packages.elastic.co/elasticsearch</span><span class="regexp">/2.x/debian</span> stable main</span><br><span class="line">deb <span class="symbol">http:</span>/<span class="regexp">/packages.elastic.co/logstash</span><span class="regexp">/2.1/debian</span> stable main</span><br></pre></td></tr></table></figure>
+<h2 id="install_elasticsearch"><a href="#install_elasticsearch" class="headerlink" title="install elasticsearch"></a>install elasticsearch</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sudo apt-get <span class="operator"><span class="keyword">update</span></span><br><span class="line">sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> elasticsearch</span><br><span class="line">sudo <span class="keyword">update</span>-rc.<span class="keyword">d</span> elasticsearch <span class="keyword">defaults</span> <span class="number">95</span> <span class="number">10</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="install_logstash"><a href="#install_logstash" class="headerlink" title="install logstash"></a>install logstash</h2><figure class="highlight q"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> <span class="keyword">update</span></span><br><span class="line">sudo apt-<span class="built_in">get</span> install logstash</span><br></pre></td></tr></table></figure>
+<h2 id="download_kibana"><a href="#download_kibana" class="headerlink" title="download kibana"></a>download kibana</h2><p><a href="https://www.elastic.co/downloads/kibana" target="_blank" rel="external"> download </a></p>
 </span>
       
     </div>
@@ -293,7 +290,7 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL/" rel="tag">#MySQL</a>
+            <a href="/tags/elk/" rel="tag">#elk</a>
           
         </div>
       
@@ -302,17 +299,13 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/11/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2015/12/16/logstash-service-notwork/" rel="next" title="logstash service not work">
+                <i class="fa fa-chevron-left"></i> logstash service not work
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/16/logstash-service-notwork/" rel="prev" title="logstash service not work">
-                logstash service not work <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -339,8 +332,8 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/12/MySQL-forget-password/"
-           data-title="MySQL forget password of root" data-url="http://yoursite.com/2015/12/12/MySQL-forget-password/">
+      <div class="ds-thread" data-thread-key="2015/12/16/elk-install/"
+           data-title="install elk" data-url="http://yoursite.com/2015/12/16/elk-install/">
       </div>
     
   </div>
@@ -448,7 +441,7 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#stop_mysql_and_modify_my-cnf"><span class="nav-number">1.</span> <span class="nav-text">stop mysql and modify my.cnf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reset_password_of_user_root"><span class="nav-number">2.</span> <span class="nav-text">reset password of user root</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#modify_my-cnf_again"><span class="nav-number">3.</span> <span class="nav-text">modify my.cnf again</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#restart_mysql"><span class="nav-number">4.</span> <span class="nav-text">restart mysql</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#install_key"><span class="nav-number">1.</span> <span class="nav-text">install key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#add_to_the_repository"><span class="nav-number">2.</span> <span class="nav-text">add to the repository</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#install_elasticsearch"><span class="nav-number">3.</span> <span class="nav-text">install elasticsearch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#install_logstash"><span class="nav-number">4.</span> <span class="nav-text">install logstash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#download_kibana"><span class="nav-number">5.</span> <span class="nav-text">download kibana</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

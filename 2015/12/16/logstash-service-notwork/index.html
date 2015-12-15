@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MySQL," />
+  <meta name="keywords" content="elk,linux,logstash," />
 
 
 
@@ -53,25 +53,22 @@
 
 
 
-<meta name="description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
+<meta name="description" content="elk (elasticsearch,logstash,kibana)
+questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
+soluti">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL forget password of root">
-<meta property="og:url" content="http://yoursite.com/2015/12/12/MySQL-forget-password/index.html">
+<meta property="og:title" content="logstash service not work">
+<meta property="og:url" content="http://yoursite.com/2015/12/16/logstash-service-notwork/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
-<meta property="og:updated_time" content="2015-12-11T18:16:38.000Z">
+<meta property="og:description" content="elk (elasticsearch,logstash,kibana)
+questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
+soluti">
+<meta property="og:updated_time" content="2015-12-15T17:58:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL forget password of root">
-<meta name="twitter:description" content="stop mysql and modify my.cnfservice mysql stop
-add below to my.cnf[mysqld]skip-grant-tables
-reset password of user rootmysql
-USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE User">
+<meta name="twitter:title" content="logstash service not work">
+<meta name="twitter:description" content="elk (elasticsearch,logstash,kibana)
+questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
+soluti">
 
 
 
@@ -83,7 +80,7 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
   };
 </script>
 
-  <title> MySQL forget password of root | xyduan </title>
+  <title> logstash service not work | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -239,7 +236,7 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
             
             
               
-                MySQL forget password of root
+                logstash service not work
               
             
           </h1>
@@ -248,8 +245,8 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-12T02:16:38+08:00" content="2015-12-12">
-              2015-12-12
+            <time itemprop="dateCreated" datetime="2015-12-16T01:58:22+08:00" content="2015-12-16">
+              2015-12-16
             </time>
           </span>
 
@@ -259,8 +256,8 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/12/MySQL-forget-password/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/12/MySQL-forget-password/" itemprop="commentsCount"></span>
+                <a href="/2015/12/16/logstash-service-notwork/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/16/logstash-service-notwork/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -279,12 +276,11 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
       
 
       
-        <span itemprop="articleBody"><h2 id="stop_mysql_and_modify_my-cnf"><a href="#stop_mysql_and_modify_my-cnf" class="headerlink" title="stop mysql and modify my.cnf"></a>stop mysql and modify my.cnf</h2><figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">service mysql <span class="literal">stop</span></span><br></pre></td></tr></table></figure>
-<p>add below to my.cnf<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">skip-<span class="operator"><span class="keyword">grant</span>-<span class="keyword">tables</span></span></span><br></pre></td></tr></table></figure></p>
-<h2 id="reset_password_of_user_root"><a href="#reset_password_of_user_root" class="headerlink" title="reset password of user root"></a>reset password of user root</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">mysql</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">USE</span> mysql;</span></span><br><span class="line"><span class="operator"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> <span class="keyword">Password</span>=<span class="keyword">password</span>(<span class="string">'your-new-password'</span>) <span class="keyword">WHERE</span> <span class="keyword">User</span>=<span class="string">'root'</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span></span><br><span class="line">quit;</span><br></pre></td></tr></table></figure>
-<h2 id="modify_my-cnf_again"><a href="#modify_my-cnf_again" class="headerlink" title="modify my.cnf again"></a>modify my.cnf again</h2><p>remove below from [mysqld]<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">skip-<span class="operator"><span class="keyword">grant</span>-<span class="keyword">tables</span></span></span><br></pre></td></tr></table></figure></p>
-<h2 id="restart_mysql"><a href="#restart_mysql" class="headerlink" title="restart mysql"></a>restart mysql</h2><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">service</span> mysql restart</span><br></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><p><strong>elk (elasticsearch,logstash,kibana)</strong></p>
+<h1 id="question"><a href="#question" class="headerlink" title="question"></a>question</h1><p>When I used logstash in service ,such as <code>service logstash start</code> it did not work , but <code>/opt/logstash/bin/logstash -f /etc/logstash/conf.d</code> worked right</p>
+<h1 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h1><h2 id="Demo_of_conf"><a href="#Demo_of_conf" class="headerlink" title="Demo of conf"></a>Demo of conf</h2><figure class="highlight puppet"><table><tr><td class="code"><pre><span class="line"><span class="name">input</span> &#123;</span><br><span class="line">    file &#123;</span><br><span class="line">        path =&gt; <span class="string">"/var/log/apache2/jjk_config_server.log"</span></span><br><span class="line">        start_position =&gt; beginning </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="name">filter</span> &#123;</span><br><span class="line">    grok &#123;</span><br><span class="line">        match =&gt; &#123; <span class="string">"message"</span> =&gt; <span class="string">"%&#123;COMBINEDAPACHELOG&#125;"</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="name">output</span> &#123;</span><br><span class="line">    stdout &#123;</span><br><span class="line">	codec =&gt; rubydebug</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="name">elasticsearch</span> &#123;hosts =&gt; <span class="string">"localhost:9200"</span> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Pay_attention"><a href="#Pay_attention" class="headerlink" title="Pay attention"></a>Pay attention</h2><p>Permission<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ll /var/<span class="built_in">log</span>/apache2 -d</span><br><span class="line">drwxr-x--- <span class="number">2</span> root adm <span class="number">4096</span> Dec <span class="number">15</span> <span class="number">13</span>:<span class="number">32</span> /var/<span class="built_in">log</span>/apache2/</span><br></pre></td></tr></table></figure></p>
+<p>logstash was started by user logstash,so it couldn’t work when executed <code>service logstash start</code></p>
 </span>
       
     </div>
@@ -293,7 +289,11 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL/" rel="tag">#MySQL</a>
+            <a href="/tags/elk/" rel="tag">#elk</a>
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+            <a href="/tags/logstash/" rel="tag">#logstash</a>
           
         </div>
       
@@ -302,16 +302,16 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/11/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2015/12/12/MySQL-forget-password/" rel="next" title="MySQL forget password of root">
+                <i class="fa fa-chevron-left"></i> MySQL forget password of root
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/16/logstash-service-notwork/" rel="prev" title="logstash service not work">
-                logstash service not work <i class="fa fa-chevron-right"></i>
+              <a href="/2015/12/16/elk-install/" rel="prev" title="install elk">
+                install elk <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -339,8 +339,8 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/12/MySQL-forget-password/"
-           data-title="MySQL forget password of root" data-url="http://yoursite.com/2015/12/12/MySQL-forget-password/">
+      <div class="ds-thread" data-thread-key="2015/12/16/logstash-service-notwork/"
+           data-title="logstash service not work" data-url="http://yoursite.com/2015/12/16/logstash-service-notwork/">
       </div>
     
   </div>
@@ -448,7 +448,7 @@ USE mysql;UPDATE user SET Password=password(&apos;your-new-password&apos;) WHERE
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#stop_mysql_and_modify_my-cnf"><span class="nav-number">1.</span> <span class="nav-text">stop mysql and modify my.cnf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reset_password_of_user_root"><span class="nav-number">2.</span> <span class="nav-text">reset password of user root</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#modify_my-cnf_again"><span class="nav-number">3.</span> <span class="nav-text">modify my.cnf again</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#restart_mysql"><span class="nav-number">4.</span> <span class="nav-text">restart mysql</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">question</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#solution"><span class="nav-number">2.</span> <span class="nav-text">solution</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo_of_conf"><span class="nav-number">2.1.</span> <span class="nav-text">Demo of conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pay_attention"><span class="nav-number">2.2.</span> <span class="nav-text">Pay attention</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
