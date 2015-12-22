@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="elk,linux," />
+  <meta name="keywords" content="apache,linux," />
 
 
 
@@ -53,16 +53,28 @@
 
 
 
-<meta name="description" content="Tested in Ubuntu 14.04 LTSvim /etc/init.d/kibana4#!/bin/sh## /etc/init.d/kibana4 -- startup script for kibana4# bsmith@the408.com 2015-02-20; used elasticsearch init script as template# https://github">
+<meta name="description" content="Tested in Ubuntu 14.04 LTS Apache/2.4.7Reference
+Enable mod_dumpio modulesudo a2enmod dump_io
+/etc/init.d/apache2 force-reload
+Configurationvim etc/apache2/apache2.conf
+Enable dumping of all input dat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kibana4 run as service">
-<meta property="og:url" content="http://yoursite.com/2015/12/16/kibana4-init.d/index.html">
+<meta property="og:title" content="Add post data to Apache log by mod_dumpio">
+<meta property="og:url" content="http://yoursite.com/2015/12/22/apache-mod_dumpio-log-post-data/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="Tested in Ubuntu 14.04 LTSvim /etc/init.d/kibana4#!/bin/sh## /etc/init.d/kibana4 -- startup script for kibana4# bsmith@the408.com 2015-02-20; used elasticsearch init script as template# https://github">
-<meta property="og:updated_time" content="2015-12-15T19:51:43.000Z">
+<meta property="og:description" content="Tested in Ubuntu 14.04 LTS Apache/2.4.7Reference
+Enable mod_dumpio modulesudo a2enmod dump_io
+/etc/init.d/apache2 force-reload
+Configurationvim etc/apache2/apache2.conf
+Enable dumping of all input dat">
+<meta property="og:updated_time" content="2015-12-22T10:04:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kibana4 run as service">
-<meta name="twitter:description" content="Tested in Ubuntu 14.04 LTSvim /etc/init.d/kibana4#!/bin/sh## /etc/init.d/kibana4 -- startup script for kibana4# bsmith@the408.com 2015-02-20; used elasticsearch init script as template# https://github">
+<meta name="twitter:title" content="Add post data to Apache log by mod_dumpio">
+<meta name="twitter:description" content="Tested in Ubuntu 14.04 LTS Apache/2.4.7Reference
+Enable mod_dumpio modulesudo a2enmod dump_io
+/etc/init.d/apache2 force-reload
+Configurationvim etc/apache2/apache2.conf
+Enable dumping of all input dat">
 
 
 
@@ -74,7 +86,7 @@
   };
 </script>
 
-  <title> kibana4 run as service | xyduan </title>
+  <title> Add post data to Apache log by mod_dumpio | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -230,7 +242,7 @@
             
             
               
-                kibana4 run as service
+                Add post data to Apache log by mod_dumpio
               
             
           </h1>
@@ -239,8 +251,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-16T03:51:43+08:00" content="2015-12-16">
-              2015-12-16
+            <time itemprop="dateCreated" datetime="2015-12-22T18:04:57+08:00" content="2015-12-22">
+              2015-12-22
             </time>
           </span>
 
@@ -250,8 +262,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/16/kibana4-init.d/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/16/kibana4-init.d/" itemprop="commentsCount"></span>
+                <a href="/2015/12/22/apache-mod_dumpio-log-post-data/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/22/apache-mod_dumpio-log-post-data/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -270,8 +282,14 @@
       
 
       
-        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04 LTS</code><br><code>vim /etc/init.d/kibana4</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># /etc/init.d/kibana4 -- startup script for kibana4</span></span><br><span class="line"><span class="comment"># bsmith@the408.com 2015-02-20; used elasticsearch init script as template</span></span><br><span class="line"><span class="comment"># https://github.com/akabdog/scripts/edit/master/kibana4_init</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">### BEGIN INIT INFO</span></span><br><span class="line"><span class="comment"># Provides:          kibana4</span></span><br><span class="line"><span class="comment"># Required-Start:    $network $remote_fs $named</span></span><br><span class="line"><span class="comment"># Required-Stop:     $network $remote_fs $named</span></span><br><span class="line"><span class="comment"># Default-Start:     2 3 4 5</span></span><br><span class="line"><span class="comment"># Default-Stop:      0 1 6</span></span><br><span class="line"><span class="comment"># Short-Description: Starts kibana4</span></span><br><span class="line"><span class="comment"># Description:       Starts kibana4 using start-stop-daemon</span></span><br><span class="line"><span class="comment">### END INIT INFO</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#configure this with wherever you unpacked kibana:</span></span><br><span class="line">KIBANA_BIN=/opt/kibana-<span class="number">4.3</span>.<span class="number">0</span>-linux-x64/bin/</span><br><span class="line"></span><br><span class="line">PID_FILE=/var/run/<span class="variable">$NAME</span>.pid</span><br><span class="line">PATH=/bin:/usr/bin:/sbin:/usr/sbin:<span class="variable">$KIBANA_BIN</span></span><br><span class="line">DAEMON=<span class="variable">$KIBANA_BIN</span>/kibana</span><br><span class="line">NAME=kibana4</span><br><span class="line">DESC=<span class="string">"Kibana4"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ `id -u` <span class="operator">-ne</span> <span class="number">0</span> ]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"You need root privileges to run this script"</span></span><br><span class="line">	<span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">. /lib/lsb/init-functions</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -r /etc/default/rcS ]; <span class="keyword">then</span></span><br><span class="line">	. /etc/default/rcS</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></span><br><span class="line">  start)</span><br><span class="line">	<span class="built_in">log</span>_daemon_msg <span class="string">"Starting <span class="variable">$DESC</span>"</span></span><br><span class="line"></span><br><span class="line">	pid=`pidofproc -p <span class="variable">$PID_FILE</span> kibana`</span><br><span class="line">	<span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$pid</span>"</span> ] ; <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">log</span>_begin_msg <span class="string">"Already running."</span></span><br><span class="line">		<span class="built_in">log</span>_end_msg <span class="number">0</span></span><br><span class="line">		<span class="built_in">exit</span> <span class="number">0</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Start Daemon</span></span><br><span class="line">	start-stop-daemon --start --pidfile <span class="string">"<span class="variable">$PID_FILE</span>"</span> --make-pidfile --background --exec <span class="variable">$DAEMON</span></span><br><span class="line">	<span class="built_in">log</span>_end_msg $?</span><br><span class="line">	;;</span><br><span class="line">  stop)</span><br><span class="line">	<span class="built_in">log</span>_daemon_msg <span class="string">"Stopping <span class="variable">$DESC</span>"</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> [ <span class="operator">-f</span> <span class="string">"<span class="variable">$PID_FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">		start-stop-daemon --stop --pidfile <span class="string">"<span class="variable">$PID_FILE</span>"</span> \</span><br><span class="line">			--retry=TERM/<span class="number">20</span>/KILL/<span class="number">5</span> &gt;/dev/null</span><br><span class="line">		<span class="keyword">if</span> [ $? <span class="operator">-eq</span> <span class="number">1</span> ]; <span class="keyword">then</span></span><br><span class="line">			<span class="built_in">log</span>_progress_msg <span class="string">"<span class="variable">$DESC</span> is not running but pid file exists, cleaning up"</span></span><br><span class="line">		<span class="keyword">elif</span> [ $? <span class="operator">-eq</span> <span class="number">3</span> ]; <span class="keyword">then</span></span><br><span class="line">			PID=<span class="string">"`cat <span class="variable">$PID_FILE</span>`"</span></span><br><span class="line">			<span class="built_in">log</span>_failure_msg <span class="string">"Failed to stop <span class="variable">$DESC</span> (pid <span class="variable">$PID</span>)"</span></span><br><span class="line">			<span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line">		<span class="keyword">fi</span></span><br><span class="line">		rm <span class="operator">-f</span> <span class="string">"<span class="variable">$PID_FILE</span>"</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">log</span>_progress_msg <span class="string">"(not running)"</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	<span class="built_in">log</span>_end_msg <span class="number">0</span></span><br><span class="line">	;;</span><br><span class="line">  status)</span><br><span class="line">	status_of_proc -p <span class="variable">$PID_FILE</span> kibana kibana &amp;&amp; <span class="built_in">exit</span> <span class="number">0</span> || <span class="built_in">exit</span> $?</span><br><span class="line">    ;;</span><br><span class="line">  restart|force-reload)</span><br><span class="line">	<span class="keyword">if</span> [ <span class="operator">-f</span> <span class="string">"<span class="variable">$PID_FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">		<span class="variable">$0</span> stop</span><br><span class="line">		sleep <span class="number">1</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	<span class="variable">$0</span> start</span><br><span class="line">	;;</span><br><span class="line">  *)</span><br><span class="line">	<span class="built_in">log</span>_success_msg <span class="string">"Usage: <span class="variable">$0</span> &#123;start|stop|restart|force-reload|status&#125;"</span></span><br><span class="line">	<span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line">	;;</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
-<p><code>update-rc.d kibana4 defaults 96 9</code><br><code>service kibana4 status</code><br><code>/etc/init.d/kibana4 restart</code></p>
+        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04 LTS</code> <code>Apache/2.4.7</code><br><a href="http://www.cyberciti.biz/faq/apache-mod_dumpio-log-post-data/" target="_blank" rel="external">Reference</a></p>
+<h1 id="Enable_mod_dumpio_module"><a href="#Enable_mod_dumpio_module" class="headerlink" title="Enable mod_dumpio module"></a>Enable mod_dumpio module</h1><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">sudo</span> a2enmod dump_io</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="regexp">/etc/i</span>nit.d<span class="regexp">/apache2 force-reload</span></span><br></pre></td></tr></table></figure>
+<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">vim</span> etc/apache2/apache2.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>Enable dumping of all input data:<br><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DumpIOInput</span> <span class="literal">On</span></span><br><span class="line"><span class="keyword">DumpIOOutput</span> <span class="literal">On</span></span><br><span class="line"><span class="keyword">LogLevel</span> dumpio:trace7</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="regexp">/etc/i</span>nit.d<span class="regexp">/apache2 restart</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">tail -f /<span class="keyword">var</span>/<span class="keyword">log</span>/apache2/<span class="keyword">error</span>.<span class="literal">log</span></span><br></pre></td></tr></table></figure>
+<p>Difference of mod_dumpio: <a href="http://httpd.apache.org/docs/2.2/mod/mod_dumpio.html" target="_blank" rel="external">apache2.2</a> <a href="http://httpd.apache.org/docs/2.4/mod/mod_dumpio.html" target="_blank" rel="external">apache2.4</a></p>
 </span>
       
     </div>
@@ -280,7 +298,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/elk/" rel="tag">#elk</a>
+            <a href="/tags/apache/" rel="tag">#apache</a>
           
             <a href="/tags/linux/" rel="tag">#linux</a>
           
@@ -291,8 +309,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/16/elk-install/" rel="next" title="install elk">
-                <i class="fa fa-chevron-left"></i> install elk
+              <a href="/2015/12/22/zabbix-triggers-demo/" rel="next" title="zabbix triggers demo">
+                <i class="fa fa-chevron-left"></i> zabbix triggers demo
               </a>
             
           </div>
@@ -324,8 +342,8 @@
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/16/kibana4-init.d/"
-           data-title="kibana4 run as service" data-url="http://yoursite.com/2015/12/16/kibana4-init.d/">
+      <div class="ds-thread" data-thread-key="2015/12/22/apache-mod_dumpio-log-post-data/"
+           data-title="Add post data to Apache log by mod_dumpio" data-url="http://yoursite.com/2015/12/22/apache-mod_dumpio-log-post-data/">
       </div>
     
   </div>
@@ -369,7 +387,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -383,7 +401,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -433,7 +451,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Enable_mod_dumpio_module"><span class="nav-number">1.</span> <span class="nav-text">Enable mod_dumpio module</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Configuration"><span class="nav-number">2.</span> <span class="nav-text">Configuration</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

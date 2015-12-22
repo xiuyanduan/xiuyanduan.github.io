@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hello," />
+  <meta name="keywords" content="elk,linux," />
 
 
 
@@ -53,19 +53,16 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="Tested in Ubuntu 14.04 LTSvim /etc/init.d/kibana4#!/bin/sh## /etc/init.d/kibana4 -- startup script for kibana4# bsmith@the408.com 2015-02-20; used elasticsearch init script as template# https://github">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2015/12/11/hello-world/index.html">
+<meta property="og:title" content="kibana4 run as service">
+<meta property="og:url" content="http://yoursite.com/2015/12/17/kibana4-init.d/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2015-12-11T14:17:25.000Z">
+<meta property="og:description" content="Tested in Ubuntu 14.04 LTSvim /etc/init.d/kibana4#!/bin/sh## /etc/init.d/kibana4 -- startup script for kibana4# bsmith@the408.com 2015-02-20; used elasticsearch init script as template# https://github">
+<meta property="og:updated_time" content="2015-12-16T17:17:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="kibana4 run as service">
+<meta name="twitter:description" content="Tested in Ubuntu 14.04 LTSvim /etc/init.d/kibana4#!/bin/sh## /etc/init.d/kibana4 -- startup script for kibana4# bsmith@the408.com 2015-02-20; used elasticsearch init script as template# https://github">
 
 
 
@@ -77,7 +74,7 @@ Quick">
   };
 </script>
 
-  <title> Hello World | xyduan </title>
+  <title> kibana4 run as service | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -233,7 +230,7 @@ Quick">
             
             
               
-                Hello World
+                kibana4 run as service
               
             
           </h1>
@@ -242,8 +239,8 @@ Quick">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-11T22:17:25+08:00" content="2015-12-11">
-              2015-12-11
+            <time itemprop="dateCreated" datetime="2015-12-17T01:17:52+08:00" content="2015-12-17">
+              2015-12-17
             </time>
           </span>
 
@@ -253,8 +250,8 @@ Quick">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/11/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/11/hello-world/" itemprop="commentsCount"></span>
+                <a href="/2015/12/17/kibana4-init.d/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/17/kibana4-init.d/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -273,15 +270,8 @@ Quick">
       
 
       
-        <span itemprop="articleBody"><p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04 LTS</code><br><code>vim /etc/init.d/kibana4</code><br><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># /etc/init.d/kibana4 -- startup script for kibana4</span></span><br><span class="line"><span class="comment"># bsmith@the408.com 2015-02-20; used elasticsearch init script as template</span></span><br><span class="line"><span class="comment"># https://github.com/akabdog/scripts/edit/master/kibana4_init</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">### BEGIN INIT INFO</span></span><br><span class="line"><span class="comment"># Provides:          kibana4</span></span><br><span class="line"><span class="comment"># Required-Start:    $network $remote_fs $named</span></span><br><span class="line"><span class="comment"># Required-Stop:     $network $remote_fs $named</span></span><br><span class="line"><span class="comment"># Default-Start:     2 3 4 5</span></span><br><span class="line"><span class="comment"># Default-Stop:      0 1 6</span></span><br><span class="line"><span class="comment"># Short-Description: Starts kibana4</span></span><br><span class="line"><span class="comment"># Description:       Starts kibana4 using start-stop-daemon</span></span><br><span class="line"><span class="comment">### END INIT INFO</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#configure this with wherever you unpacked kibana:</span></span><br><span class="line">KIBANA_BIN=/opt/kibana-<span class="number">4.3</span>.<span class="number">0</span>-linux-x64/bin/</span><br><span class="line"></span><br><span class="line">PID_FILE=/var/run/<span class="variable">$NAME</span>.pid</span><br><span class="line">PATH=/bin:/usr/bin:/sbin:/usr/sbin:<span class="variable">$KIBANA_BIN</span></span><br><span class="line">DAEMON=<span class="variable">$KIBANA_BIN</span>/kibana</span><br><span class="line">NAME=kibana4</span><br><span class="line">DESC=<span class="string">"Kibana4"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ `id -u` <span class="operator">-ne</span> <span class="number">0</span> ]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"You need root privileges to run this script"</span></span><br><span class="line">	<span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">. /lib/lsb/init-functions</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -r /etc/default/rcS ]; <span class="keyword">then</span></span><br><span class="line">	. /etc/default/rcS</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></span><br><span class="line">  start)</span><br><span class="line">	<span class="built_in">log</span>_daemon_msg <span class="string">"Starting <span class="variable">$DESC</span>"</span></span><br><span class="line"></span><br><span class="line">	pid=`pidofproc -p <span class="variable">$PID_FILE</span> kibana`</span><br><span class="line">	<span class="keyword">if</span> [ -n <span class="string">"<span class="variable">$pid</span>"</span> ] ; <span class="keyword">then</span></span><br><span class="line">		<span class="built_in">log</span>_begin_msg <span class="string">"Already running."</span></span><br><span class="line">		<span class="built_in">log</span>_end_msg <span class="number">0</span></span><br><span class="line">		<span class="built_in">exit</span> <span class="number">0</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Start Daemon</span></span><br><span class="line">	start-stop-daemon --start --pidfile <span class="string">"<span class="variable">$PID_FILE</span>"</span> --make-pidfile --background --exec <span class="variable">$DAEMON</span></span><br><span class="line">	<span class="built_in">log</span>_end_msg $?</span><br><span class="line">	;;</span><br><span class="line">  stop)</span><br><span class="line">	<span class="built_in">log</span>_daemon_msg <span class="string">"Stopping <span class="variable">$DESC</span>"</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> [ <span class="operator">-f</span> <span class="string">"<span class="variable">$PID_FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">		start-stop-daemon --stop --pidfile <span class="string">"<span class="variable">$PID_FILE</span>"</span> \</span><br><span class="line">			--retry=TERM/<span class="number">20</span>/KILL/<span class="number">5</span> &gt;/dev/null</span><br><span class="line">		<span class="keyword">if</span> [ $? <span class="operator">-eq</span> <span class="number">1</span> ]; <span class="keyword">then</span></span><br><span class="line">			<span class="built_in">log</span>_progress_msg <span class="string">"<span class="variable">$DESC</span> is not running but pid file exists, cleaning up"</span></span><br><span class="line">		<span class="keyword">elif</span> [ $? <span class="operator">-eq</span> <span class="number">3</span> ]; <span class="keyword">then</span></span><br><span class="line">			PID=<span class="string">"`cat <span class="variable">$PID_FILE</span>`"</span></span><br><span class="line">			<span class="built_in">log</span>_failure_msg <span class="string">"Failed to stop <span class="variable">$DESC</span> (pid <span class="variable">$PID</span>)"</span></span><br><span class="line">			<span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line">		<span class="keyword">fi</span></span><br><span class="line">		rm <span class="operator">-f</span> <span class="string">"<span class="variable">$PID_FILE</span>"</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">log</span>_progress_msg <span class="string">"(not running)"</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	<span class="built_in">log</span>_end_msg <span class="number">0</span></span><br><span class="line">	;;</span><br><span class="line">  status)</span><br><span class="line">	status_of_proc -p <span class="variable">$PID_FILE</span> kibana kibana &amp;&amp; <span class="built_in">exit</span> <span class="number">0</span> || <span class="built_in">exit</span> $?</span><br><span class="line">    ;;</span><br><span class="line">  restart|force-reload)</span><br><span class="line">	<span class="keyword">if</span> [ <span class="operator">-f</span> <span class="string">"<span class="variable">$PID_FILE</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">		<span class="variable">$0</span> stop</span><br><span class="line">		sleep <span class="number">1</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">	<span class="variable">$0</span> start</span><br><span class="line">	;;</span><br><span class="line">  *)</span><br><span class="line">	<span class="built_in">log</span>_success_msg <span class="string">"Usage: <span class="variable">$0</span> &#123;start|stop|restart|force-reload|status&#125;"</span></span><br><span class="line">	<span class="built_in">exit</span> <span class="number">1</span></span><br><span class="line">	;;</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p><code>update-rc.d kibana4 defaults 96 9</code><br><code>service kibana4 status</code><br><code>/etc/init.d/kibana4 restart</code></p>
 </span>
       
     </div>
@@ -290,7 +280,9 @@ Quick">
       
         <div class="post-tags">
           
-            <a href="/tags/hello/" rel="tag">#hello</a>
+            <a href="/tags/elk/" rel="tag">#elk</a>
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
           
         </div>
       
@@ -299,12 +291,16 @@ Quick">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2015/12/16/elk-install/" rel="next" title="install elk">
+                <i class="fa fa-chevron-left"></i> install elk
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/12/MySQL-forget-password/" rel="prev" title="MySQL forget password of root">
-                MySQL forget password of root <i class="fa fa-chevron-right"></i>
+              <a href="/2015/12/22/zabbix-triggers-demo/" rel="prev" title="zabbix triggers demo">
+                zabbix triggers demo <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -332,8 +328,8 @@ Quick">
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/11/hello-world/"
-           data-title="Hello World" data-url="http://yoursite.com/2015/12/11/hello-world/">
+      <div class="ds-thread" data-thread-key="2015/12/17/kibana4-init.d/"
+           data-title="kibana4 run as service" data-url="http://yoursite.com/2015/12/17/kibana4-init.d/">
       </div>
     
   </div>
@@ -441,7 +437,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick_Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create_a_new_post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run_server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate_static_files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy_to_remote_sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
