@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="elk,linux,logstash," />
+  <meta name="keywords" content="logstash," />
 
 
 
@@ -53,22 +53,19 @@
 
 
 
-<meta name="description" content="elk (elasticsearch,logstash,kibana)
-questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
-soluti">
+<meta name="description" content="tested in Ubuntu 14.04 LTS,logstash 2.1.1,filebeat 1.0.1
+encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.SSS&amp;#125;] [%-5level] [%logger&amp;#123;36&amp;#125;] [%X&amp;#123;x-jjk-rqid:-notFound&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="logstash service not work">
-<meta property="og:url" content="http://yoursite.com/2015/12/16/logstash-service-notwork/index.html">
+<meta property="og:title" content="logstash conf of catalina.out">
+<meta property="og:url" content="http://yoursite.com/2015/12/25/logstash-catalina/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="elk (elasticsearch,logstash,kibana)
-questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
-soluti">
-<meta property="og:updated_time" content="2015-12-15T17:58:22.000Z">
+<meta property="og:description" content="tested in Ubuntu 14.04 LTS,logstash 2.1.1,filebeat 1.0.1
+encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.SSS&amp;#125;] [%-5level] [%logger&amp;#123;36&amp;#125;] [%X&amp;#123;x-jjk-rqid:-notFound&amp;">
+<meta property="og:updated_time" content="2015-12-24T17:37:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="logstash service not work">
-<meta name="twitter:description" content="elk (elasticsearch,logstash,kibana)
-questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
-soluti">
+<meta name="twitter:title" content="logstash conf of catalina.out">
+<meta name="twitter:description" content="tested in Ubuntu 14.04 LTS,logstash 2.1.1,filebeat 1.0.1
+encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.SSS&amp;#125;] [%-5level] [%logger&amp;#123;36&amp;#125;] [%X&amp;#123;x-jjk-rqid:-notFound&amp;">
 
 
 
@@ -80,7 +77,7 @@ soluti">
   };
 </script>
 
-  <title> logstash service not work | xyduan </title>
+  <title> logstash conf of catalina.out | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -236,7 +233,7 @@ soluti">
             
             
               
-                logstash service not work
+                logstash conf of catalina.out
               
             
           </h1>
@@ -245,8 +242,8 @@ soluti">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-16T01:58:22+08:00" content="2015-12-16">
-              2015-12-16
+            <time itemprop="dateCreated" datetime="2015-12-25T01:37:06+08:00" content="2015-12-25">
+              2015-12-25
             </time>
           </span>
 
@@ -256,8 +253,8 @@ soluti">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/16/logstash-service-notwork/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/16/logstash-service-notwork/" itemprop="commentsCount"></span>
+                <a href="/2015/12/25/logstash-catalina/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/25/logstash-catalina/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -276,11 +273,9 @@ soluti">
       
 
       
-        <span itemprop="articleBody"><p><strong>elk (elasticsearch,logstash,kibana)</strong></p>
-<h1 id="question"><a href="#question" class="headerlink" title="question"></a>question</h1><p>When I used logstash in service ,such as <code>service logstash start</code> it did not work , but <code>/opt/logstash/bin/logstash -f /etc/logstash/conf.d</code> worked right</p>
-<h1 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h1><h2 id="Demo_of_conf"><a href="#Demo_of_conf" class="headerlink" title="Demo of conf"></a>Demo of conf</h2><figure class="highlight puppet"><table><tr><td class="code"><pre><span class="line"><span class="name">input</span> &#123;</span><br><span class="line">    file &#123;</span><br><span class="line">        path =&gt; <span class="string">"/var/log/apache2/jjk_config_server.log"</span></span><br><span class="line">        start_position =&gt; beginning </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="name">filter</span> &#123;</span><br><span class="line">    grok &#123;</span><br><span class="line">        match =&gt; &#123; <span class="string">"message"</span> =&gt; <span class="string">"%&#123;COMBINEDAPACHELOG&#125;"</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="name">output</span> &#123;</span><br><span class="line">    stdout &#123;</span><br><span class="line">	codec =&gt; rubydebug</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="name">elasticsearch</span> &#123;hosts =&gt; <span class="string">"localhost:9200"</span> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Pay_attention"><a href="#Pay_attention" class="headerlink" title="Pay attention"></a>Pay attention</h2><p>Permission<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ll /var/<span class="built_in">log</span>/apache2 -d</span><br><span class="line">drwxr-x--- <span class="number">2</span> root adm <span class="number">4096</span> Dec <span class="number">15</span> <span class="number">13</span>:<span class="number">32</span> /var/<span class="built_in">log</span>/apache2/</span><br></pre></td></tr></table></figure></p>
-<p>logstash was started by user logstash,so it couldn’t work when executed <code>service logstash start</code></p>
+        <span itemprop="articleBody"><p>tested in <code>Ubuntu 14.04 LTS</code>,<code>logstash 2.1.1</code>,<code>filebeat 1.0.1</code></p>
+<h1 id="encoder_of_catalina-out"><a href="#encoder_of_catalina-out" class="headerlink" title="encoder of catalina.out"></a>encoder of catalina.out</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">pattern</span>&gt;</span>[%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125;] [%-5level] [%logger&#123;36&#125;] [%X&#123;x-jjk-rqid:-notFound&#125;] [%X&#123;jjkUserId:-null&#125;] - %msg%n<span class="tag">&lt;/<span class="title">pattern</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="conf_of_logstash"><a href="#conf_of_logstash" class="headerlink" title="conf of logstash"></a>conf of logstash</h1><figure class="highlight roboconf"><table><tr><td class="code"><pre><span class="line"><span class="component">input &#123;</span><br><span class="line">    beats &#123;</span><br><span class="line">        port =&gt; 5044</span><br><span class="line">	codec =&gt; multiline &#123;</span><br><span class="line">		pattern =&gt; "^\[%&#123;TIMESTAMP_ISO8601&#125;</span>"</span><br><span class="line">		negate =&gt; true</span><br><span class="line">		what =&gt; "previous"</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="component">filter &#123;</span><br><span class="line">     if [type] == "catalina"&#123;</span><br><span class="line">		 grok &#123;</span><br><span class="line">			match =&gt; &#123; "message" =&gt; "\[%&#123;TIMESTAMP_ISO8601:logtime&#125;</span>\] \[(?&lt;level&gt;.+?)\] \[(?&lt;logger&gt;.+?)\] \[(?&lt;rqid&gt;.+?)\] \[(?&lt;jjkUserId&gt;\w+)\] - (?&lt;msg&gt;.*)" &#125;</span><br><span class="line">			<span class="comment">#match =&gt; &#123; "message" =&gt; "\[%&#123;TIMESTAMP_ISO8601:logtime&#125;\] \[(?&lt;level&gt;.+?)\] \[(?&lt;logger&gt;.+?)\] \[%&#123;IP:clientip&#125;-(?&lt;rqid&gt;\d+)\] \[(?&lt;jjkUserId&gt;\w+)\] - (?&lt;javalogmessage&gt;.*)" &#125;</span></span><br><span class="line">    	&#125;	</span><br><span class="line">		 date &#123;</span><br><span class="line">			match =&gt; ["logtime", "yyyy-MM-dd HH:mm:ss.SSS"]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="component">output &#123;</span><br><span class="line">    elasticsearch &#123;</span><br><span class="line">	hosts =&gt; "10.10.10.37:9200" </span><br><span class="line">    &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </span>
       
     </div>
@@ -288,10 +283,6 @@ soluti">
     <footer class="post-footer">
       
         <div class="post-tags">
-          
-            <a href="/tags/elk/" rel="tag">#elk</a>
-          
-            <a href="/tags/linux/" rel="tag">#linux</a>
           
             <a href="/tags/logstash/" rel="tag">#logstash</a>
           
@@ -302,17 +293,13 @@ soluti">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/12/MySQL-forget-password/" rel="next" title="MySQL forget password of root">
-                <i class="fa fa-chevron-left"></i> MySQL forget password of root
+              <a href="/2015/12/23/django-nginx-gunicorn/" rel="next" title="deploy django to nginx and gunicorn">
+                <i class="fa fa-chevron-left"></i> deploy django to nginx and gunicorn
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/12/16/elk-install/" rel="prev" title="install elk">
-                install elk <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -339,8 +326,8 @@ soluti">
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/16/logstash-service-notwork/"
-           data-title="logstash service not work" data-url="http://yoursite.com/2015/12/16/logstash-service-notwork/">
+      <div class="ds-thread" data-thread-key="2015/12/25/logstash-catalina/"
+           data-title="logstash conf of catalina.out" data-url="http://yoursite.com/2015/12/25/logstash-catalina/">
       </div>
     
   </div>
@@ -448,7 +435,7 @@ soluti">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">question</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#solution"><span class="nav-number">2.</span> <span class="nav-text">solution</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo_of_conf"><span class="nav-number">2.1.</span> <span class="nav-text">Demo of conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pay_attention"><span class="nav-number">2.2.</span> <span class="nav-text">Pay attention</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#encoder_of_catalina-out"><span class="nav-number">1.</span> <span class="nav-text">encoder of catalina.out</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conf_of_logstash"><span class="nav-number">2.</span> <span class="nav-text">conf of logstash</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
