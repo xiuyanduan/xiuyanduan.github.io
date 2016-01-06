@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="logstash," />
+  <meta name="keywords" content="logstash,nginx," />
 
 
 
@@ -54,18 +54,18 @@
 
 
 <meta name="description" content="tested in Ubuntu 14.04 LTS,logstash 2.1.1,filebeat 1.0.1
-encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.SSS&amp;#125;] [%-5level] [%logger&amp;#123;36&amp;#125;] [%X&amp;#123;x-jjk-rqid:-notFound&amp;">
+catalina.outencoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.SSS&amp;#125;] [%-5level] [%logger&amp;#123;36&amp;#125;] [%X&amp;#123;x-jjk-rqi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="logstash conf of catalina.out">
+<meta property="og:title" content="logstash demo conf of catalina.out and nginx access">
 <meta property="og:url" content="http://yoursite.com/2016/01/06/logstash-catalina/index.html">
 <meta property="og:site_name" content="xyduan">
 <meta property="og:description" content="tested in Ubuntu 14.04 LTS,logstash 2.1.1,filebeat 1.0.1
-encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.SSS&amp;#125;] [%-5level] [%logger&amp;#123;36&amp;#125;] [%X&amp;#123;x-jjk-rqid:-notFound&amp;">
-<meta property="og:updated_time" content="2016-01-06T07:26:17.000Z">
+catalina.outencoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.SSS&amp;#125;] [%-5level] [%logger&amp;#123;36&amp;#125;] [%X&amp;#123;x-jjk-rqi">
+<meta property="og:updated_time" content="2016-01-06T09:02:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="logstash conf of catalina.out">
+<meta name="twitter:title" content="logstash demo conf of catalina.out and nginx access">
 <meta name="twitter:description" content="tested in Ubuntu 14.04 LTS,logstash 2.1.1,filebeat 1.0.1
-encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.SSS&amp;#125;] [%-5level] [%logger&amp;#123;36&amp;#125;] [%X&amp;#123;x-jjk-rqid:-notFound&amp;">
+catalina.outencoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.SSS&amp;#125;] [%-5level] [%logger&amp;#123;36&amp;#125;] [%X&amp;#123;x-jjk-rqi">
 
 
 
@@ -77,7 +77,7 @@ encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.S
   };
 </script>
 
-  <title> logstash conf of catalina.out | xyduan </title>
+  <title> logstash demo conf of catalina.out and nginx access | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -233,7 +233,7 @@ encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.S
             
             
               
-                logstash conf of catalina.out
+                logstash demo conf of catalina.out and nginx access
               
             
           </h1>
@@ -242,7 +242,7 @@ encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.S
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-01-06T15:26:17+08:00" content="2016-01-06">
+            <time itemprop="dateCreated" datetime="2016-01-06T17:02:48+08:00" content="2016-01-06">
               2016-01-06
             </time>
           </span>
@@ -274,8 +274,10 @@ encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.S
 
       
         <span itemprop="articleBody"><p>tested in <code>Ubuntu 14.04 LTS</code>,<code>logstash 2.1.1</code>,<code>filebeat 1.0.1</code></p>
-<h1 id="encoder_of_catalina-out"><a href="#encoder_of_catalina-out" class="headerlink" title="encoder of catalina.out"></a>encoder of catalina.out</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">pattern</span>&gt;</span>[%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125;] [%-5level] [%logger&#123;36&#125;] [%X&#123;x-jjk-rqid:-notFound&#125;] [%X&#123;jjkUserId:-null&#125;] - %msg%n<span class="tag">&lt;/<span class="title">pattern</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="conf_of_logstash"><a href="#conf_of_logstash" class="headerlink" title="conf of logstash"></a>conf of logstash</h1><figure class="highlight roboconf"><table><tr><td class="code"><pre><span class="line"><span class="component">input &#123;</span><br><span class="line">    beats &#123;</span><br><span class="line">        port =&gt; 5044</span><br><span class="line">	codec =&gt; multiline &#123;</span><br><span class="line">		pattern =&gt; "^\[%&#123;TIMESTAMP_ISO8601&#125;</span>"</span><br><span class="line">		negate =&gt; true</span><br><span class="line">		what =&gt; "previous"</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="component">filter &#123;</span><br><span class="line">     if [type] == "catalina"&#123;</span><br><span class="line">		 grok &#123;</span><br><span class="line">			match =&gt; &#123; "message" =&gt; "\[%&#123;TIMESTAMP_ISO8601:logtime&#125;</span>\] \[(?&lt;level&gt;.+?)\] \[(?&lt;logger&gt;.+?)\] \[(?&lt;rqid&gt;.+?)\] \[(?&lt;jjkUserId&gt;\w+)\] - (?&lt;msg&gt;.*)" &#125;</span><br><span class="line">			<span class="comment">#match =&gt; &#123; "message" =&gt; "\[%&#123;TIMESTAMP_ISO8601:logtime&#125;\] \[(?&lt;level&gt;.+?)\] \[(?&lt;logger&gt;.+?)\] \[%&#123;IP:clientip&#125;-(?&lt;rqid&gt;\d+)\] \[(?&lt;jjkUserId&gt;\w+)\] - (?&lt;javalogmessage&gt;.*)" &#125;</span></span><br><span class="line">    	&#125;	</span><br><span class="line">		 date &#123;</span><br><span class="line">			match =&gt; ["logtime", "yyyy-MM-dd HH:mm:ss.SSS"]</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="component">output &#123;</span><br><span class="line">    elasticsearch &#123;</span><br><span class="line">	hosts =&gt; "10.10.10.37:9200" </span><br><span class="line">    &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="catalina-out"><a href="#catalina-out" class="headerlink" title="catalina.out"></a>catalina.out</h1><h2 id="encoder_of_catalina-out"><a href="#encoder_of_catalina-out" class="headerlink" title="encoder of catalina.out"></a>encoder of catalina.out</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">pattern</span>&gt;</span>[%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125;] [%-5level] [%logger&#123;36&#125;] [%X&#123;x-jjk-rqid:-notFound&#125;] [%X&#123;jjkUserId:-null&#125;] - %msg%n<span class="tag">&lt;/<span class="title">pattern</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="conf_of_logstash"><a href="#conf_of_logstash" class="headerlink" title="conf of logstash"></a>conf of logstash</h2><figure class="highlight roboconf"><table><tr><td class="code"><pre><span class="line"><span class="component">input &#123;</span><br><span class="line">    beats &#123;</span><br><span class="line">        port =&gt; 5044</span><br><span class="line">        codec =&gt; multiline &#123;</span><br><span class="line">                pattern =&gt; "^\[%&#123;TIMESTAMP_ISO8601&#125;</span>"</span><br><span class="line">                negate =&gt; true</span><br><span class="line">                what =&gt; "previous"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="component">filter &#123;</span><br><span class="line">     if [type] == "catalina"&#123;</span><br><span class="line">                 grok &#123;</span><br><span class="line">                        match =&gt; &#123; "message" =&gt; "\[%&#123;TIMESTAMP_ISO8601:logtime&#125;</span>\] \[(?&lt;level&gt;.+?)\] \[(?&lt;logger&gt;.+?)\] \[(?&lt;rqid&gt;.+?)\] \[(?&lt;jjkUserId&gt;\w+)\] - (?&lt;msg&gt;.*)" &#125;</span><br><span class="line">                        <span class="comment">#match =&gt; &#123; "message" =&gt; "\[%&#123;TIMESTAMP_ISO8601:logtime&#125;\] \[(?&lt;level&gt;.+?)\] \[(?&lt;logger&gt;.+?)\] \[%&#123;IP:clientip&#125;-(?&lt;rqid&gt;\d+)\] \[(?&lt;jjkUserId&gt;\w+)\] - (?&lt;javalogmessage&gt;.*)" &#125;</span></span><br><span class="line">        &#125;       </span><br><span class="line">                 date &#123;</span><br><span class="line">                        match =&gt; ["logtime", "yyyy-MM-dd HH:mm:ss.SSS"]</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="component">output &#123;</span><br><span class="line">    elasticsearch &#123;</span><br><span class="line">        hosts =&gt; "10.10.10.37:9200" </span><br><span class="line">    &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="nginx_access_log"><a href="#nginx_access_log" class="headerlink" title="nginx access_log"></a>nginx access_log</h1><h2 id="log_format_in_nginx-conf"><a href="#log_format_in_nginx-conf" class="headerlink" title="log_format in nginx.conf"></a>log_format in nginx.conf</h2><p>If  the nginx could deal with <code>POST</code> require , such as <code>gunicorn</code>, <code>tomcat</code> . We can add <code>$request_body</code> to the <code>log_format</code> in <code>nginx.conf</code><br><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">log_format</span> newaccess <span class="string">'<span class="variable">$remote_addr</span> - <span class="variable">$remote_user</span> [<span class="variable">$time_local</span>] '</span></span><br><span class="line">                    <span class="string">'"<span class="variable">$request</span>" <span class="variable">$status</span> <span class="variable">$body_bytes_sent</span> '</span></span><br><span class="line">                    <span class="string">'"<span class="variable">$http_referer</span>" "<span class="variable">$http_user_agent</span>"  "<span class="variable">$request_body</span>"'</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="conf_of_logstash-1"><a href="#conf_of_logstash-1" class="headerlink" title="conf of logstash"></a>conf of logstash</h2><figure class="highlight roboconf"><table><tr><td class="code"><pre><span class="line"><span class="component">input &#123;</span><br><span class="line">    file &#123;</span><br><span class="line">        path =&gt; "/somepath/access"<span class="string">.log"</span></span><br><span class="line">    &#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="component">filter &#123;</span><br><span class="line">    grok &#123;</span><br><span class="line">        match =&gt; &#123; "message" =&gt; "%&#123;COMBINEDAPACHELOG&#125;</span> %&#123;QS:request_body&#125;"&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="component">output &#123;</span><br><span class="line">    stdout &#123;codec=&gt;rubydebug&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </span>
       
     </div>
@@ -285,6 +287,8 @@ encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.S
         <div class="post-tags">
           
             <a href="/tags/logstash/" rel="tag">#logstash</a>
+          
+            <a href="/tags/nginx/" rel="tag">#nginx</a>
           
         </div>
       
@@ -327,7 +331,7 @@ encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.S
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/01/06/logstash-catalina/"
-           data-title="logstash conf of catalina.out" data-url="http://yoursite.com/2016/01/06/logstash-catalina/">
+           data-title="logstash demo conf of catalina.out and nginx access" data-url="http://yoursite.com/2016/01/06/logstash-catalina/">
       </div>
     
   </div>
@@ -435,7 +439,7 @@ encoder of catalina.out&amp;lt;pattern&amp;gt;[%d&amp;#123;yyyy-MM-dd HH:mm:ss.S
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#encoder_of_catalina-out"><span class="nav-number">1.</span> <span class="nav-text">encoder of catalina.out</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conf_of_logstash"><span class="nav-number">2.</span> <span class="nav-text">conf of logstash</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#catalina-out"><span class="nav-number">1.</span> <span class="nav-text">catalina.out</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#encoder_of_catalina-out"><span class="nav-number">1.1.</span> <span class="nav-text">encoder of catalina.out</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conf_of_logstash"><span class="nav-number">1.2.</span> <span class="nav-text">conf of logstash</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx_access_log"><span class="nav-number">2.</span> <span class="nav-text">nginx access_log</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#log_format_in_nginx-conf"><span class="nav-number">2.1.</span> <span class="nav-text">log_format in nginx.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conf_of_logstash-1"><span class="nav-number">2.2.</span> <span class="nav-text">conf of logstash</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
