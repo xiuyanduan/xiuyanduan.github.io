@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Python,django,gunicorn,nginx,supervisord," />
+  <meta name="keywords" content="Apache,linux," />
 
 
 
@@ -53,19 +53,19 @@
 
 
 
-<meta name="description" content="Tested in Ubuntu 14.04 LTS, django 1.9, gunicorn 17.5, supervisord 3.0b2, nginx 1.4.6Reference: django  gunicorn  supervisord  nginxDemo django project /tmp/myproject
-djangorun django in debug modecd">
+<meta name="description" content="Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.Document of setenvIf
+demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
 <meta property="og:type" content="article">
-<meta property="og:title" content="deploy django to nginx and gunicorn">
-<meta property="og:url" content="http://yoursite.com/2015/12/23/django-nginx-gunicorn/index.html">
+<meta property="og:title" content="Apache conf of setenvIf">
+<meta property="og:url" content="http://yoursite.com/2016/01/09/Apache-conf-of-setenvIf/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="Tested in Ubuntu 14.04 LTS, django 1.9, gunicorn 17.5, supervisord 3.0b2, nginx 1.4.6Reference: django  gunicorn  supervisord  nginxDemo django project /tmp/myproject
-djangorun django in debug modecd">
-<meta property="og:updated_time" content="2015-12-23T03:57:26.000Z">
+<meta property="og:description" content="Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.Document of setenvIf
+demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
+<meta property="og:updated_time" content="2016-01-08T17:52:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="deploy django to nginx and gunicorn">
-<meta name="twitter:description" content="Tested in Ubuntu 14.04 LTS, django 1.9, gunicorn 17.5, supervisord 3.0b2, nginx 1.4.6Reference: django  gunicorn  supervisord  nginxDemo django project /tmp/myproject
-djangorun django in debug modecd">
+<meta name="twitter:title" content="Apache conf of setenvIf">
+<meta name="twitter:description" content="Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.Document of setenvIf
+demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
 
 
 
@@ -77,7 +77,7 @@ djangorun django in debug modecd">
   };
 </script>
 
-  <title> deploy django to nginx and gunicorn | xyduan </title>
+  <title> Apache conf of setenvIf | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -233,7 +233,7 @@ djangorun django in debug modecd">
             
             
               
-                deploy django to nginx and gunicorn
+                Apache conf of setenvIf
               
             
           </h1>
@@ -242,8 +242,8 @@ djangorun django in debug modecd">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-23T11:57:26+08:00" content="2015-12-23">
-              2015-12-23
+            <time itemprop="dateCreated" datetime="2016-01-09T01:52:40+08:00" content="2016-01-09">
+              2016-01-09
             </time>
           </span>
 
@@ -253,8 +253,8 @@ djangorun django in debug modecd">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/23/django-nginx-gunicorn/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/23/django-nginx-gunicorn/" itemprop="commentsCount"></span>
+                <a href="/2016/01/09/Apache-conf-of-setenvIf/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/09/Apache-conf-of-setenvIf/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -273,16 +273,8 @@ djangorun django in debug modecd">
       
 
       
-        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04 LTS</code>, <code>django 1.9</code>, <code>gunicorn 17.5</code>, <code>supervisord 3.0b2</code>, <code>nginx 1.4.6</code><br>Reference: <a href="https://docs.djangoproject.com/en/1.9/howto/static-files/" target="_blank" rel="external">django</a>  <a href="http://docs.gunicorn.org/en/latest/index.html" target="_blank" rel="external">gunicorn</a>  <a href="http://supervisord.org/index.html" target="_blank" rel="external">supervisord</a>  <a href="http://nginx.org/en/docs/" target="_blank" rel="external">nginx</a><br>Demo django project <code>/tmp/myproject</code></p>
-<h1 id="django"><a href="#django" class="headerlink" title="django"></a>django</h1><h2 id="run_django_in_debug_mode"><a href="#run_django_in_debug_mode" class="headerlink" title="run django in debug mode"></a>run django in debug mode</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">cd /tmp/myproject</span><br><span class="line">python manage.py runserver <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">9999</span></span><br></pre></td></tr></table></figure>
-<h2 id="static_files"><a href="#static_files" class="headerlink" title="static files"></a>static files</h2><p><code>vim /tmp/myproject/myproject/settings</code><br>add <code>STATIC_ROOT= os.path.join(BASE_DIR,&#39;static&#39;)</code><br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">python manage<span class="class">.py</span> collectstatic</span><br></pre></td></tr></table></figure></p>
-<p>Generate a directory named <code>static</code>in <code>/tmp/myproject/myproject</code></p>
-<h1 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h1><p><code>vim /etc/nginx/sites-available/myproject.conf</code><br><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">server</span> &#123;</span><br><span class="line">  <span class="title">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="title">server_name</span> yourip;</span><br><span class="line">  <span class="title">root</span> /tmp/myproject;</span><br><span class="line"></span><br><span class="line">  <span class="title">access_log</span> /var/log/nginx/myproject.log;</span><br><span class="line"></span><br><span class="line">  <span class="title">location</span> /static &#123;</span><br><span class="line">    <span class="title">alias</span> /tmp/myproject/myproject/static;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title">location</span> / &#123;</span><br><span class="line">    <span class="title">proxy_pass_header</span> Server;</span><br><span class="line">    <span class="title">proxy_set_header</span> Host <span class="variable">$http_host</span>;</span><br><span class="line">    <span class="title">proxy_redirect</span> <span class="built_in">off</span>;</span><br><span class="line">    <span class="title">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">    <span class="title">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">    <span class="title">proxy_connect_timeout</span> <span class="number">6000</span>;</span><br><span class="line">    <span class="title">proxy_read_timeout</span> <span class="number">6000</span>;</span><br><span class="line">    <span class="title">proxy_pass</span> <span class="url">http://127.0.0.1:9999/</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">cd <span class="regexp">/etc/</span>nginx/sites-enabled</span><br><span class="line">ln -s <span class="regexp">/etc/</span>nginx<span class="regexp">/sites-available/</span>myproject.conf ./</span><br><span class="line">service nginx reload</span><br></pre></td></tr></table></figure>
-<h1 id="gunicorn"><a href="#gunicorn" class="headerlink" title="gunicorn"></a>gunicorn</h1><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="tag">gunicorn</span> <span class="tag">myproject</span><span class="class">.wsgi</span> <span class="tag">-b</span> 0<span class="class">.0</span><span class="class">.0</span><span class="class">.0</span><span class="pseudo">:9999</span></span><br></pre></td></tr></table></figure>
-<p>Must excuted in /tmp/myproject</p>
-<h1 id="supervisor"><a href="#supervisor" class="headerlink" title="supervisor"></a>supervisor</h1><p><code>cat /etc/supervisor/conf.d/myproject.conf</code><br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="title">[program:myproject]</span></span><br><span class="line"><span class="setting">command=<span class="value">gunicorn myproject.wsgi -b <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">9999</span></span></span></span><br><span class="line"><span class="setting">directory=<span class="value">/tmp/myproject</span></span></span><br><span class="line"><span class="setting">autostart=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="setting">autorestart=<span class="value"><span class="keyword">true</span></span></span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line">supervisorctl reread</span><br><span class="line">service supervisor restart</span><br><span class="line">supervisorctl <span class="keyword">status</span> myproject</span><br></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><p>Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.<br>Document of <a href="http://httpd.apache.org/docs/2.4/mod/mod_setenvif.html#setenvif" target="_blank" rel="external">setenvIf</a></p>
+<h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;VirtualHost *:9090&gt;</span></span><br><span class="line">   <span class="keyword"><span class="common">ServerName</span></span> 10.2.201.47</span><br><span class="line">   <span class="keyword"><span class="common">DocumentRoot</span></span> /var/www/html</span><br><span class="line">   <span class="keyword">CustomLog</span> /var/log/httpd/access_log combined</span><br><span class="line">   <span class="keyword">setenvIf</span> Request_URI <span class="string">"^\/(concrete5).+\.(?!(js|css|jpg|png|jpeg|gif)$)"</span> concrete5test</span><br><span class="line">   <span class="keyword">setenvIf</span> Request_URI <span class="string">"\.(js|png|css|jpg|jpeg|gif)$"</span> notconcrete5</span><br><span class="line">   <span class="keyword">setenvIf</span> Request_URI <span class="string">"^(?!\/(concrete5))"</span> notconcrete5</span><br><span class="line">   <span class="comment">#right</span></span><br><span class="line">   <span class="keyword">CustomLog</span> /var/log/httpd/concrete5_log combined env=!notconcrete5</span><br><span class="line">   <span class="comment">#something wrong</span></span><br><span class="line">   <span class="keyword">CustomLog</span> /var/log/httpd/concrete5_log.test combined env=concrete5test</span><br><span class="line"><span class="tag">&lt;/VirtualHost&gt;</span></span><br></pre></td></tr></table></figure>
 </span>
       
     </div>
@@ -291,15 +283,9 @@ djangorun django in debug modecd">
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag">#Python</a>
+            <a href="/tags/Apache/" rel="tag">#Apache</a>
           
-            <a href="/tags/django/" rel="tag">#django</a>
-          
-            <a href="/tags/gunicorn/" rel="tag">#gunicorn</a>
-          
-            <a href="/tags/nginx/" rel="tag">#nginx</a>
-          
-            <a href="/tags/supervisord/" rel="tag">#supervisord</a>
+            <a href="/tags/linux/" rel="tag">#linux</a>
           
         </div>
       
@@ -308,17 +294,13 @@ djangorun django in debug modecd">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/22/apache-mod_dumpio-log-post-data/" rel="next" title="Add post data to Apache log by mod_dumpio">
-                <i class="fa fa-chevron-left"></i> Add post data to Apache log by mod_dumpio
+              <a href="/2016/01/08/Awesome-Python/" rel="next" title="Awesome Python">
+                <i class="fa fa-chevron-left"></i> Awesome Python
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/06/logstash-catalina/" rel="prev" title="logstash demo conf of catalina.out and nginx access">
-                logstash demo conf of catalina.out and nginx access <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -345,8 +327,8 @@ djangorun django in debug modecd">
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/23/django-nginx-gunicorn/"
-           data-title="deploy django to nginx and gunicorn" data-url="http://yoursite.com/2015/12/23/django-nginx-gunicorn/">
+      <div class="ds-thread" data-thread-key="2016/01/09/Apache-conf-of-setenvIf/"
+           data-title="Apache conf of setenvIf" data-url="http://yoursite.com/2016/01/09/Apache-conf-of-setenvIf/">
       </div>
     
   </div>
@@ -454,7 +436,7 @@ djangorun django in debug modecd">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#django"><span class="nav-number">1.</span> <span class="nav-text">django</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#run_django_in_debug_mode"><span class="nav-number">1.1.</span> <span class="nav-text">run django in debug mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static_files"><span class="nav-number">1.2.</span> <span class="nav-text">static files</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nginx"><span class="nav-number">2.</span> <span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gunicorn"><span class="nav-number">3.</span> <span class="nav-text">gunicorn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#supervisor"><span class="nav-number">4.</span> <span class="nav-text">supervisor</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#demo"><span class="nav-number">1.</span> <span class="nav-text">demo</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
