@@ -56,7 +56,7 @@
 <meta name="description" content="DevOps">
 <meta property="og:type" content="website">
 <meta property="og:title" content="xyduan">
-<meta property="og:url" content="http://yoursite.com/tags/hello/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
 <meta property="og:site_name" content="xyduan">
 <meta property="og:description" content="DevOps">
 <meta name="twitter:card" content="summary">
@@ -73,7 +73,7 @@
   };
 </script>
 
-  <title> 标签: hello | xyduan </title>
+  <title> 归档 | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -104,7 +104,7 @@
 
 
 
-  <div class="container one-column ">
+  <div class="container one-column  page-archive ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -208,15 +208,32 @@
         <div id="content" class="content">
           
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        hello
-        <small>标签</small>
-      </h2>
-    </div>
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
+
+    <span class="archive-page-counter">
+      
+      
+      
+        
+      
+      嗯..! 目前共计 11 篇日志。 继续努力。
+    </span>
 
     
+
+      
+      
+      
+
+      
+        
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2015">2015</h2>
+        </div>
+      
+      
+
       
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -244,10 +261,17 @@
   </article>
 
 
+
     
-  </div>
+
+  </section>
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
+  </nav>
+
+
 
 
         </div>
@@ -442,6 +466,12 @@
   <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
+
 
   <script type="text/javascript" src="/js/bootstrap.js"></script>
 
