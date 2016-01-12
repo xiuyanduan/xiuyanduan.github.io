@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="elk,linux,logstash," />
+  <meta name="keywords" content="Apache,linux," />
 
 
 
@@ -53,22 +53,28 @@
 
 
 
-<meta name="description" content="elk (elasticsearch,logstash,kibana)
-questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
-soluti">
+<meta name="description" content="Tested in Ubuntu 14.04 LTS Apache/2.4.7Reference
+Enable mod_dumpio modulesudo a2enmod dump_io
+/etc/init.d/apache2 force-reload
+Configurationvim etc/apache2/apache2.conf
+Enable dumping of all input dat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="logstash service not work">
-<meta property="og:url" content="http://yoursite.com/2015/12/16/logstash-service-notwork/index.html">
+<meta property="og:title" content="Add post data to Apache log by mod_dumpio">
+<meta property="og:url" content="http://yoursite.com/2015/12/22/Apache-mod_dumpio-log-post-data/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="elk (elasticsearch,logstash,kibana)
-questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
-soluti">
-<meta property="og:updated_time" content="2016-01-12T01:58:45.000Z">
+<meta property="og:description" content="Tested in Ubuntu 14.04 LTS Apache/2.4.7Reference
+Enable mod_dumpio modulesudo a2enmod dump_io
+/etc/init.d/apache2 force-reload
+Configurationvim etc/apache2/apache2.conf
+Enable dumping of all input dat">
+<meta property="og:updated_time" content="2016-01-12T01:55:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="logstash service not work">
-<meta name="twitter:description" content="elk (elasticsearch,logstash,kibana)
-questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
-soluti">
+<meta name="twitter:title" content="Add post data to Apache log by mod_dumpio">
+<meta name="twitter:description" content="Tested in Ubuntu 14.04 LTS Apache/2.4.7Reference
+Enable mod_dumpio modulesudo a2enmod dump_io
+/etc/init.d/apache2 force-reload
+Configurationvim etc/apache2/apache2.conf
+Enable dumping of all input dat">
 
 
 
@@ -80,7 +86,7 @@ soluti">
   };
 </script>
 
-  <title> logstash service not work | xyduan </title>
+  <title> Add post data to Apache log by mod_dumpio | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -236,7 +242,7 @@ soluti">
             
             
               
-                logstash service not work
+                Add post data to Apache log by mod_dumpio
               
             
           </h1>
@@ -245,8 +251,8 @@ soluti">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-12-16T00:00:00+08:00" content="2015-12-16">
-              2015-12-16
+            <time itemprop="dateCreated" datetime="2015-12-22T00:00:00+08:00" content="2015-12-22">
+              2015-12-22
             </time>
           </span>
 
@@ -256,8 +262,8 @@ soluti">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/16/logstash-service-notwork/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/16/logstash-service-notwork/" itemprop="commentsCount"></span>
+                <a href="/2015/12/22/Apache-mod_dumpio-log-post-data/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/22/Apache-mod_dumpio-log-post-data/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -276,11 +282,14 @@ soluti">
       
 
       
-        <span itemprop="articleBody"><p><strong>elk (elasticsearch,logstash,kibana)</strong></p>
-<h1 id="question"><a href="#question" class="headerlink" title="question"></a>question</h1><p>When I used logstash in service ,such as <code>service logstash start</code> it did not work , but <code>/opt/logstash/bin/logstash -f /etc/logstash/conf.d</code> worked right</p>
-<h1 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h1><h2 id="Demo_of_conf"><a href="#Demo_of_conf" class="headerlink" title="Demo of conf"></a>Demo of conf</h2><figure class="highlight puppet"><table><tr><td class="code"><pre><span class="line"><span class="name">input</span> &#123;</span><br><span class="line">    file &#123;</span><br><span class="line">        path =&gt; <span class="string">"/var/log/apache2/jjk_config_server.log"</span></span><br><span class="line">        start_position =&gt; beginning </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="name">filter</span> &#123;</span><br><span class="line">    grok &#123;</span><br><span class="line">        match =&gt; &#123; <span class="string">"message"</span> =&gt; <span class="string">"%&#123;COMBINEDAPACHELOG&#125;"</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="name">output</span> &#123;</span><br><span class="line">    stdout &#123;</span><br><span class="line">	codec =&gt; rubydebug</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="name">elasticsearch</span> &#123;hosts =&gt; <span class="string">"localhost:9200"</span> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Pay_attention"><a href="#Pay_attention" class="headerlink" title="Pay attention"></a>Pay attention</h2><p>Permission<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ll /var/<span class="built_in">log</span>/apache2 -d</span><br><span class="line">drwxr-x--- <span class="number">2</span> root adm <span class="number">4096</span> Dec <span class="number">15</span> <span class="number">13</span>:<span class="number">32</span> /var/<span class="built_in">log</span>/apache2/</span><br></pre></td></tr></table></figure></p>
-<p>logstash was started by user logstash,so it couldn’t work when executed <code>service logstash start</code></p>
+        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04 LTS</code> <code>Apache/2.4.7</code><br><a href="http://www.cyberciti.biz/faq/apache-mod_dumpio-log-post-data/" target="_blank" rel="external">Reference</a></p>
+<h1 id="Enable_mod_dumpio_module"><a href="#Enable_mod_dumpio_module" class="headerlink" title="Enable mod_dumpio module"></a>Enable mod_dumpio module</h1><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">sudo</span> a2enmod dump_io</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="regexp">/etc/i</span>nit.d<span class="regexp">/apache2 force-reload</span></span><br></pre></td></tr></table></figure>
+<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">vim</span> etc/apache2/apache2.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>Enable dumping of all input data:<br><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DumpIOInput</span> <span class="literal">On</span></span><br><span class="line"><span class="keyword">DumpIOOutput</span> <span class="literal">On</span></span><br><span class="line"><span class="keyword">LogLevel</span> dumpio:trace7</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="regexp">/etc/i</span>nit.d<span class="regexp">/apache2 restart</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">tail -f /<span class="keyword">var</span>/<span class="keyword">log</span>/apache2/<span class="keyword">error</span>.<span class="literal">log</span></span><br></pre></td></tr></table></figure>
+<p>Difference of mod_dumpio: <a href="http://httpd.apache.org/docs/2.2/mod/mod_dumpio.html" target="_blank" rel="external">apache2.2</a> <a href="http://httpd.apache.org/docs/2.4/mod/mod_dumpio.html" target="_blank" rel="external">apache2.4</a></p>
 </span>
       
     </div>
@@ -289,11 +298,9 @@ soluti">
       
         <div class="post-tags">
           
-            <a href="/tags/elk/" rel="tag">#elk</a>
+            <a href="/tags/Apache/" rel="tag">#Apache</a>
           
             <a href="/tags/linux/" rel="tag">#linux</a>
-          
-            <a href="/tags/logstash/" rel="tag">#logstash</a>
           
         </div>
       
@@ -302,16 +309,16 @@ soluti">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/12/MySQL-forget-password/" rel="next" title="MySQL forget password of root">
-                <i class="fa fa-chevron-left"></i> MySQL forget password of root
+              <a href="/2015/12/17/kibana4-init.d/" rel="next" title="kibana4 run as service">
+                <i class="fa fa-chevron-left"></i> kibana4 run as service
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/16/elk-install/" rel="prev" title="install elk">
-                install elk <i class="fa fa-chevron-right"></i>
+              <a href="/2015/12/22/zabbix-triggers-demo/" rel="prev" title="zabbix triggers demo">
+                zabbix triggers demo <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -339,8 +346,8 @@ soluti">
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/16/logstash-service-notwork/"
-           data-title="logstash service not work" data-url="http://yoursite.com/2015/12/16/logstash-service-notwork/">
+      <div class="ds-thread" data-thread-key="2015/12/22/Apache-mod_dumpio-log-post-data/"
+           data-title="Add post data to Apache log by mod_dumpio" data-url="http://yoursite.com/2015/12/22/Apache-mod_dumpio-log-post-data/">
       </div>
     
   </div>
@@ -448,7 +455,7 @@ soluti">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#question"><span class="nav-number">1.</span> <span class="nav-text">question</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#solution"><span class="nav-number">2.</span> <span class="nav-text">solution</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo_of_conf"><span class="nav-number">2.1.</span> <span class="nav-text">Demo of conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pay_attention"><span class="nav-number">2.2.</span> <span class="nav-text">Pay attention</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Enable_mod_dumpio_module"><span class="nav-number">1.</span> <span class="nav-text">Enable mod_dumpio module</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Configuration"><span class="nav-number">2.</span> <span class="nav-text">Configuration</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

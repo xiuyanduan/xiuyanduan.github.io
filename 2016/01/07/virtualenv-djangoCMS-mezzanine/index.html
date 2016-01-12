@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Apache,linux," />
+  <meta name="keywords" content="Python,django,mezzanine," />
 
 
 
@@ -53,19 +53,34 @@
 
 
 
-<meta name="description" content="Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.Document of setenvIf
-demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
+<meta name="description" content="Tested in Ubuntu 14.04 LTS
+
+mezzanine
+djangoCMS
+stackoverflow
+
+mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)bleach (1.4.2)chardet (2.3.0)dj-database-url (0.3.0)Django (1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Apache conf of setenvIf">
-<meta property="og:url" content="http://yoursite.com/2016/01/09/apache-conf-of-setenvIf/index.html">
+<meta property="og:title" content="virtualenv of django-CMS and mezzanine">
+<meta property="og:url" content="http://yoursite.com/2016/01/07/virtualenv-djangoCMS-mezzanine/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.Document of setenvIf
-demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
-<meta property="og:updated_time" content="2016-01-08T17:52:40.000Z">
+<meta property="og:description" content="Tested in Ubuntu 14.04 LTS
+
+mezzanine
+djangoCMS
+stackoverflow
+
+mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)bleach (1.4.2)chardet (2.3.0)dj-database-url (0.3.0)Django (1">
+<meta property="og:updated_time" content="2016-01-12T01:58:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Apache conf of setenvIf">
-<meta name="twitter:description" content="Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.Document of setenvIf
-demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
+<meta name="twitter:title" content="virtualenv of django-CMS and mezzanine">
+<meta name="twitter:description" content="Tested in Ubuntu 14.04 LTS
+
+mezzanine
+djangoCMS
+stackoverflow
+
+mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)bleach (1.4.2)chardet (2.3.0)dj-database-url (0.3.0)Django (1">
 
 
 
@@ -77,7 +92,7 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
   };
 </script>
 
-  <title> Apache conf of setenvIf | xyduan </title>
+  <title> virtualenv of django-CMS and mezzanine | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -233,7 +248,7 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
             
             
               
-                Apache conf of setenvIf
+                virtualenv of django-CMS and mezzanine
               
             
           </h1>
@@ -242,8 +257,8 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-01-09T02:42:53+08:00" content="2016-01-09">
-              2016-01-09
+            <time itemprop="dateCreated" datetime="2016-01-07T00:00:00+08:00" content="2016-01-07">
+              2016-01-07
             </time>
           </span>
 
@@ -253,8 +268,8 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/09/apache-conf-of-setenvIf/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/09/apache-conf-of-setenvIf/" itemprop="commentsCount"></span>
+                <a href="/2016/01/07/virtualenv-djangoCMS-mezzanine/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/07/virtualenv-djangoCMS-mezzanine/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -273,8 +288,15 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
       
 
       
-        <span itemprop="articleBody"><p>Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.<br>Document of <a href="http://httpd.apache.org/docs/2.4/mod/mod_setenvif.html#setenvif" target="_blank" rel="external">setenvIf</a></p>
-<h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;VirtualHost *:9090&gt;</span></span><br><span class="line">   <span class="keyword"><span class="common">ServerName</span></span> 10.2.201.47</span><br><span class="line">   <span class="keyword"><span class="common">DocumentRoot</span></span> /var/www/html</span><br><span class="line">   <span class="keyword">CustomLog</span> /var/log/httpd/access_log combined</span><br><span class="line">   <span class="keyword">setenvIf</span> Request_URI <span class="string">"^\/(concrete5).+\.(?!(js|css|jpg|png|jpeg|gif)$)"</span> concrete5test</span><br><span class="line">   <span class="keyword">setenvIf</span> Request_URI <span class="string">"\.(js|png|css|jpg|jpeg|gif)$"</span> notconcrete5</span><br><span class="line">   <span class="keyword">setenvIf</span> Request_URI <span class="string">"^(?!\/(concrete5))"</span> notconcrete5</span><br><span class="line">   <span class="comment">#right</span></span><br><span class="line">   <span class="keyword">CustomLog</span> /var/log/httpd/concrete5_log combined env=!notconcrete5</span><br><span class="line">   <span class="comment">#something wrong</span></span><br><span class="line">   <span class="keyword">CustomLog</span> /var/log/httpd/concrete5_log.test combined env=concrete5test</span><br><span class="line"><span class="tag">&lt;/VirtualHost&gt;</span></span><br></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04 LTS</code></p>
+<ol>
+<li><a href="http://mezzanine.jupo.org/" target="_blank" rel="external">mezzanine</a></li>
+<li><a href="http://www.django-cms.org/en/" target="_blank" rel="external">djangoCMS</a></li>
+<li><a href="http://stackoverflow.com/questions/31504606/error-starting-django-cms-project-in-ubuntu-14-04-lts" target="_blank" rel="external">stackoverflow</a></li>
+</ol>
+<h1 id="mezzanine"><a href="#mezzanine" class="headerlink" title="mezzanine"></a>mezzanine</h1><p><code>source env/bin/active</code><br><code>pip list</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">argparse (<span class="number">1.2</span>.<span class="number">1</span>)</span><br><span class="line">beautifulsoup4 (<span class="number">4.4</span>.<span class="number">1</span>)</span><br><span class="line">bleach (<span class="number">1.4</span>.<span class="number">2</span>)</span><br><span class="line">chardet (<span class="number">2.3</span>.<span class="number">0</span>)</span><br><span class="line">dj-database-url (<span class="number">0.3</span>.<span class="number">0</span>)</span><br><span class="line">Django (<span class="number">1.8</span>.<span class="number">8</span>)</span><br><span class="line">django-contrib-comments (<span class="number">1.6</span>.<span class="number">2</span>)</span><br><span class="line">filebrowser-safe (<span class="number">0.4</span>.<span class="number">0</span>)</span><br><span class="line">future (<span class="number">0.15</span>.<span class="number">2</span>)</span><br><span class="line">grappelli-safe (<span class="number">0.4</span>.<span class="number">1</span>)</span><br><span class="line">html5lib (<span class="number">0.9999999</span>)</span><br><span class="line">Mezzanine (<span class="number">4.0</span>.<span class="number">1</span>)</span><br><span class="line">oauthlib (<span class="number">1.0</span>.<span class="number">3</span>)</span><br><span class="line">Pillow (<span class="number">3.1</span>.<span class="number">0</span>)</span><br><span class="line">pip (<span class="number">1.5</span>.<span class="number">4</span>)</span><br><span class="line">pytz (<span class="number">2015.7</span>)</span><br><span class="line">requests (<span class="number">2.9</span>.<span class="number">1</span>)</span><br><span class="line">requests-oauthlib (<span class="number">0.6</span>.<span class="number">0</span>)</span><br><span class="line">setuptools (<span class="number">2.2</span>)</span><br><span class="line">six (<span class="number">1.10</span>.<span class="number">0</span>)</span><br><span class="line">tzlocal (<span class="number">1.2</span>)</span><br><span class="line">wsgiref (<span class="number">0.1</span>.<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<h1 id="djangoCMS"><a href="#djangoCMS" class="headerlink" title="djangoCMS"></a>djangoCMS</h1><p><code>pip list</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">argparse (<span class="number">1.2</span>.<span class="number">1</span>)</span><br><span class="line">beautifulsoup4 (<span class="number">4.4</span>.<span class="number">1</span>)</span><br><span class="line">bleach (<span class="number">1.4</span>.<span class="number">2</span>)</span><br><span class="line">chardet (<span class="number">2.3</span>.<span class="number">0</span>)</span><br><span class="line">dj-database-url (<span class="number">0.3</span>.<span class="number">0</span>)</span><br><span class="line">Django (<span class="number">1.8</span>.<span class="number">7</span>)</span><br><span class="line">django-classy-tags (<span class="number">0.7</span>.<span class="number">0</span>)</span><br><span class="line">django-cms (<span class="number">3.2</span>.<span class="number">0</span>)</span><br><span class="line">django-contrib-comments (<span class="number">1.6</span>.<span class="number">2</span>)</span><br><span class="line">django-formtools (<span class="number">1.0</span>)</span><br><span class="line">django-reversion (<span class="number">1.8</span>.<span class="number">7</span>)</span><br><span class="line">django-sekizai (<span class="number">0.9</span>.<span class="number">0</span>)</span><br><span class="line">Django-Select2 (<span class="number">4.3</span>.<span class="number">2</span>)</span><br><span class="line">django-treebeard (<span class="number">3.0</span>)</span><br><span class="line">djangocms-admin-style (<span class="number">1.0</span>.<span class="number">7</span>)</span><br><span class="line">djangocms-column (<span class="number">1.6</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-file (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-googlemap (<span class="number">0.4</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-inherit (<span class="number">0.1</span>.<span class="number">1</span>)</span><br><span class="line">djangocms-installer (<span class="number">0.8</span>.<span class="number">5</span>)</span><br><span class="line">djangocms-link (<span class="number">1.7</span>.<span class="number">1</span>)</span><br><span class="line">djangocms-picture (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-style (<span class="number">1.6</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-teaser (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-text-ckeditor (<span class="number">2.8</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-video (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">filebrowser-safe (<span class="number">0.4</span>.<span class="number">0</span>)</span><br><span class="line">future (<span class="number">0.15</span>.<span class="number">2</span>)</span><br><span class="line">grappelli-safe (<span class="number">0.4</span>.<span class="number">1</span>)</span><br><span class="line">html5lib (<span class="number">0.9999999</span>)</span><br><span class="line">Mezzanine (<span class="number">4.0</span>.<span class="number">1</span>)</span><br><span class="line">oauthlib (<span class="number">1.0</span>.<span class="number">3</span>)</span><br><span class="line">Pillow (<span class="number">3.0</span>.<span class="number">0</span>)</span><br><span class="line">pip (<span class="number">1.5</span>.<span class="number">4</span>)</span><br><span class="line">pytz (<span class="number">2015.7</span>)</span><br><span class="line">requests (<span class="number">2.9</span>.<span class="number">1</span>)</span><br><span class="line">requests-oauthlib (<span class="number">0.6</span>.<span class="number">0</span>)</span><br><span class="line">setuptools (<span class="number">2.2</span>)</span><br><span class="line">six (<span class="number">1.10</span>.<span class="number">0</span>)</span><br><span class="line">tzlocal (<span class="number">1.2</span>)</span><br><span class="line">wsgiref (<span class="number">0.1</span>.<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p>Somebody has the similar question in <a href="http://stackoverflow.com/questions/31504606/error-starting-django-cms-project-in-ubuntu-14-04-lts" target="_blank" rel="external">stackoverflow</a><br><code>Install related libraries:</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install -y libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev</span><br><span class="line">sudo apt-get install libjpeg8-dev liblcms2-dev libwebp-dev tcl8.<span class="number">6</span>-dev tk8.<span class="number">6</span>-dev python-tk</span><br><span class="line">sudo apt-get install libqd-dev</span><br><span class="line">sudo apt-get install libmysqlclient-dev</span><br></pre></td></tr></table></figure></p>
 </span>
       
     </div>
@@ -283,9 +305,11 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
       
         <div class="post-tags">
           
-            <a href="/tags/Apache/" rel="tag">#Apache</a>
+            <a href="/tags/Python/" rel="tag">#Python</a>
           
-            <a href="/tags/linux/" rel="tag">#linux</a>
+            <a href="/tags/django/" rel="tag">#django</a>
+          
+            <a href="/tags/mezzanine/" rel="tag">#mezzanine</a>
           
         </div>
       
@@ -294,13 +318,17 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/08/Awesome-Python/" rel="next" title="Awesome Python">
-                <i class="fa fa-chevron-left"></i> Awesome Python
+              <a href="/2016/01/06/logstash-catalina/" rel="next" title="logstash demo conf of catalina.out and nginx access">
+                <i class="fa fa-chevron-left"></i> logstash demo conf of catalina.out and nginx access
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/08/Awesome-Python/" rel="prev" title="Awesome Python">
+                Awesome Python <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -327,8 +355,8 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/09/apache-conf-of-setenvIf/"
-           data-title="Apache conf of setenvIf" data-url="http://yoursite.com/2016/01/09/apache-conf-of-setenvIf/">
+      <div class="ds-thread" data-thread-key="2016/01/07/virtualenv-djangoCMS-mezzanine/"
+           data-title="virtualenv of django-CMS and mezzanine" data-url="http://yoursite.com/2016/01/07/virtualenv-djangoCMS-mezzanine/">
       </div>
     
   </div>
@@ -372,7 +400,7 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -386,7 +414,7 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -436,7 +464,7 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#demo"><span class="nav-number">1.</span> <span class="nav-text">demo</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mezzanine"><span class="nav-number">1.</span> <span class="nav-text">mezzanine</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#djangoCMS"><span class="nav-number">2.</span> <span class="nav-text">djangoCMS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
