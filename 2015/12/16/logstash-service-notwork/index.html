@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="elk,linux,logstash," />
+  <meta name="keywords" content="ELK,linux,logstash," />
 
 
 
@@ -53,20 +53,20 @@
 
 
 
-<meta name="description" content="elk (elasticsearch,logstash,kibana)
+<meta name="description" content="ELK (elasticsearch,logstash,kibana)
 questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
 soluti">
 <meta property="og:type" content="article">
 <meta property="og:title" content="logstash service not work">
 <meta property="og:url" content="http://yoursite.com/2015/12/16/logstash-service-notwork/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="elk (elasticsearch,logstash,kibana)
+<meta property="og:description" content="ELK (elasticsearch,logstash,kibana)
 questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
 soluti">
-<meta property="og:updated_time" content="2016-01-12T01:58:45.000Z">
+<meta property="og:updated_time" content="2016-01-14T14:24:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="logstash service not work">
-<meta name="twitter:description" content="elk (elasticsearch,logstash,kibana)
+<meta name="twitter:description" content="ELK (elasticsearch,logstash,kibana)
 questionWhen I used logstash in service ,such as service logstash start it did not work , but /opt/logstash/bin/logstash -f /etc/logstash/conf.d worked right
 soluti">
 
@@ -276,7 +276,7 @@ soluti">
       
 
       
-        <span itemprop="articleBody"><p><strong>elk (elasticsearch,logstash,kibana)</strong></p>
+        <span itemprop="articleBody"><p><strong>ELK (elasticsearch,logstash,kibana)</strong></p>
 <h1 id="question"><a href="#question" class="headerlink" title="question"></a>question</h1><p>When I used logstash in service ,such as <code>service logstash start</code> it did not work , but <code>/opt/logstash/bin/logstash -f /etc/logstash/conf.d</code> worked right</p>
 <h1 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h1><h2 id="Demo_of_conf"><a href="#Demo_of_conf" class="headerlink" title="Demo of conf"></a>Demo of conf</h2><figure class="highlight puppet"><table><tr><td class="code"><pre><span class="line"><span class="name">input</span> &#123;</span><br><span class="line">    file &#123;</span><br><span class="line">        path =&gt; <span class="string">"/var/log/apache2/jjk_config_server.log"</span></span><br><span class="line">        start_position =&gt; beginning </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="name">filter</span> &#123;</span><br><span class="line">    grok &#123;</span><br><span class="line">        match =&gt; &#123; <span class="string">"message"</span> =&gt; <span class="string">"%&#123;COMBINEDAPACHELOG&#125;"</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="name">output</span> &#123;</span><br><span class="line">    stdout &#123;</span><br><span class="line">	codec =&gt; rubydebug</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="name">elasticsearch</span> &#123;hosts =&gt; <span class="string">"localhost:9200"</span> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="Pay_attention"><a href="#Pay_attention" class="headerlink" title="Pay attention"></a>Pay attention</h2><p>Permission<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">ll /var/<span class="built_in">log</span>/apache2 -d</span><br><span class="line">drwxr-x--- <span class="number">2</span> root adm <span class="number">4096</span> Dec <span class="number">15</span> <span class="number">13</span>:<span class="number">32</span> /var/<span class="built_in">log</span>/apache2/</span><br></pre></td></tr></table></figure></p>
@@ -289,7 +289,7 @@ soluti">
       
         <div class="post-tags">
           
-            <a href="/tags/elk/" rel="tag">#elk</a>
+            <a href="/tags/ELK/" rel="tag">#ELK</a>
           
             <a href="/tags/linux/" rel="tag">#linux</a>
           
@@ -310,8 +310,8 @@ soluti">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/16/elk-install/" rel="prev" title="install elk">
-                install elk <i class="fa fa-chevron-right"></i>
+              <a href="/2015/12/16/elk-install/" rel="prev" title="install ELK">
+                install ELK <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
