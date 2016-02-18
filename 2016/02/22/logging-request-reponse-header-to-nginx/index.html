@@ -58,12 +58,12 @@ request header$http_requestHeaderName
 demo of log_formatlog_format addHeaderlog &apos;$remote_addr - $remote_user [$time_local] &apos;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="logging request and response header to nginx access log">
-<meta property="og:url" content="http://yoursite.com/2016/02/22/logging-request-reponse-header-to-nginx-access/index.html">
+<meta property="og:url" content="http://yoursite.com/2016/02/22/logging-request-reponse-header-to-nginx/index.html">
 <meta property="og:site_name" content="xyduan">
 <meta property="og:description" content="log_format confresonse header$upstream_http_resonseHeaderName
 request header$http_requestHeaderName
 demo of log_formatlog_format addHeaderlog &apos;$remote_addr - $remote_user [$time_local] &apos;">
-<meta property="og:updated_time" content="2016-02-18T06:26:31.000Z">
+<meta property="og:updated_time" content="2016-02-18T06:29:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="logging request and response header to nginx access log">
 <meta name="twitter:description" content="log_format confresonse header$upstream_http_resonseHeaderName
@@ -256,8 +256,8 @@ demo of log_formatlog_format addHeaderlog &apos;$remote_addr - $remote_user [$ti
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/02/22/logging-request-reponse-header-to-nginx-access/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/22/logging-request-reponse-header-to-nginx-access/" itemprop="commentsCount"></span>
+                <a href="/2016/02/22/logging-request-reponse-header-to-nginx/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/22/logging-request-reponse-header-to-nginx/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -279,6 +279,7 @@ demo of log_formatlog_format addHeaderlog &apos;$remote_addr - $remote_user [$ti
         <span itemprop="articleBody"><h1 id="log_format_conf"><a href="#log_format_conf" class="headerlink" title="log_format conf"></a>log_format conf</h1><h2 id="resonse_header"><a href="#resonse_header" class="headerlink" title="resonse header"></a>resonse header</h2><p><code>$upstream_http_resonseHeaderName</code></p>
 <h2 id="request_header"><a href="#request_header" class="headerlink" title="request header"></a>request header</h2><p><code>$http_requestHeaderName</code></p>
 <h2 id="demo_of_log_format"><a href="#demo_of_log_format" class="headerlink" title="demo of log_format"></a>demo of log_format</h2><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">log_format</span> addHeaderlog <span class="string">'<span class="variable">$remote_addr</span> - <span class="variable">$remote_user</span> [<span class="variable">$time_local</span>] '</span></span><br><span class="line">                    <span class="string">'"<span class="variable">$request</span>" <span class="variable">$status</span> <span class="variable">$body_bytes_sent</span> '</span></span><br><span class="line">                    <span class="string">'"<span class="variable">$http_referer</span>" "<span class="variable">$http_user_agent</span>" "<span class="variable">$http_x_forwarded_for</span>" "<span class="variable">$request_body</span>" "<span class="variable">$http_Authorization</span>" "<span class="variable">$http_x_duid</span>" "<span class="variable">$http_x_ver</span>" "<span class="variable">$upstream_http_x_rqid</span>"'</span>;</span><br></pre></td></tr></table></figure>
+<p><a href="http://nginx.org/en/docs/http/ngx_http_upstream_module.html#.24upstream_http_.24HEADER" target="_blank" rel="external">reference</a></p>
 <h1 id="nginx_forward_nginx"><a href="#nginx_forward_nginx" class="headerlink" title="nginx forward nginx"></a>nginx forward nginx</h1><h2 id="conf_of_server_nginx"><a href="#conf_of_server_nginx" class="headerlink" title="conf of server nginx"></a>conf of server nginx</h2><p><code>/etc/nginx/sites-enabled/back.conf</code><br><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">server</span> &#123;</span><br><span class="line">    <span class="title">listen</span> <span class="number">999</span>;</span><br><span class="line">    <span class="title">root</span> /usr/share/nginx/html;</span><br><span class="line">    <span class="title">index</span> index.html index.htm;</span><br><span class="line"></span><br><span class="line">    <span class="title">access_log</span> /var/log/nginx/back.log addHeaderlog ;</span><br><span class="line">    </span><br><span class="line">    <span class="title">add_header</span> x-rqid testXRqidResponse;</span><br><span class="line">	<span class="comment"># Make site accessible from http://localhost/</span></span><br><span class="line">    <span class="title">server_name</span> <span class="number">10.10.10.47</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title">location</span> / &#123;</span><br><span class="line">		<span class="comment"># First attempt to serve request as file, then</span></span><br><span class="line">		<span class="comment"># as directory, then fall back to displaying a 404.</span></span><br><span class="line">		<span class="title">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ =<span class="number">404</span>;</span><br><span class="line">		<span class="comment"># Uncomment to enable naxsi on this location</span></span><br><span class="line">		<span class="comment"># include /etc/nginx/naxsi.rules</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="conf_of_balance_nginx"><a href="#conf_of_balance_nginx" class="headerlink" title="conf of balance nginx"></a>conf of balance nginx</h2><p><code>/etc/nginx/sites-enabled/front.conf</code><br><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">upstream</span> localhost_django&#123;</span><br><span class="line"><span class="comment">#    ip_hash;</span></span><br><span class="line"><span class="comment">#    server 127.0.0.1:80;</span></span><br><span class="line">    <span class="title">server</span> <span class="number">10.10.10.37:999</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="title">server</span> &#123;</span><br><span class="line">    <span class="title">listen</span> <span class="number">99</span>;</span><br><span class="line">    <span class="title">server_name</span> <span class="number">10.10.10.37</span>;</span><br><span class="line">    <span class="title">access_log</span> /var/log/nginx/front-default.log client;</span><br><span class="line">    <span class="title">access_log</span> /var/log/nginx/front-addHeaders.log addHeaderlog ;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="title">location</span> / &#123; </span><br><span class="line">            <span class="title">root</span>  html; </span><br><span class="line">            <span class="title">index</span>  index.html index.htm; </span><br><span class="line">            <span class="title">proxy_pass</span> <span class="url">http://localhost_django</span>; </span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure></p>
 <h1 id="logging_POST_request"><a href="#logging_POST_request" class="headerlink" title="logging POST request"></a>logging POST request</h1><p>add <code>$request_body</code> in <code>log_format</code></p>
@@ -332,8 +333,8 @@ demo of log_formatlog_format addHeaderlog &apos;$remote_addr - $remote_user [$ti
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/02/22/logging-request-reponse-header-to-nginx-access/"
-           data-title="logging request and response header to nginx access log" data-url="http://yoursite.com/2016/02/22/logging-request-reponse-header-to-nginx-access/">
+      <div class="ds-thread" data-thread-key="2016/02/22/logging-request-reponse-header-to-nginx/"
+           data-title="logging request and response header to nginx access log" data-url="http://yoursite.com/2016/02/22/logging-request-reponse-header-to-nginx/">
       </div>
     
   </div>
