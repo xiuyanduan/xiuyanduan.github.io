@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Apache,linux," />
+  <meta name="keywords" content="Docker,gitlab," />
 
 
 
@@ -53,19 +53,22 @@
 
 
 
-<meta name="description" content="Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.Document of setenvIf
-demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
+<meta name="description" content="Tested in Ubuntu 14.04.4 LTS  Docker version 1.10.2, build c3959b1https://hub.docker.com/r/gitlab/gitlab-ce/
+get the image of gitlabdocker pull gitlab/gitlab-ce
+run the imagesudo docker run --detach \">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Apache conf of setenvIf">
-<meta property="og:url" content="http://yoursite.com/2016/01/09/Apache-conf-of-setenvIf/index.html">
+<meta property="og:title" content="deploy gitlab by Docker">
+<meta property="og:url" content="http://yoursite.com/2016/03/28/deploy-gitlab-by-Docker/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.Document of setenvIf
-demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
-<meta property="og:updated_time" content="2016-02-01T02:11:48.000Z">
+<meta property="og:description" content="Tested in Ubuntu 14.04.4 LTS  Docker version 1.10.2, build c3959b1https://hub.docker.com/r/gitlab/gitlab-ce/
+get the image of gitlabdocker pull gitlab/gitlab-ce
+run the imagesudo docker run --detach \">
+<meta property="og:updated_time" content="2016-03-25T17:17:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Apache conf of setenvIf">
-<meta name="twitter:description" content="Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.Document of setenvIf
-demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
+<meta name="twitter:title" content="deploy gitlab by Docker">
+<meta name="twitter:description" content="Tested in Ubuntu 14.04.4 LTS  Docker version 1.10.2, build c3959b1https://hub.docker.com/r/gitlab/gitlab-ce/
+get the image of gitlabdocker pull gitlab/gitlab-ce
+run the imagesudo docker run --detach \">
 
 
 
@@ -77,7 +80,7 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
   };
 </script>
 
-  <title> Apache conf of setenvIf | xyduan </title>
+  <title> deploy gitlab by Docker | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -233,7 +236,7 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
             
             
               
-                Apache conf of setenvIf
+                deploy gitlab by Docker
               
             
           </h1>
@@ -242,8 +245,8 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-01-09T00:00:00+08:00" content="2016-01-09">
-              2016-01-09
+            <time itemprop="dateCreated" datetime="2016-03-28T00:00:00+08:00" content="2016-03-28">
+              2016-03-28
             </time>
           </span>
 
@@ -253,8 +256,8 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/09/Apache-conf-of-setenvIf/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/09/Apache-conf-of-setenvIf/" itemprop="commentsCount"></span>
+                <a href="/2016/03/28/deploy-gitlab-by-Docker/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/28/deploy-gitlab-by-Docker/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -273,8 +276,25 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
       
 
       
-        <span itemprop="articleBody"><p>Logging to Apache httpd access_log when Request_URI begin with “/concrete5” and not end with “js|css|jpg|png|jpeg|gif”.<br>Document of <a href="http://httpd.apache.org/docs/2.4/mod/mod_setenvif.html#setenvif" target="_blank" rel="external">setenvIf</a></p>
-<h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;VirtualHost *:9090&gt;</span></span><br><span class="line">   <span class="keyword"><span class="common">ServerName</span></span> 10.2.201.47</span><br><span class="line">   <span class="keyword"><span class="common">DocumentRoot</span></span> /var/www/html</span><br><span class="line">   <span class="keyword">CustomLog</span> /var/log/httpd/access_log combined</span><br><span class="line">   <span class="keyword">setenvIf</span> Request_URI <span class="string">"^\/(concrete5).+\.(?!(js|css|jpg|png|jpeg|gif)$)"</span> concrete5test</span><br><span class="line">   <span class="keyword">setenvIf</span> Request_URI <span class="string">"\.(js|png|css|jpg|jpeg|gif)$"</span> notconcrete5</span><br><span class="line">   <span class="keyword">setenvIf</span> Request_URI <span class="string">"^(?!\/(concrete5))"</span> notconcrete5</span><br><span class="line">   <span class="comment">#right</span></span><br><span class="line">   <span class="keyword">CustomLog</span> /var/log/httpd/concrete5_log combined env=!notconcrete5</span><br><span class="line">   <span class="comment">#something wrong</span></span><br><span class="line">   <span class="keyword">CustomLog</span> /var/log/httpd/concrete5_log.test combined env=concrete5test</span><br><span class="line"><span class="tag">&lt;/VirtualHost&gt;</span></span><br></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04.4 LTS</code>  <code>Docker version 1.10.2, build c3959b1</code><br><a href="https://hub.docker.com/r/gitlab/gitlab-ce/" target="_blank" rel="external">https://hub.docker.com/r/gitlab/gitlab-ce/</a></p>
+<h1 id="get_the_image_of_gitlab"><a href="#get_the_image_of_gitlab" class="headerlink" title="get the image of gitlab"></a>get the image of gitlab</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull gitlab/gitlab-ce</span><br></pre></td></tr></table></figure>
+<h1 id="run_the_image"><a href="#run_the_image" class="headerlink" title="run the image"></a>run the image</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo docker run --detach \</span><br><span class="line">    --hostname gitlab.example.com \</span><br><span class="line">    --publish <span class="number">443</span>:<span class="number">443</span> --publish <span class="number">80</span>:<span class="number">80</span> --publish <span class="number">22</span>:<span class="number">22</span> \</span><br><span class="line">    --name gitlab \</span><br><span class="line">    --restart always \</span><br><span class="line">    --volume /srv/gitlab/config:/etc/gitlab \</span><br><span class="line">    --volume /srv/gitlab/logs:/var/<span class="built_in">log</span>/gitlab \</span><br><span class="line">    --volume /srv/gitlab/data:/var/opt/gitlab \</span><br><span class="line">    gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
+<h1 id="error_500"><a href="#error_500" class="headerlink" title="error 500"></a>error 500</h1><p>If you experience 500 issues that huygens describes when upgrading to 8.6.x you can fix using the following steps:<br>Start your container as normal, then execute the following steps:</p>
+<ol>
+<li><code>docker exec -it gitlab /bin/bash</code></li>
+<li><code>sudo su - gitlab-psql</code></li>
+<li><code>export PGHOST=&quot;/var/opt/gitlab/postgresql&quot;</code></li>
+<li><code>psql gitlabhq_production</code></li>
+<li><code>CREATE EXTENSION pg_trgm;</code></li>
+<li><code>\q</code> + <code>Enter</code>  <em>to exit psql</em></li>
+<li><code>exit</code> <em>back to</em> <code>root</code> <em>user</em></li>
+<li><code>gitlab-rake db:migrate</code></li>
+<li><code>gitlab-ctl reconfigure</code></li>
+</ol>
+<p>Ref: <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/issues/1185#note_4424525" target="_blank" rel="external">https://gitlab.com/gitlab-org/omnibus-gitlab/issues/1185#note_4424525</a></p>
+<h1 id="set_sendEmail"><a href="#set_sendEmail" class="headerlink" title="set sendEmail"></a>set sendEmail</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim /etc/gitlab/gitlab.rb</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">gitlab_rails[<span class="string">'gitlab_email_from'</span>] = <span class="string">'yourname@qq.com'</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_enable'</span>] = <span class="keyword">true</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_address'</span>] = <span class="string">"smtp.qq.com"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_port'</span>] = <span class="number">25</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_user_name'</span>] = <span class="string">"yourname@qq.com"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_password'</span>] = <span class="string">"yourpassword"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_domain'</span>] = <span class="string">"smtp.qq.com"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_authentication'</span>] = <span class="string">"login"</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_enable_starttls_auto'</span>] = <span class="keyword">true</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_tls'</span>] = <span class="keyword">false</span></span><br><span class="line">gitlab_rails[<span class="string">'smtp_openssl_verify_mode'</span>] = <span class="string">'peer'</span> <span class="comment"># Can be: 'none', 'peer', 'client_once', 'fail_if_no_peer_cert', see http://api.rubyonrails.org/classes/ActionMailer/Base.html</span></span><br><span class="line"><span class="comment">#gitlab_rails['smtp_ca_path'] = "/etc/ssl/certs"</span></span><br><span class="line"><span class="comment">#gitlab_rails['smtp_ca_file'] = "/etc/ssl/certs/ca-certificates.crt"</span></span><br></pre></td></tr></table></figure>
+<p>ensure <code>gitlab_rails[&#39;gitlab_email_from&#39;]</code> is equal to <code>gitlab_rails[&#39;smtp_user_name&#39;]</code></p>
 </span>
       
     </div>
@@ -283,9 +303,9 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
       
         <div class="post-tags">
           
-            <a href="/tags/Apache/" rel="tag">#Apache</a>
+            <a href="/tags/Docker/" rel="tag">#Docker</a>
           
-            <a href="/tags/linux/" rel="tag">#linux</a>
+            <a href="/tags/gitlab/" rel="tag">#gitlab</a>
           
         </div>
       
@@ -294,17 +314,13 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/08/Awesome-Python/" rel="next" title="Awesome Python">
-                <i class="fa fa-chevron-left"></i> Awesome Python
+              <a href="/2016/03/25/http-POST-sentEmail-by-django/" rel="next" title="Accept http POST request to sent Email by django">
+                <i class="fa fa-chevron-left"></i> Accept http POST request to sent Email by django
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/12/add-UNIX-timestamp-to-Apache-access-log/" rel="prev" title="add UNIX timestamp to Apache access log">
-                add UNIX timestamp to Apache access log <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -331,8 +347,8 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/09/Apache-conf-of-setenvIf/"
-           data-title="Apache conf of setenvIf" data-url="http://yoursite.com/2016/01/09/Apache-conf-of-setenvIf/">
+      <div class="ds-thread" data-thread-key="2016/03/28/deploy-gitlab-by-Docker/"
+           data-title="deploy gitlab by Docker" data-url="http://yoursite.com/2016/03/28/deploy-gitlab-by-Docker/">
       </div>
     
   </div>
@@ -440,7 +456,7 @@ demo&amp;lt;VirtualHost *:9090&amp;gt;   ServerName 10.2.201.47   Do">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#demo"><span class="nav-number">1.</span> <span class="nav-text">demo</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#get_the_image_of_gitlab"><span class="nav-number">1.</span> <span class="nav-text">get the image of gitlab</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#run_the_image"><span class="nav-number">2.</span> <span class="nav-text">run the image</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#error_500"><span class="nav-number">3.</span> <span class="nav-text">error 500</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#set_sendEmail"><span class="nav-number">4.</span> <span class="nav-text">set sendEmail</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
