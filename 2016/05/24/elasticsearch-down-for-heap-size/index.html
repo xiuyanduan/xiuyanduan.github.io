@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Python,django,mezzanine," />
+  <meta name="keywords" content="ELK,elasticsearch,linux," />
 
 
 
@@ -53,34 +53,16 @@
 
 
 
-<meta name="description" content="Tested in Ubuntu 14.04 LTS
-
-mezzanine
-djangoCMS
-stackoverflow
-
-mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)bleach (1.4.2)chardet (2.3.0)dj-database-url (0.3.0)Django (1">
+<meta name="description" content="Ubuntu 14.04 LTS elasticsearch 2.1.0 logstash 2.1.1 kibana 4.3.0 ELK works well for a couple of days, and then becomes unusable. curl localhost:9200 has no response.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="virtualenv of django-CMS and mezzanine">
-<meta property="og:url" content="http://yoursite.com/2016/01/07/virtualenv-djangoCMS-mezzanine/index.html">
+<meta property="og:title" content="elasticsearch down for heap size">
+<meta property="og:url" content="http://yoursite.com/2016/05/24/elasticsearch-down-for-heap-size/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="Tested in Ubuntu 14.04 LTS
-
-mezzanine
-djangoCMS
-stackoverflow
-
-mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)bleach (1.4.2)chardet (2.3.0)dj-database-url (0.3.0)Django (1">
-<meta property="og:updated_time" content="2016-02-01T02:11:48.000Z">
+<meta property="og:description" content="Ubuntu 14.04 LTS elasticsearch 2.1.0 logstash 2.1.1 kibana 4.3.0 ELK works well for a couple of days, and then becomes unusable. curl localhost:9200 has no response.">
+<meta property="og:updated_time" content="2016-05-24T05:36:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="virtualenv of django-CMS and mezzanine">
-<meta name="twitter:description" content="Tested in Ubuntu 14.04 LTS
-
-mezzanine
-djangoCMS
-stackoverflow
-
-mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)bleach (1.4.2)chardet (2.3.0)dj-database-url (0.3.0)Django (1">
+<meta name="twitter:title" content="elasticsearch down for heap size">
+<meta name="twitter:description" content="Ubuntu 14.04 LTS elasticsearch 2.1.0 logstash 2.1.1 kibana 4.3.0 ELK works well for a couple of days, and then becomes unusable. curl localhost:9200 has no response.">
 
 
 
@@ -92,7 +74,7 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
   };
 </script>
 
-  <title> virtualenv of django-CMS and mezzanine | xyduan </title>
+  <title> elasticsearch down for heap size | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -248,7 +230,7 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
             
             
               
-                virtualenv of django-CMS and mezzanine
+                elasticsearch down for heap size
               
             
           </h1>
@@ -257,8 +239,8 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-01-07T00:00:00+08:00" content="2016-01-07">
-              2016-01-07
+            <time itemprop="dateCreated" datetime="2016-05-24T00:00:00+08:00" content="2016-05-24">
+              2016-05-24
             </time>
           </span>
 
@@ -268,8 +250,8 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/07/virtualenv-djangoCMS-mezzanine/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/07/virtualenv-djangoCMS-mezzanine/" itemprop="commentsCount"></span>
+                <a href="/2016/05/24/elasticsearch-down-for-heap-size/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/24/elasticsearch-down-for-heap-size/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -288,15 +270,20 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
       
 
       
-        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04 LTS</code></p>
-<ol>
-<li><a href="http://mezzanine.jupo.org/" target="_blank" rel="external">mezzanine</a></li>
-<li><a href="http://www.django-cms.org/en/" target="_blank" rel="external">djangoCMS</a></li>
-<li><a href="http://stackoverflow.com/questions/31504606/error-starting-django-cms-project-in-ubuntu-14-04-lts" target="_blank" rel="external">stackoverflow</a></li>
-</ol>
-<h1 id="mezzanine"><a href="#mezzanine" class="headerlink" title="mezzanine"></a>mezzanine</h1><p><code>source env/bin/active</code><br><code>pip list</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">argparse (<span class="number">1.2</span>.<span class="number">1</span>)</span><br><span class="line">beautifulsoup4 (<span class="number">4.4</span>.<span class="number">1</span>)</span><br><span class="line">bleach (<span class="number">1.4</span>.<span class="number">2</span>)</span><br><span class="line">chardet (<span class="number">2.3</span>.<span class="number">0</span>)</span><br><span class="line">dj-database-url (<span class="number">0.3</span>.<span class="number">0</span>)</span><br><span class="line">Django (<span class="number">1.8</span>.<span class="number">8</span>)</span><br><span class="line">django-contrib-comments (<span class="number">1.6</span>.<span class="number">2</span>)</span><br><span class="line">filebrowser-safe (<span class="number">0.4</span>.<span class="number">0</span>)</span><br><span class="line">future (<span class="number">0.15</span>.<span class="number">2</span>)</span><br><span class="line">grappelli-safe (<span class="number">0.4</span>.<span class="number">1</span>)</span><br><span class="line">html5lib (<span class="number">0.9999999</span>)</span><br><span class="line">Mezzanine (<span class="number">4.0</span>.<span class="number">1</span>)</span><br><span class="line">oauthlib (<span class="number">1.0</span>.<span class="number">3</span>)</span><br><span class="line">Pillow (<span class="number">3.1</span>.<span class="number">0</span>)</span><br><span class="line">pip (<span class="number">1.5</span>.<span class="number">4</span>)</span><br><span class="line">pytz (<span class="number">2015.7</span>)</span><br><span class="line">requests (<span class="number">2.9</span>.<span class="number">1</span>)</span><br><span class="line">requests-oauthlib (<span class="number">0.6</span>.<span class="number">0</span>)</span><br><span class="line">setuptools (<span class="number">2.2</span>)</span><br><span class="line">six (<span class="number">1.10</span>.<span class="number">0</span>)</span><br><span class="line">tzlocal (<span class="number">1.2</span>)</span><br><span class="line">wsgiref (<span class="number">0.1</span>.<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
-<h1 id="djangoCMS"><a href="#djangoCMS" class="headerlink" title="djangoCMS"></a>djangoCMS</h1><p><code>pip list</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">argparse (<span class="number">1.2</span>.<span class="number">1</span>)</span><br><span class="line">beautifulsoup4 (<span class="number">4.4</span>.<span class="number">1</span>)</span><br><span class="line">bleach (<span class="number">1.4</span>.<span class="number">2</span>)</span><br><span class="line">chardet (<span class="number">2.3</span>.<span class="number">0</span>)</span><br><span class="line">dj-database-url (<span class="number">0.3</span>.<span class="number">0</span>)</span><br><span class="line">Django (<span class="number">1.8</span>.<span class="number">7</span>)</span><br><span class="line">django-classy-tags (<span class="number">0.7</span>.<span class="number">0</span>)</span><br><span class="line">django-cms (<span class="number">3.2</span>.<span class="number">0</span>)</span><br><span class="line">django-contrib-comments (<span class="number">1.6</span>.<span class="number">2</span>)</span><br><span class="line">django-formtools (<span class="number">1.0</span>)</span><br><span class="line">django-reversion (<span class="number">1.8</span>.<span class="number">7</span>)</span><br><span class="line">django-sekizai (<span class="number">0.9</span>.<span class="number">0</span>)</span><br><span class="line">Django-Select2 (<span class="number">4.3</span>.<span class="number">2</span>)</span><br><span class="line">django-treebeard (<span class="number">3.0</span>)</span><br><span class="line">djangocms-admin-style (<span class="number">1.0</span>.<span class="number">7</span>)</span><br><span class="line">djangocms-column (<span class="number">1.6</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-file (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-googlemap (<span class="number">0.4</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-inherit (<span class="number">0.1</span>.<span class="number">1</span>)</span><br><span class="line">djangocms-installer (<span class="number">0.8</span>.<span class="number">5</span>)</span><br><span class="line">djangocms-link (<span class="number">1.7</span>.<span class="number">1</span>)</span><br><span class="line">djangocms-picture (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-style (<span class="number">1.6</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-teaser (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-text-ckeditor (<span class="number">2.8</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-video (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">filebrowser-safe (<span class="number">0.4</span>.<span class="number">0</span>)</span><br><span class="line">future (<span class="number">0.15</span>.<span class="number">2</span>)</span><br><span class="line">grappelli-safe (<span class="number">0.4</span>.<span class="number">1</span>)</span><br><span class="line">html5lib (<span class="number">0.9999999</span>)</span><br><span class="line">Mezzanine (<span class="number">4.0</span>.<span class="number">1</span>)</span><br><span class="line">oauthlib (<span class="number">1.0</span>.<span class="number">3</span>)</span><br><span class="line">Pillow (<span class="number">3.0</span>.<span class="number">0</span>)</span><br><span class="line">pip (<span class="number">1.5</span>.<span class="number">4</span>)</span><br><span class="line">pytz (<span class="number">2015.7</span>)</span><br><span class="line">requests (<span class="number">2.9</span>.<span class="number">1</span>)</span><br><span class="line">requests-oauthlib (<span class="number">0.6</span>.<span class="number">0</span>)</span><br><span class="line">setuptools (<span class="number">2.2</span>)</span><br><span class="line">six (<span class="number">1.10</span>.<span class="number">0</span>)</span><br><span class="line">tzlocal (<span class="number">1.2</span>)</span><br><span class="line">wsgiref (<span class="number">0.1</span>.<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p>Somebody has the similar question in <a href="http://stackoverflow.com/questions/31504606/error-starting-django-cms-project-in-ubuntu-14-04-lts" target="_blank" rel="external">stackoverflow</a><br><code>Install related libraries:</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install -y libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev</span><br><span class="line">sudo apt-get install libjpeg8-dev liblcms2-dev libwebp-dev tcl8.<span class="number">6</span>-dev tk8.<span class="number">6</span>-dev python-tk</span><br><span class="line">sudo apt-get install libqd-dev</span><br><span class="line">sudo apt-get install libmysqlclient-dev</span><br></pre></td></tr></table></figure></p>
+        <span itemprop="articleBody"><p><code>Ubuntu 14.04 LTS</code> <code>elasticsearch 2.1.0</code> <code>logstash 2.1.1</code> <code>kibana 4.3.0</code> ELK works well for a couple of days, and then becomes unusable. <code>curl localhost:9200</code> has no response.<br><a id="more"></a><br><code>kibana4</code> shows <strong>RED</strong>.The error message of logstash looks like:<br><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">&#123;<span class="symbol">:timestamp=&gt;<span class="string">"2016-05-24T06:42:14.489000+0800"</span></span>, <span class="symbol">:message=&gt;<span class="string">"retrying failed action with response code: 503"</span></span>, <span class="symbol">:level=&gt;</span><span class="symbol">:warn</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Refs_3A"><a href="#Refs_3A" class="headerlink" title="Refs:"></a>Refs:</h1><p><a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/_limiting_memory_usage.html" target="_blank" rel="external">official doc</a><br><a href="https://discuss.elastic.co/t/cluster-deteriorates-after-a-couple-of-days/1285/1" target="_blank" rel="external">discuss.elastic.co</a><br><a href="http://stackoverflow.com/questions/18132719/how-to-change-elasticsearch-max-memory-size" target="_blank" rel="external">stackoverflow</a></p>
+<h1 id="Reason"><a href="#Reason" class="headerlink" title="Reason"></a>Reason</h1><p>Once analyzed strings have been loaded into fielddata, they will sit there until evicted (or your node crashes). For that reason it is important to keep an eye on this memory usage, understand how and when it loads, and how you can limit the impact on your cluster.</p>
+<p>Fielddata is loaded lazily. If you never aggregate on an analyzed string, you’ll never load fielddata into memory. Furthermore, fielddata is loaded on a per-field basis, meaning only actively used fields will incur the “fielddata tax”.</p>
+<p>However, there is a subtle surprise lurking here. Suppose your query is highly selective and only returns 100 hits. Most people assume fielddata is only loaded for those 100 documents.</p>
+<p>In reality, fielddata will be loaded for all documents in that index (for that particular field), regardless of the query’s specificity. The logic is: if you need access to documents X, Y, and Z for this query, you will probably need access to other documents in the next query.</p>
+<p>Unlike doc values, the fielddata structure is not created at index time. Instead, it is populated on-the-fly when the query is run. This is a potentially non-trivial operation and can take some time. It is cheaper to load all the values once, and keep them in memory, than load only a portion of the total fielddata repeatedly.</p>
+<p>The JVM heap is a limited resource that should be used wisely. A number of mechanisms exist to limit the impact of fielddata on heap usage. These limits are important because abuse of the heap will cause node instability (thanks to slow garbage collections) or even node death (with an OutOfMemory exception).</p>
+<h1 id="Choosing_a_Heap_Size"><a href="#Choosing_a_Heap_Size" class="headerlink" title="Choosing a Heap Size"></a>Choosing a Heap Size</h1><p>There are two rules to apply when setting the Elasticsearch heap size, with the $ES_HEAP_SIZE environment variable:</p>
+<h2 id="No_more_than_50_25_of_available_RAM"><a href="#No_more_than_50_25_of_available_RAM" class="headerlink" title="No more than 50% of available RAM"></a>No more than 50% of available RAM</h2><p>Lucene makes good use of the filesystem caches, which are managed by the kernel. Without enough filesystem cache space, performance will suffer. Furthermore, the more memory dedicated to the heap means less available for all your other fields using doc values.</p>
+<h2 id="No_more_than_32_GB"><a href="#No_more_than_32_GB" class="headerlink" title="No more than 32 GB"></a>No more than 32 GB</h2><p>If the heap is less than 32 GB, the JVM can use compressed pointers, which saves a lot of memory: 4 bytes per pointer instead of 8 bytes.<br>For a longer and more complete discussion of heap sizing, see Heap: Sizing and Swapping</p>
+<h1 id="Setting_config"><a href="#Setting_config" class="headerlink" title="Setting config"></a>Setting config</h1><p><code>/etc/init.d/elasticsearch</code><br><figure class="highlight objectivec"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> ES_HEAP_SIZE</span><br><span class="line"><span class="keyword">export</span> ES_HEAP_NEWSIZE</span><br><span class="line"><span class="keyword">export</span> ES_DIRECT_SIZE</span><br><span class="line"><span class="keyword">export</span> ES_J<span class="built_in">AVA_OPTS</span></span><br><span class="line"><span class="keyword">export</span> J<span class="built_in">AVA_HOME</span></span><br></pre></td></tr></table></figure></p>
+<p><code>export ES_HEAP_SIZE=1G</code></p>
+<h1 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h1><p><code>curl -XDELETE http://localhost:9200/.kibana</code></p>
 </span>
       
     </div>
@@ -305,11 +292,11 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag">#Python</a>
+            <a href="/tags/ELK/" rel="tag">#ELK</a>
           
-            <a href="/tags/django/" rel="tag">#django</a>
+            <a href="/tags/elasticsearch/" rel="tag">#elasticsearch</a>
           
-            <a href="/tags/mezzanine/" rel="tag">#mezzanine</a>
+            <a href="/tags/linux/" rel="tag">#linux</a>
           
         </div>
       
@@ -318,17 +305,13 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/06/logstash-catalina/" rel="next" title="logstash demo conf">
-                <i class="fa fa-chevron-left"></i> logstash demo conf
+              <a href="/2016/03/28/deploy-gitlab-by-Docker/" rel="next" title="deploy gitlab by Docker">
+                <i class="fa fa-chevron-left"></i> deploy gitlab by Docker
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/08/Awesome-Python/" rel="prev" title="Awesome Python">
-                Awesome Python <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -355,8 +338,8 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/07/virtualenv-djangoCMS-mezzanine/"
-           data-title="virtualenv of django-CMS and mezzanine" data-url="http://yoursite.com/2016/01/07/virtualenv-djangoCMS-mezzanine/">
+      <div class="ds-thread" data-thread-key="2016/05/24/elasticsearch-down-for-heap-size/"
+           data-title="elasticsearch down for heap size" data-url="http://yoursite.com/2016/05/24/elasticsearch-down-for-heap-size/">
       </div>
     
   </div>
@@ -464,7 +447,7 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mezzanine"><span class="nav-number">1.</span> <span class="nav-text">mezzanine</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#djangoCMS"><span class="nav-number">2.</span> <span class="nav-text">djangoCMS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Refs_3A"><span class="nav-number">1.</span> <span class="nav-text">Refs:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reason"><span class="nav-number">2.</span> <span class="nav-text">Reason</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Choosing_a_Heap_Size"><span class="nav-number">3.</span> <span class="nav-text">Choosing a Heap Size</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#No_more_than_50_25_of_available_RAM"><span class="nav-number">3.1.</span> <span class="nav-text">No more than 50% of available RAM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#No_more_than_32_GB"><span class="nav-number">3.2.</span> <span class="nav-text">No more than 32 GB</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Setting_config"><span class="nav-number">4.</span> <span class="nav-text">Setting config</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#notes"><span class="nav-number">5.</span> <span class="nav-text">notes</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

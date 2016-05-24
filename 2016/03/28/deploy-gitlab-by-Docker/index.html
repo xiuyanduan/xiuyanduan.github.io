@@ -53,22 +53,16 @@
 
 
 
-<meta name="description" content="Tested in Ubuntu 14.04.4 LTS  Docker version 1.10.2, build c3959b1https://hub.docker.com/r/gitlab/gitlab-ce/
-get the image of gitlabdocker pull gitlab/gitlab-ce
-run the imagesudo docker run --detach \">
+<meta name="description" content="Tested in Ubuntu 14.04.4 LTS  Docker version 1.10.2, build c3959b1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="deploy gitlab by Docker">
 <meta property="og:url" content="http://yoursite.com/2016/03/28/deploy-gitlab-by-Docker/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="Tested in Ubuntu 14.04.4 LTS  Docker version 1.10.2, build c3959b1https://hub.docker.com/r/gitlab/gitlab-ce/
-get the image of gitlabdocker pull gitlab/gitlab-ce
-run the imagesudo docker run --detach \">
-<meta property="og:updated_time" content="2016-03-25T17:17:00.000Z">
+<meta property="og:description" content="Tested in Ubuntu 14.04.4 LTS  Docker version 1.10.2, build c3959b1">
+<meta property="og:updated_time" content="2016-05-24T05:40:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="deploy gitlab by Docker">
-<meta name="twitter:description" content="Tested in Ubuntu 14.04.4 LTS  Docker version 1.10.2, build c3959b1https://hub.docker.com/r/gitlab/gitlab-ce/
-get the image of gitlabdocker pull gitlab/gitlab-ce
-run the imagesudo docker run --detach \">
+<meta name="twitter:description" content="Tested in Ubuntu 14.04.4 LTS  Docker version 1.10.2, build c3959b1">
 
 
 
@@ -276,7 +270,7 @@ run the imagesudo docker run --detach \">
       
 
       
-        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04.4 LTS</code>  <code>Docker version 1.10.2, build c3959b1</code><br><a href="https://hub.docker.com/r/gitlab/gitlab-ce/" target="_blank" rel="external">https://hub.docker.com/r/gitlab/gitlab-ce/</a></p>
+        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04.4 LTS</code>  <code>Docker version 1.10.2, build c3959b1</code><br><a id="more"></a><br><a href="https://hub.docker.com/r/gitlab/gitlab-ce/" target="_blank" rel="external">https://hub.docker.com/r/gitlab/gitlab-ce/</a></p>
 <h1 id="get_the_image_of_gitlab"><a href="#get_the_image_of_gitlab" class="headerlink" title="get the image of gitlab"></a>get the image of gitlab</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull gitlab/gitlab-ce</span><br></pre></td></tr></table></figure>
 <h1 id="run_the_image"><a href="#run_the_image" class="headerlink" title="run the image"></a>run the image</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo docker run --detach \</span><br><span class="line">    --hostname gitlab.example.com \</span><br><span class="line">    --publish <span class="number">443</span>:<span class="number">443</span> --publish <span class="number">80</span>:<span class="number">80</span> --publish <span class="number">22</span>:<span class="number">22</span> \</span><br><span class="line">    --name gitlab \</span><br><span class="line">    --restart always \</span><br><span class="line">    --volume /srv/gitlab/config:/etc/gitlab \</span><br><span class="line">    --volume /srv/gitlab/logs:/var/<span class="built_in">log</span>/gitlab \</span><br><span class="line">    --volume /srv/gitlab/data:/var/opt/gitlab \</span><br><span class="line">    gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
 <h1 id="error_500"><a href="#error_500" class="headerlink" title="error 500"></a>error 500</h1><p>If you experience 500 issues that huygens describes when upgrading to 8.6.x you can fix using the following steps:<br>Start your container as normal, then execute the following steps:</p>
@@ -321,6 +315,10 @@ run the imagesudo docker run --detach \">
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/24/elasticsearch-down-for-heap-size/" rel="prev" title="elasticsearch down for heap size">
+                elasticsearch down for heap size <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -392,7 +390,7 @@ run the imagesudo docker run --detach \">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -406,7 +404,7 @@ run the imagesudo docker run --detach \">
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
