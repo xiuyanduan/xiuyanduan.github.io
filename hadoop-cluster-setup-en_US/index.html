@@ -1,0 +1,1267 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="QvqfId7mK9l-1Cz8SD88-JrVJVMPRfZdeIhfUAOPMKI" />
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hadoop,linux," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="Ref from official site document.
+PurposeThis document describes how to install and configure Hadoop clusters rangingfrom a few nodes to extremely large clusters with thousands of nodes. To playwith Ha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop Cluster Setup">
+<meta property="og:url" content="http://yoursite.com/hadoop-cluster-setup-en_US/index.html">
+<meta property="og:site_name" content="xyduan">
+<meta property="og:description" content="Ref from official site document.
+PurposeThis document describes how to install and configure Hadoop clusters rangingfrom a few nodes to extremely large clusters with thousands of nodes. To playwith Ha">
+<meta property="og:updated_time" content="2016-05-31T08:47:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop Cluster Setup">
+<meta name="twitter:description" content="Ref from official site document.
+PurposeThis document describes how to install and configure Hadoop clusters rangingfrom a few nodes to extremely large clusters with thousands of nodes. To playwith Ha">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> Hadoop Cluster Setup | xyduan </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0f6ac7dc052641b1a15dd123d65de6f8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xyduan</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'wW5A5ZBWFntDM79FcGFk','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Hadoop Cluster Setup
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-05-30T00:00:00+08:00" content="2016-05-30">
+              2016-05-30
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/hadoop-cluster-setup-en_US/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="hadoop-cluster-setup-en_US/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>Ref from official site <a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/ClusterSetup.html" target="_blank" rel="external">document</a>.</p>
+<h2 id="Purpose"><a href="#Purpose" class="headerlink" title="Purpose"></a>Purpose</h2><p>This document describes how to install and configure Hadoop clusters ranging<br>from a few nodes to extremely large clusters with thousands of nodes. To play<br>with Hadoop, you may first want to install it on a single machine (see <a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SingleCluster.html" target="_blank" rel="external">Single<br>Node Setup</a>).<br><a id="more"></a><br>This document does not cover advanced topics such as<br><a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SecureMode.html" target="_blank" rel="external">Security</a> or High Availability.<br><!-- more --></p>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><ul>
+<li>Install Java. See the <a href="http://wiki.apache.org/hadoop/HadoopJavaVersions" target="_blank" rel="external">Hadoop Wiki</a> for known good versions.</li>
+<li>Download a stable version of Hadoop from Apache mirrors.</li>
+</ul>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>Installing a Hadoop cluster typically involves unpacking the software on all<br>the machines in the cluster or installing it via a packaging system as<br>appropriate for your operating system. It is important to divide up the<br>hardware into functions.</p>
+<p>Typically one machine in the cluster is designated as the NameNode and another<br>machine the as ResourceManager, exclusively. These are the masters. Other<br>services (such as Web App Proxy Server and MapReduce Job History server) are<br>usually run either on dedicated hardware or on shared infrastrucutre,<br>depending upon the load.</p>
+<p>The rest of the machines in the cluster act as both DataNode and NodeManager.<br>These are the slaves.</p>
+<h2 id="Configuring_Hadoop_in_Non-Secure_Mode"><a href="#Configuring_Hadoop_in_Non-Secure_Mode" class="headerlink" title="Configuring Hadoop in Non-Secure Mode"></a>Configuring Hadoop in Non-Secure Mode</h2><p>Hadoop’s Java configuration is driven by two types of important configuration<br>files:</p>
+<ul>
+<li><p>Read-only default configuration - <code>core-default.xml</code>, <code>hdfs-default.xml</code>, <code>yarn-default.xml</code> and <code>mapred-default.xml</code>.</p>
+</li>
+<li><p>Site-specific configuration - <code>etc/hadoop/core-site.xml</code>, <code>etc/hadoop/hdfs-site.xml</code>, <code>etc/hadoop/yarn-site.xml</code> and <code>etc/hadoop/mapred-site.xml</code>.</p>
+</li>
+</ul>
+<p>Additionally, you can control the Hadoop scripts found in the bin/ directory<br>of the distribution, by setting site-specific values via the <code>etc/hadoop
+/hadoop-env.sh</code> and <code>etc/hadoop/yarn-env.sh</code>.</p>
+<p>To configure the Hadoop cluster you will need to configure the <code>environment</code><br>in which the Hadoop daemons execute as well as the <code>configuration parameters</code><br>for the Hadoop daemons.</p>
+<p>HDFS daemons are NameNode, SecondaryNameNode, and DataNode. YARN damones are<br>ResourceManager, NodeManager, and WebAppProxy. If MapReduce is to be used,<br>then the MapReduce Job History Server will also be running. For large<br>installations, these are generally running on separate hosts.</p>
+<h3 id="Configuring_Environment_of_Hadoop_Daemons"><a href="#Configuring_Environment_of_Hadoop_Daemons" class="headerlink" title="Configuring Environment of Hadoop Daemons"></a>Configuring Environment of Hadoop Daemons</h3><p>Administrators should use the <code>etc/hadoop/hadoop-env.sh</code> and optionally the<br><code>etc/hadoop/mapred-env.sh</code> and <code>etc/hadoop/yarn-env.sh</code> scripts to do site-<br>specific customization of the Hadoop daemons’ process environment.</p>
+<p>At the very least, you must specify the <code>JAVA_HOME</code> so that it is correctly<br>defined on each remote node.</p>
+<p>Administrators can configure individual daemons using the configuration<br>options shown below in the table:</p>
+<table>
+<thead>
+<tr>
+<th>Daemon</th>
+<th>Environment Variable  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NameNode</td>
+<td>HADOOP_NAMENODE_OPTS  </td>
+</tr>
+<tr>
+<td>DataNode</td>
+<td>HADOOP_DATANODE_OPTS  </td>
+</tr>
+<tr>
+<td>Secondary NameNode</td>
+<td>HADOOP_SECONDARYNAMENODE_OPTS  </td>
+</tr>
+<tr>
+<td>ResourceManager</td>
+<td>YARN_RESOURCEMANAGER_OPTS  </td>
+</tr>
+<tr>
+<td>NodeManager</td>
+<td>YARN_NODEMANAGER_OPTS  </td>
+</tr>
+<tr>
+<td>WebAppProxy</td>
+<td>YARN_PROXYSERVER_OPTS  </td>
+</tr>
+<tr>
+<td>Map Reduce Job History Server</td>
+<td>HADOOP_JOB_HISTORYSERVER_OPTS  </td>
+</tr>
+</tbody>
+</table>
+<p>For example, To configure Namenode to use parallelGC, the following statement<br>should be added in hadoop-env.sh :</p>
+<pre><code>export HADOOP_NAMENODE_OPTS=&quot;-XX:+UseParallelGC&quot;
+</code></pre><p>See <code>etc/hadoop/hadoop-env.sh</code> for other examples.</p>
+<p>Other useful configuration parameters that you can customize include:</p>
+<ul>
+<li><code>HADOOP_PID_DIR</code> - The directory where the daemons’ process id files are stored.</li>
+<li><code>HADOOP_LOG_DIR</code> - The directory where the daemons’ log files are stored. Log files are automatically created if they don’t exist.</li>
+<li><code>HADOOP_HEAPSIZE</code> / <code>YARN_HEAPSIZE</code> - The maximum amount of heapsize to use, in MB e.g. if the varibale is set to 1000 the heap will be set to 1000MB. This is used to configure the heap size for the daemon. By default, the value is 1000. If you want to configure the values separately for each deamon you can use.</li>
+</ul>
+<p>In most cases, you should specify the <code>HADOOP_PID_DIR</code> and <code>HADOOP_LOG_DIR</code><br>directories such that they can only be written to by the users that are going<br>to run the hadoop daemons. Otherwise there is the potential for a symlink<br>attack.</p>
+<p>It is also traditional to configure <code>HADOOP_PREFIX</code> in the system-wide shell<br>environment configuration. For example, a simple script inside<br><code>/etc/profile.d</code>:</p>
+<pre><code>HADOOP_PREFIX=/path/to/hadoop
+export HADOOP_PREFIX
+</code></pre><table>
+<thead>
+<tr>
+<th>Daemon</th>
+<th>Environment Variable  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ResourceManager</td>
+<td>YARN_RESOURCEMANAGER_HEAPSIZE  </td>
+</tr>
+<tr>
+<td>NodeManager</td>
+<td>YARN_NODEMANAGER_HEAPSIZE  </td>
+</tr>
+<tr>
+<td>WebAppProxy</td>
+<td>YARN_PROXYSERVER_HEAPSIZE  </td>
+</tr>
+<tr>
+<td>Map Reduce Job History Server</td>
+<td>HADOOP_JOB_HISTORYSERVER_HEAPSIZE  </td>
+</tr>
+</tbody>
+</table>
+<h3 id="Configuring_the_Hadoop_Daemons"><a href="#Configuring_the_Hadoop_Daemons" class="headerlink" title="Configuring the Hadoop Daemons"></a>Configuring the Hadoop Daemons</h3><p>This section deals with important parameters to be specified in the given<br>configuration files:</p>
+<ul>
+<li><code>etc/hadoop/core-site.xml</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fs.defaultFS</code></td>
+<td>NameNode URI</td>
+<td>hdfs://host:port/</td>
+</tr>
+<tr>
+<td><code>io.file.buffer.size</code></td>
+<td>131072</td>
+<td>Size of read/write buffer used in SequenceFiles.  </td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><code>etc/hadoop/hdfs-site.xml</code></p>
+</li>
+<li><p>Configurations for NameNode:</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dfs.namenode.name.dir</code></td>
+<td>Path on the local filesystem where the NameNode stores the namespace and transactions logs persistently.</td>
+<td>If this is a comma-delimited list of directories then the name table is replicated in all of the directories, for redundancy. </td>
+</tr>
+<tr>
+<td><code>dfs.hosts</code> / <code>dfs.hosts.exclude</code></td>
+<td>List of permitted/excluded DataNodes.</td>
+<td>If necessary, use these files to control the list of allowable datanodes.  </td>
+</tr>
+<tr>
+<td><code>dfs.blocksize</code></td>
+<td>268435456</td>
+<td>HDFS blocksize of 256MB for large file-systems.  </td>
+</tr>
+<tr>
+<td><code>dfs.namenode.handler.count</code></td>
+<td>100</td>
+<td>More NameNode server threads to handle RPCs from large number of DataNodes.  </td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Configurations for DataNode:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dfs.datanode.data.dir</code></td>
+<td>Comma separated list of paths on the local filesystem of a <code>DataNode</code> where it should store its blocks.</td>
+<td>If his is a comma-delimited list of directories, then data will be stored in all named directories, typically on different devices.  </td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><code>etc/hadoop/yarn-site.xml</code></p>
+</li>
+<li><p>Configurations for ResourceManager and NodeManager:</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yarn.acl.enable</code></td>
+<td><code>true</code> / <code>false</code></td>
+<td>Enable ACLs? Defaults to <em>false</em>.  </td>
+</tr>
+<tr>
+<td><code>yarn.admin.acl</code></td>
+<td>Admin ACL</td>
+<td>ACL to set admins on the cluster. ACLs are of for <em>comma-separated-usersspacecomma-separated-groups</em>. Defaults to special value of <strong>*</strong> which means <em>anyone</em>. Special value of just <em>space</em> means no one has access.  </td>
+</tr>
+<tr>
+<td><code>yarn.log-aggregation-enable</code></td>
+<td><em>false</em></td>
+<td>Configuration to enable or disable log aggregation  </td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Configurations for ResourceManager:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yarn.resourcemanager.address</code></td>
+<td><code>ResourceManager</code> host:port for clients to submit jobs.</td>
+<td><em>host:port</em> If set, overrides the hostname set in <code>yarn.resourcemanager.hostname</code>.  </td>
+</tr>
+<tr>
+<td><code>yarn.resourcemanager.scheduler.address</code></td>
+<td><code>ResourceManager</code> host:port for ApplicationMasters to talk to Scheduler to obtain resources.</td>
+<td><em>host:port</em> If set, overrides the hostname set in <code>yarn.resourcemanager.hostname</code>.  </td>
+</tr>
+<tr>
+<td><code>yarn.resourcemanager.resource-tracker.address</code></td>
+<td><code>ResourceManager</code> host:port for NodeManagers.</td>
+<td><em>host:port</em> If set, overrides the hostname set in <code>yarn.resourcemanager.hostname</code>.  </td>
+</tr>
+<tr>
+<td><code>yarn.resourcemanager.admin.address</code></td>
+<td><code>ResourceManager</code> host:port for administrative commands.</td>
+<td><em>host:port</em> If set, overrides the hostname set in <code>yarn.resourcemanager.hostname</code>.</td>
+</tr>
+<tr>
+<td><code>yarn.resourcemanager.webapp.address</code></td>
+<td><code>ResourceManager</code> web-ui host:port.</td>
+<td><em>host:port</em> If set, overrides the hostname set in <code>yarn.resourcemanager.hostname</code>.</td>
+</tr>
+<tr>
+<td><code>yarn.resourcemanager.hostname</code></td>
+<td><code>ResourceManager</code> host.</td>
+<td><em>host</em> Single hostname that can be set in place of setting all <code>yarn.resourcemanager*address</code> resources. Results in default ports for ResourceManager components.  </td>
+</tr>
+<tr>
+<td><code>yarn.resourcemanager.scheduler.class</code></td>
+<td><code>ResourceManager</code> Scheduler class.</td>
+<td><code>CapacityScheduler</code> (recommended), <code>FairScheduler</code> (also recommended), or <code>FifoScheduler</code>  </td>
+</tr>
+<tr>
+<td><code>yarn.scheduler.minimum-allocation-mb</code></td>
+<td>Minimum limit of memory to allocate to each container request at the <code>Resource Manager</code>.</td>
+<td>In MBs  </td>
+</tr>
+<tr>
+<td><code>yarn.scheduler.maximum-allocation-mb</code></td>
+<td>Maximum limit of memory to allocate to each container request at the <code>Resource Manager</code>.</td>
+<td>In MBs </td>
+</tr>
+<tr>
+<td><code>yarn.resourcemanager.nodes.include-path</code> / <code>yarn.resourcemanager.nodes.exclude-path</code></td>
+<td>List of permitted/excluded NodeManagers.</td>
+<td>If necessary, use these files to control the list of allowable NodeManagers.    </td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Configurations for NodeManager:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yarn.nodemanager.resource.memory-mb</code></td>
+<td>Resource i.e. available physical memory, in MB, for given <code>NodeManager</code></td>
+<td>Defines total available resources on the <code>NodeManager</code> to be made available to running containers  </td>
+</tr>
+<tr>
+<td><code>yarn.nodemanager.vmem-pmem-ratio</code></td>
+<td>Maximum ratio by which virtual memory usage of tasks may exceed physical memory</td>
+<td>The virtual memory usage of each task may exceed its physical memory limit by this ratio. The total amount of virtual memory used by tasks on the NodeManager may exceed its physical memory usage by this ratio.  </td>
+</tr>
+<tr>
+<td><code>yarn.nodemanager.local-dirs</code></td>
+<td>Comma-separated list of paths on the local filesystem where intermediate data is written.</td>
+<td>Multiple paths help spread disk i/o.  </td>
+</tr>
+<tr>
+<td><code>yarn.nodemanager.log-dirs</code></td>
+<td>Comma-separated list of paths on the local filesystem where logs are written.</td>
+<td>Multiple paths help spread disk i/o.  </td>
+</tr>
+<tr>
+<td><code>yarn.nodemanager.log.retain-seconds</code></td>
+<td><em>10800</em></td>
+<td>Default time (in seconds) to retain log files on the NodeManager Only applicable if log-aggregation is disabled.  </td>
+</tr>
+<tr>
+<td><code>yarn.nodemanager.remote-app-log-dir</code></td>
+<td><em>/logs</em></td>
+<td>HDFS directory where the application logs are moved on application completion. Need to set appropriate permissions. Only applicable if log-aggregation is enabled.  </td>
+</tr>
+<tr>
+<td><code>yarn.nodemanager.remote-app-log-dir-suffix</code></td>
+<td><em>logs</em></td>
+<td>Suffix appended to the remote log dir. Logs will be aggregated to ${yarn.nodemanager.remote-app-log-dir}/${user}/${thisParam} Only applicable if log-aggregation is enabled.  </td>
+</tr>
+<tr>
+<td><code>yarn.nodemanager.aux-services</code></td>
+<td>mapreduce_shuffle</td>
+<td>Shuffle service that needs to be set for Map Reduce applications.  </td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Configurations for History Server (Needs to be moved elsewhere):</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yarn.log-aggregation.retain-seconds</code></td>
+<td><em>-1</em></td>
+<td>How long to keep aggregation logs before deleting them. -1 disables. Be careful, set this too small and you will spam the name node.  </td>
+</tr>
+<tr>
+<td><code>yarn.log-aggregation.retain-check-interval-seconds</code></td>
+<td><em>-1</em></td>
+<td>Time between checks for aggregated log retention. If set to 0 or a negative value then the value is computed as one-tenth of the aggregated log retention time. Be careful, set this too small and you will spam the name node.  </td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><code>etc/hadoop/mapred-site.xml</code></p>
+</li>
+<li><p>Configurations for MapReduce Applications:</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mapreduce.framework.name</code></td>
+<td>yarn</td>
+<td>Execution framework set to Hadoop YARN.  </td>
+</tr>
+<tr>
+<td><code>mapreduce.map.memory.mb</code></td>
+<td>1536</td>
+<td>Larger resource limit for maps.  </td>
+</tr>
+<tr>
+<td><code>mapreduce.map.java.opts</code></td>
+<td>-Xmx1024M</td>
+<td>Larger heap-size for child jvms of maps.  </td>
+</tr>
+<tr>
+<td><code>mapreduce.reduce.memory.mb</code></td>
+<td>3072</td>
+<td>Larger resource limit for reduces.  </td>
+</tr>
+<tr>
+<td><code>mapreduce.reduce.java.opts</code></td>
+<td>-Xmx2560M</td>
+<td>Larger heap-size for child jvms of reduces.  </td>
+</tr>
+<tr>
+<td><code>mapreduce.task.io.sort.mb</code></td>
+<td>512</td>
+<td>Higher memory-limit while sorting data for efficiency.  </td>
+</tr>
+<tr>
+<td><code>mapreduce.task.io.sort.factor</code></td>
+<td>100</td>
+<td>More streams merged at once while sorting files.  </td>
+</tr>
+<tr>
+<td><code>mapreduce.reduce.shuffle.parallelcopies</code></td>
+<td>50</td>
+<td>Higher number of parallel copies run by reduces to fetch outputs from very large number of maps.  </td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Configurations for MapReduce JobHistory Server:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mapreduce.jobhistory.address</code></td>
+<td>MapReduce JobHistory Server <em>host:port</em></td>
+<td>Default port is 10020.  </td>
+</tr>
+<tr>
+<td><code>mapreduce.jobhistory.webapp.address</code></td>
+<td>MapReduce JobHistory Server Web UI<em>host:port</em></td>
+<td>Default port is 19888.  </td>
+</tr>
+<tr>
+<td><code>mapreduce.jobhistory.intermediate-done-dir</code></td>
+<td>/mr-history/tmp</td>
+<td>Directory where history files are written by MapReduce jobs.  </td>
+</tr>
+<tr>
+<td><code>mapreduce.jobhistory.done-dir</code></td>
+<td>/mr-history/done</td>
+<td>Directory where history files are managed by the MR JobHistory Server.  </td>
+</tr>
+</tbody>
+</table>
+<h2 id="Monitoring_Health_of_NodeManagers"><a href="#Monitoring_Health_of_NodeManagers" class="headerlink" title="Monitoring Health of NodeManagers"></a>Monitoring Health of NodeManagers</h2><p>Hadoop provides a mechanism by which administrators can configure the<br>NodeManager to run an administrator supplied script periodically to determine<br>if a node is healthy or not.</p>
+<p>Administrators can determine if the node is in a healthy state by performing<br>any checks of their choice in the script. If the script detects the node to be<br>in an unhealthy state, it must print a line to standard output beginning with<br>the string ERROR. The NodeManager spawns the script periodically and checks<br>its output. If the script’s output contains the string ERROR, as described<br>above, the node’s status is reported as <code>unhealthy</code> and the node is black-<br>listed by the ResourceManager. No further tasks will be assigned to this node.<br>However, the NodeManager continues to run the script, so that if the node<br>becomes healthy again, it will be removed from the blacklisted nodes on the<br>ResourceManager automatically. The node’s health along with the output of the<br>script, if it is unhealthy, is available to the administrator in the<br>ResourceManager web interface. The time since the node was healthy is also<br>displayed on the web interface.</p>
+<p>The following parameters can be used to control the node health monitoring<br>script in <code>etc/hadoop/yarn-site.xml</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yarn.nodemanager.health-checker.script.path</code></td>
+<td>Node health script</td>
+<td>Script to check for node’s health status.  </td>
+</tr>
+<tr>
+<td><code>yarn.nodemanager.health-checker.script.opts</code></td>
+<td>Node health script options</td>
+<td>Options for script to check for node’s health status.  </td>
+</tr>
+<tr>
+<td><code>yarn.nodemanager.health-checker.script.interval-ms</code></td>
+<td>Node health script interval</td>
+<td>Time interval for running health script.  </td>
+</tr>
+<tr>
+<td><code>yarn.nodemanager.health-checker.script.timeout-ms</code></td>
+<td>Node health script timeout interval</td>
+<td>Timeout for health script execution.  </td>
+</tr>
+</tbody>
+</table>
+<p>The health checker script is not supposed to give ERROR if only some of the<br>local disks become bad. NodeManager has the ability to periodically check the<br>health of the local disks (specifically checks nodemanager-local-dirs and<br>nodemanager-log-dirs) and after reaching the threshold of number of bad<br>directories based on the value set for the config property yarn.nodemanager<br>.disk-health-checker.min-healthy-disks, the whole node is marked unhealthy and<br>this info is sent to resource manager also. The boot disk is either raided or<br>a failure in the boot disk is identified by the health checker script.</p>
+<h2 id="Slaves_File"><a href="#Slaves_File" class="headerlink" title="Slaves File"></a>Slaves File</h2><p>List all slave hostnames or IP addresses in your <code>etc/hadoop/slaves</code> file, one<br>per line. Helper scripts (described below) will use the <code>etc/hadoop/slaves</code><br>file to run commands on many hosts at once. It is not used for any of the<br>Java-based Hadoop configuration. In order to use this functionality, ssh<br>trusts (via either passphraseless ssh or some other means, such as Kerberos)<br>must be established for the accounts used to run Hadoop.</p>
+<h2 id="Hadoop_Rack_Awareness"><a href="#Hadoop_Rack_Awareness" class="headerlink" title="Hadoop Rack Awareness"></a>Hadoop Rack Awareness</h2><p>Many Hadoop components are rack-aware and take advantage of the network<br>topology for performance and safety. Hadoop daemons obtain the rack<br>information of the slaves in the cluster by invoking an administrator<br>configured module. See the <a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/RackAwareness.html" target="_blank" rel="external">Rack<br>Awareness</a> documentation for more specific information.</p>
+<p>It is highly recommended configuring rack awareness prior to starting HDFS.</p>
+<h2 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h2><p>Hadoop uses the <a href="http://logging.apache.org/log4j/2.x/" target="_blank" rel="external">Apache log4j</a> via the<br>Apache Commons Logging framework for logging. Edit the<br><code>etc/hadoop/log4j.properties</code> file to customize the Hadoop daemons’ logging<br>configuration (log-formats and so on).</p>
+<h2 id="Operating_the_Hadoop_Cluster"><a href="#Operating_the_Hadoop_Cluster" class="headerlink" title="Operating the Hadoop Cluster"></a>Operating the Hadoop Cluster</h2><p>Once all the necessary configuration is complete, distribute the files to the<br><code>HADOOP_CONF_DIR</code> directory on all the machines. This should be the same<br>directory on all machines.</p>
+<p>In general, it is recommended that HDFS and YARN run as separate users. In the<br>majority of installations, HDFS processes execute as ‘hdfs’. YARN is typically<br>using the ‘yarn’ account.</p>
+<h3 id="Hadoop_Startup"><a href="#Hadoop_Startup" class="headerlink" title="Hadoop Startup"></a>Hadoop Startup</h3><p>To start a Hadoop cluster you will need to start both the HDFS and YARN<br>cluster.</p>
+<p>The first time you bring up HDFS, it must be formatted. Format a new<br>distributed filesystem as <em>hdfs</em>:</p>
+<pre><code>[hdfs]$ $HADOOP_PREFIX/bin/hdfs namenode -format &lt;cluster_name&gt;
+</code></pre><p>Start the HDFS NameNode with the following command on the designated node as<br><em>hdfs</em>:</p>
+<pre><code>[hdfs]$ $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode
+</code></pre><p>Start a HDFS DataNode with the following command on each designated node as<br><em>hdfs</em>:</p>
+<pre><code>[hdfs]$ $HADOOP_PREFIX/sbin/hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs start datanode
+</code></pre><p>If <code>etc/hadoop/slaves</code> and ssh trusted access is configured (see <a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SingleCluster.html" target="_blank" rel="external">Single Node<br>Setup</a>), all of the HDFS processes can be started with a<br>utility script. As <em>hdfs</em>:</p>
+<pre><code>[hdfs]$ $HADOOP_PREFIX/sbin/start-dfs.sh
+</code></pre><p>Start the YARN with the following command, run on the designated<br>ResourceManager as <em>yarn</em>:</p>
+<pre><code>[yarn]$ $HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager
+</code></pre><p>Run a script to start a NodeManager on each designated host as <em>yarn</em>:</p>
+<pre><code>[yarn]$ $HADOOP_YARN_HOME/sbin/yarn-daemons.sh --config $HADOOP_CONF_DIR start nodemanager
+</code></pre><p>Start a standalone WebAppProxy server. Run on the WebAppProxy server as<br><em>yarn</em>. If multiple servers are used with load balancing it should be run on<br>each of them:</p>
+<pre><code>[yarn]$ $HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start proxyserver
+</code></pre><p>If <code>etc/hadoop/slaves</code> and ssh trusted access is configured (see <a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SingleCluster.html" target="_blank" rel="external">Single Node<br>Setup</a>), all of the YARN processes can be started with a<br>utility script. As <em>yarn</em>:</p>
+<pre><code>[yarn]$ $HADOOP_PREFIX/sbin/start-yarn.sh
+</code></pre><p>Start the MapReduce JobHistory Server with the following command, run on the<br>designated server as <em>mapred</em>:</p>
+<pre><code>[mapred]$ $HADOOP_PREFIX/sbin/mr-jobhistory-daemon.sh --config $HADOOP_CONF_DIR start historyserver
+</code></pre><h3 id="Hadoop_Shutdown"><a href="#Hadoop_Shutdown" class="headerlink" title="Hadoop Shutdown"></a>Hadoop Shutdown</h3><p>Stop the NameNode with the following command, run on the designated NameNode<br>as <em>hdfs</em>:</p>
+<pre><code>[hdfs]$ $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs stop namenode
+</code></pre><p>Run a script to stop a DataNode as <em>hdfs</em>:</p>
+<pre><code>[hdfs]$ $HADOOP_PREFIX/sbin/hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs stop datanode
+</code></pre><p>If <code>etc/hadoop/slaves</code> and ssh trusted access is configured (see <a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-
+common/SingleCluster.html" target="_blank" rel="external">Single Node<br>Setup</a>), all of the HDFS processes may be stopped with a<br>utility script. As <em>hdfs</em>:</p>
+<pre><code>[hdfs]$ $HADOOP_PREFIX/sbin/stop-dfs.sh
+</code></pre><p>Stop the ResourceManager with the following command, run on the designated<br>ResourceManager as <em>yarn</em>:</p>
+<pre><code>[yarn]$ $HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR stop resourcemanager
+</code></pre><p>Run a script to stop a NodeManager on a slave as <em>yarn</em>:</p>
+<pre><code>[yarn]$ $HADOOP_YARN_HOME/sbin/yarn-daemons.sh --config $HADOOP_CONF_DIR stop nodemanager
+</code></pre><p>If <code>etc/hadoop/slaves</code> and ssh trusted access is configured (see <a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-
+common/SingleCluster.html" target="_blank" rel="external">Single Node<br>Setup</a>), all of the YARN processes can be stopped with a<br>utility script. As <em>yarn</em>:</p>
+<pre><code>[yarn]$ $HADOOP_PREFIX/sbin/stop-yarn.sh
+</code></pre><p>Stop the WebAppProxy server. Run on the WebAppProxy server as <em>yarn</em>. If<br>multiple servers are used with load balancing it should be run on each of<br>them:</p>
+<pre><code>[yarn]$ $HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR stop proxyserver
+</code></pre><p>Stop the MapReduce JobHistory Server with the following command, run on the<br>designated server as <em>mapred</em>:</p>
+<pre><code>[mapred]$ $HADOOP_PREFIX/sbin/mr-jobhistory-daemon.sh --config $HADOOP_CONF_DIR stop historyserver
+</code></pre><h2 id="Web_Interfaces"><a href="#Web_Interfaces" class="headerlink" title="Web Interfaces"></a>Web Interfaces</h2><p>Once the Hadoop cluster is up and running check the web-ui of the components<br>as described below:</p>
+<table>
+<thead>
+<tr>
+<th>Daemon</th>
+<th>Web Interface</th>
+<th>Notes  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NameNode</td>
+<td><a href="http://nn_host:port/" target="_blank" rel="external">http://nn_host:port/</a></td>
+<td>Default HTTP port is 50070.  </td>
+</tr>
+<tr>
+<td>ResourceManager</td>
+<td><a href="http://rm_host:port/" target="_blank" rel="external">http://rm_host:port/</a></td>
+<td>Default HTTP port is 8088.  </td>
+</tr>
+<tr>
+<td>MapReduce JobHistory Server</td>
+<td><a href="http://jhs_host:port/" target="_blank" rel="external">http://jhs_host:port/</a></td>
+<td>Default HTTP port is</td>
+</tr>
+</tbody>
+</table>
+<p>19888.</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hadoop/" rel="tag">#hadoop</a>
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/elasticsearch-down-for-heap-size/" rel="next" title="elasticsearch down for heap size">
+                <i class="fa fa-chevron-left"></i> elasticsearch down for heap size
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/hadoop-cluster-setup-zh_CN/" rel="prev" title="Hadoop集群设置">
+                Hadoop集群设置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="hadoop-cluster-setup-en_US/"
+           data-title="Hadoop Cluster Setup" data-url="http://yoursite.com/hadoop-cluster-setup-en_US/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/touxiang.jpg" alt="xiuyanduan" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">xiuyanduan</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">DevOps</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">categories</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiuyanduan" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/xiuyanduan" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 新浪微博
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Purpose"><span class="nav-number">1.</span> <span class="nav-text">Purpose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prerequisites"><span class="nav-number">2.</span> <span class="nav-text">Prerequisites</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">3.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configuring_Hadoop_in_Non-Secure_Mode"><span class="nav-number">4.</span> <span class="nav-text">Configuring Hadoop in Non-Secure Mode</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring_Environment_of_Hadoop_Daemons"><span class="nav-number">4.1.</span> <span class="nav-text">Configuring Environment of Hadoop Daemons</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring_the_Hadoop_Daemons"><span class="nav-number">4.2.</span> <span class="nav-text">Configuring the Hadoop Daemons</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Monitoring_Health_of_NodeManagers"><span class="nav-number">5.</span> <span class="nav-text">Monitoring Health of NodeManagers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Slaves_File"><span class="nav-number">6.</span> <span class="nav-text">Slaves File</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hadoop_Rack_Awareness"><span class="nav-number">7.</span> <span class="nav-text">Hadoop Rack Awareness</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logging"><span class="nav-number">8.</span> <span class="nav-text">Logging</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Operating_the_Hadoop_Cluster"><span class="nav-number">9.</span> <span class="nav-text">Operating the Hadoop Cluster</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop_Startup"><span class="nav-number">9.1.</span> <span class="nav-text">Hadoop Startup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop_Shutdown"><span class="nav-number">9.2.</span> <span class="nav-text">Hadoop Shutdown</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web_Interfaces"><span class="nav-number">10.</span> <span class="nav-text">Web Interfaces</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiuyanduan</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xiuyanduan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+     
+  	  <script type="text/javascript">
+  		var duoshuo_user_ID = 6228038773616150000
+      var duoshuo_admin_nickname="博主"
+  	  </script>
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
