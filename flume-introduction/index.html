@@ -1,0 +1,967 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="QvqfId7mK9l-1Cz8SD88-JrVJVMPRfZdeIhfUAOPMKI" />
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hadoop,flume," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="原创翻译自Hadoop: The Definitive Guide, 4th Edition
+Hadoop被设计用来处理很大量的数据。通常认为这些数据已经存储在HDFS，或者可以大量复制。然而，很多系统不满足这些假设。这些系统产生大量的数据流需要使用Hadoop结构化、存储、分析，Apache Flume就是被设计用来做这些工作的。
+Flume被设计用来将大量数据驱动的数据传入Hadoop，典型应">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flume introduction">
+<meta property="og:url" content="http://yoursite.com/flume-introduction/index.html">
+<meta property="og:site_name" content="xyduan">
+<meta property="og:description" content="原创翻译自Hadoop: The Definitive Guide, 4th Edition
+Hadoop被设计用来处理很大量的数据。通常认为这些数据已经存储在HDFS，或者可以大量复制。然而，很多系统不满足这些假设。这些系统产生大量的数据流需要使用Hadoop结构化、存储、分析，Apache Flume就是被设计用来做这些工作的。
+Flume被设计用来将大量数据驱动的数据传入Hadoop，典型应">
+<meta property="og:image" content="http://yoursite.com/images/flume_1.JPG">
+<meta property="og:image" content="http://yoursite.com/images/flume_2.JPG">
+<meta property="og:image" content="http://yoursite.com/images/flume_3.JPG">
+<meta property="og:image" content="http://yoursite.com/images/flume_4.JPG">
+<meta property="og:image" content="http://yoursite.com/images/flume_5.JPG">
+<meta property="og:image" content="http://yoursite.com/images/flume_6.JPG">
+<meta property="og:updated_time" content="2016-06-20T02:23:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="flume introduction">
+<meta name="twitter:description" content="原创翻译自Hadoop: The Definitive Guide, 4th Edition
+Hadoop被设计用来处理很大量的数据。通常认为这些数据已经存储在HDFS，或者可以大量复制。然而，很多系统不满足这些假设。这些系统产生大量的数据流需要使用Hadoop结构化、存储、分析，Apache Flume就是被设计用来做这些工作的。
+Flume被设计用来将大量数据驱动的数据传入Hadoop，典型应">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> flume introduction | xyduan </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0f6ac7dc052641b1a15dd123d65de6f8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xyduan</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'wW5A5ZBWFntDM79FcGFk','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                flume introduction
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-06-20T00:00:00+08:00" content="2016-06-20">
+              2016-06-20
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/flume-introduction/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="flume-introduction/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>原创翻译自<a href="http://shop.oreilly.com/product/0636920033448.do" target="_blank" rel="external">Hadoop: The Definitive Guide, 4th Edition</a></p>
+<p>Hadoop被设计用来处理很大量的数据。通常认为这些数据已经存储在HDFS，或者可以大量复制。然而，很多系统不满足这些假设。这些系统产生大量的数据流需要使用Hadoop结构化、存储、分析，Apache Flume就是被设计用来做这些工作的。</p>
+<p>Flume被设计用来将大量数据驱动的数据传入Hadoop，典型应用场景是使用Flume收集银行web服务器的日志，然后将这些日志聚合到新的汇总文件并传入HDFS处理。通常的传输目的地(在Flume中的sink)是HDFS。然而，Flume足够灵活也能够写入到其他系统，例如HBase和Solr。<br><a id="more"></a><br>为了使用Flume，需要运行Flume <em>agent</em>端（下文翻译为客户端），这是一个Java的常驻进程，运行<em>sources</em>和<em>sinks</em>，连接<em>channels</em>。Flume中的<em>sources</em>产生<em>events</em>（以下翻译为事件）并将它们传送到<em>channel</em>，<em>channel</em>会存储这些<em>events</em>直到它们被送到<em>sink</em>中。可以认为<em>source-channel-sink</em>结合是一个基本的Flume组成部分。</p>
+<p>Flume的安装由收集分布式拓扑结构中运行的客户端组成。处于系统边缘的客户端（例如web服务器）收集数据，转发到负责汇总的客户端，最后存储到最终目的地。指定的<em>sources</em>和<em>sinks</em>客户端被配置用来运行收集工作，实际上使用Flume就是将这些配置放到一起的实践。本文将描述如何搭建Flume拓扑作为Hadoop生态圈的一部分</p>
+<h1 id="u5B89_u88C5Flume"><a href="#u5B89_u88C5Flume" class="headerlink" title="安装Flume"></a>安装Flume</h1><p>从<a href="http://flume.apache.org/download.html" target="_blank" rel="external">官网</a>选择一个稳定版本的可执行压缩包下载Flume，在合适的位置解压tar包：<br><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">% <span class="tag">tar</span> <span class="tag">xzf</span> <span class="tag">apache-flume-x</span><span class="class">.y</span><span class="class">.z-bin</span><span class="class">.tar</span><span class="class">.gz</span></span><br></pre></td></tr></table></figure></p>
+<p>配置环境变量：<br><figure class="highlight xquery"><table><tr><td class="code"><pre><span class="line">% export FLUME_HOME=~/sw/apache-flume-x.y.z-bin</span><br><span class="line">% export PATH=<span class="variable">$PATH</span>:<span class="variable">$FLUME</span>_HOME/bin</span><br></pre></td></tr></table></figure></p>
+<p>Flume客户端可以使用<code>flume-ng</code>命令启动，如下所述。</p>
+<h1 id="u793A_u4F8B"><a href="#u793A_u4F8B" class="headerlink" title="示例"></a>示例</h1><p>为了显示Flume如何工作，让我们从以下设置开始：</p>
+<ol>
+<li>追踪本地文件目录的新文本文档</li>
+<li>发送文件新增的每一行到数据流</li>
+</ol>
+<p>现在手动增加文件，但很容易假设一个进程（例如web服务器）不断产生新文件需要被Flume摄取。在生产环境中，不仅仅是记录文件，还需要通过后来的处理将这些内容写入到HDFS——下文会详述。</p>
+<p>在本例中，Flume客户端运行一个单独的<em>source-channel-sink</em>，通过一个Java properties文件配置。配置文件决定了使用<em>sources</em>、<em>sinks</em>和<em>channels</em>的类型，它们是互相关联的。如下例所示：<br><figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Flume configuration using a spooling directory source and a logger sink</span></span><br><span class="line">agent1.sources = source1</span><br><span class="line">agent1.sinks = sink1</span><br><span class="line">agent1.channels = channel1</span><br><span class="line">agent1.sources.source1.channels = channel1</span><br><span class="line">agent1.sinks.sink1.channel = channel1</span><br><span class="line">agent1.sources.source1.<span class="keyword">type</span> = spooldir</span><br><span class="line">agent1.sources.source1.spoolDir = <span class="regexp">/tmp/spooldir</span></span><br><span class="line">agent1.sinks.sink1.<span class="keyword">type</span> = logger</span><br><span class="line">agent1.channels.channel1.<span class="keyword">type</span> = file</span><br></pre></td></tr></table></figure></p>
+<p>客户端的层次结构属性名在最顶端。在本例中，只有一个叫做<strong>agent1</strong>的客户端。客户端不同组件的名称在下一层级设置，例如<em>agent1.sources</em>描述了在<strong>agent1</strong>上运行的<em>sources</em>（本例是一个单独的<em>sources</em>，<strong>source1</strong>）。类似地，<strong>agent1</strong>也有<em>sink</em>（<strong>sink1</strong>）和<em>channel</em>（<strong>channel1</strong>）。</p>
+<p>每一个组件的属性在下一层次结构设置，属性的配置根据属性不同而可用。在本例中<strong>agent1.sources.source1.type</strong>被设置为<strong>spooldir</strong>，这是一个spooling directory source，监控新文件的spooling目录。spooling directory source定义了<strong>spoolDir</strong>属性，完整的键值是agent1.sources.source1.spoolDir。source的channel由agent1.sources.source1.channels设置。</p>
+<p><em>sink</em>是一个<strong>logger</strong>，记录事件到输出，它必须和channel（通过<strong>agent1.sinks.sink1.channel property</strong>设置）连接。channel是一个<strong>file</strong>channel，意味着在channel中的事件会永久保存到磁盘中，整个系统的说明如下图所示</p>
+<p><img src="/images/flume_1.JPG" alt="flume_1.JPG"></p>
+<p>在运行例子之前，我们需要在本地文件系统上新建spooling目录：<br><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /tmp/spooldir</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>flume-ng</code>命令启动Flume客户端：<br><figure class="highlight haml"><table><tr><td class="code"><pre><span class="line"><span class="tag">%</span> flume-ng agent \</span><br><span class="line">-<span class="ruby">-conf-file spool-to-logger.properties \</span><br><span class="line"></span>-<span class="ruby">-name agent1 \</span><br><span class="line"></span>-<span class="ruby">-conf <span class="variable">$FLUME_HOME</span>/conf \</span><br><span class="line"></span>-<span class="ruby"><span class="constant">Dflume</span>.root.logger=<span class="constant">INFO</span>,console</span></span><br></pre></td></tr></table></figure></p>
+<p>如上例中Flume的属性文件需要<strong>–conf-file</strong>指定，客户端的名字必须通过<strong>–name</strong>指定（因Flume可以设置多个客户端，需要指定哪个运行）。<strong>–conf</strong>参数告知Flume寻找它的配置文件，与环境变量类似。</p>
+<p>在一个新的终端，在spooling目录内新建一个文件，假设这个文件不可改变。为了阻止source读取并改写文件，将内容写入到隐藏文件中。再将文件重命名使source可以读取到：<br><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">% echo <span class="string">"Hello Flume"</span> &gt; <span class="regexp">/tmp/</span>spooldir/.file1.txt</span><br><span class="line">% mv <span class="regexp">/tmp/</span>spooldir<span class="regexp">/.file1.txt /</span>tmp<span class="regexp">/spooldir/</span>file1.txt</span><br></pre></td></tr></table></figure></p>
+<p>客户端终端的后台，可以看到Flume已经探测到并处理该文件<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">Preparing to move file /tmp/spooldir/file1.txt to</span><br><span class="line">/tmp/spooldir/file1.txt.COMPLETED</span><br><span class="line">Event: &#123; headers:&#123;&#125; body: <span class="number">48</span> <span class="number">65</span> <span class="number">6</span>C <span class="number">6</span>C <span class="number">6F</span> <span class="number">20</span> <span class="number">46</span> <span class="number">6</span>C <span class="number">75</span> <span class="number">6</span>D <span class="number">65</span> Hello Flume &#125;</span><br></pre></td></tr></table></figure></p>
+<p>spooling目录将文件按行切割来摄取，每行均产生Flume事件。事件有一个可选的头部和二进制的正文，文档的编写格式为UTF-8。正文部分被sink用十六进制和字符串的形式记录。上文放到spooling目录下的文件只有一行，故只有一个事件在本例中被记录。可以看到文件被soucre重命名为<em>file1.txt.COMPLETED</em>，意味着Flume已经处理过该文件，且不会再处理</p>
+<h1 id="u4E8B_u52A1_u548C_u53EF_u9760_u6027"><a href="#u4E8B_u52A1_u548C_u53EF_u9760_u6027" class="headerlink" title="事务和可靠性"></a>事务和可靠性</h1><p>Flume将<em>source</em>传送到<em>channel</em>中，从<em>channel</em>传送到<em>sink</em>的过程中使用分享的事务。上文所述的例子中，spooling目录的source文件中的每一行产生了一个事件。只有事务成功提交之后，source才会将文件标记为完成。</p>
+<p>类似的，事务也被用在<em>channel</em>到<em>sink</em>的传输。如果某些原因导致事件不能被记录，事务会回滚，事件会保持在<em>channel</em>中，以用于之后的传输。</p>
+<p>上文提到的<em>channel</em>是一个<em>file channel</em>，拥有持久化存储的属性：一旦事件被写入到<em>channel</em>中，它不会丢失，即使客户端重启。（Flume也提供一个<em>memory channel</em>，因为事件存储在内存中，它没有这种特性持久化存储特性，这种<em>channel</em>的事件在客户端重启后会丢失。根据不同的应用场景，这也许可接受。相比之下，<em>memory channel</em>比<em>file channel</em>有更高的吞吐量。</p>
+<p>整体效果上，每个<em>source</em>产生的事件都会到达<em>sink</em>。注意，每个事件会到达<em>sink</em> <em>至少一次</em>，这表明，有重复的可能。副本可能由<em>sources</em>或<em>sinks</em>产生，例如，在客户端重启后，<em>spooling directory</em>的<em>source</em>会重新发送一个未完成的文件，尽管它们部分已经在重启之前提交到<em>channel</em>。重启之后，<em>logger sink</em>会重新记录未被提交事务的任何事件。</p>
+<p><em>至少一次</em>(<em>at-least-once</em>)看起来是限制, 但实际上是可以接受的权衡。<em>完全一次</em>需要一个两步的提交协议，消耗更多资源。这个选择是区分Flume（一个高容量并行事件接收系统）和其他传统的企业消息系统（<em>完全一次</em>）。<em>at-least-once</em>产生的重复事件可以在处理的管道流中删除。通常这需要MapReduce或者Hive编写特定的应用程序删除。</p>
+<h2 id="Batching_uFF08_u5B9A_u91CF_uFF1F_uFF09"><a href="#Batching_uFF08_u5B9A_u91CF_uFF1F_uFF09" class="headerlink" title="Batching（定量？）"></a>Batching（定量？）</h2><p>为了提高效率，Flume尽可能尝试批量处理事件的事务，而不是一个一个处理。批量处理提高了file channel的性能，因为每个事务写入到本地磁盘并且调用<strong>fsync</strong></p>
+<p>批量处理的大小由组件决定，并在许多情况下可配置，例如，<em>spooling</em>目录会100行批量读取文件（可以通过修改batchSize属性设置）。类似的，<em>Avro sink</em>在将事件通过RPC发送之前试图读取100个来自<em>channel</em>的事件，如果有更少的事件也不会影响。</p>
+<h1 id="The_HDFS_Sink"><a href="#The_HDFS_Sink" class="headerlink" title="The HDFS Sink"></a>The HDFS Sink</h1><p>Flume的一个优势在于传输大量数据到Hadoop存储，来看下如何配置Flume客户端将事件传到HDFS sink。下面的配置示例将之前的例子更改为使用HDFS sink。只需要指定sink类型为<strong>hdfs</strong>和<strong>hdfs.path</strong>（指定存放路径，通常为<strong>fs.defaultFS</strong>）两个属性。也已经指定有意义的文件前缀和后缀，表明Flume将事件用文本格式写入到文件中。</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="id">#Flume</span> configuration using <span class="tag">a</span> spooling directory source and an HDFS</span><br><span class="line">sink</span><br><span class="line">agent1<span class="class">.sources</span> = source1</span><br><span class="line">agent1<span class="class">.sinks</span> = sink1</span><br><span class="line">agent1<span class="class">.channels</span> = channel1</span><br><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.channels</span> = channel1</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1</span><span class="class">.channel</span> = channel1</span><br><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.type</span> = spooldir</span><br><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.spoolDir</span> = /tmp/spooldir</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1</span><span class="class">.type</span> = hdfs</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1</span><span class="class">.hdfs</span><span class="class">.path</span> = /tmp/flume</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1</span><span class="class">.hdfs</span><span class="class">.filePrefix</span> = events</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1</span><span class="class">.hdfs</span><span class="class">.fileSuffix</span> = <span class="class">.log</span></span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1</span><span class="class">.hdfs</span><span class="class">.inUsePrefix</span> = _</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1</span><span class="class">.hdfs</span><span class="class">.fileType</span> = DataStream</span><br><span class="line">agent1<span class="class">.channels</span><span class="class">.channel1</span><span class="class">.type</span> = file</span><br></pre></td></tr></table></figure>
+<p>重启客户端，使用<em>spool-to-hdfs.properties</em>配置，在本地目录下新建一个新文件：<br><figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">% echo -e <span class="string">"Hello\nAgain"</span> &gt; <span class="regexp">/tmp/</span>spooldir/.file2.txt</span><br><span class="line">% mv <span class="regexp">/tmp/</span>spooldir<span class="regexp">/.file2.txt /</span>tmp<span class="regexp">/spooldir/</span>file2.txt</span><br></pre></td></tr></table></figure></p>
+<p>现在事件被传输到HDFS并写入到文件中。处理中的文件有一个<em>.tmp</em>的后缀在名字中以表明未被处理完成。在此例中，已经设置<strong>hdfs.inUsePrefix</strong>属性为<em>（下划线，默认为空），这样在处理的文件会它文件名中加入 </em> 前缀。一直持续到MapReduce忽略以下划线开头的文件。因此，一个典型的文件名为<em>_events.1399295780136.log.tmp;</em>，数字为HDFS sink产生的时间戳。</p>
+<p>文件被HDFS sink一直打开，直到指定时间（默认30秒，由<em>hdfs.rollInterval</em>属性决定）、指定大小（默认1024字节，由<em>hdfs.rollSize</em>决定）或指定事件数目（默认10，由<em>hdfs.rollCount</em>决定）。如果任一条件满足，文件关闭，前缀和后缀被删除。新的事件写入到一个新文件（有使用中的前缀和后缀直到处理完）。</p>
+<p>30秒之后，确认文件回滚完，可以看下它的内容<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">% hadoop fs -cat /tmp/flume/events<span class="number">.1399295780136</span>.<span class="built_in">log</span></span><br><span class="line">Hello</span><br><span class="line">Again</span><br></pre></td></tr></table></figure></p>
+<p>HDFS sink写入到文件的用户与运行Flume客户端的用户相同，除非指定了<strong>hdfs.proxyUser</strong>，写入文件由该属性决定</p>
+<h2 id="u5206_u533A_u548C_u62E6_u622A_u5668"><a href="#u5206_u533A_u548C_u62E6_u622A_u5668" class="headerlink" title="分区和拦截器"></a>分区和拦截器</h2><p>大型数集通常需要分区，如果只有一个子集的需要查询，可以限制在特定的分区中进行处理。对于Flume事件数据，通常按时间分区。一个进程可以定期运行，将完成的分区转换（例如删除重复事件）。</p>
+<p>通过设置<strong>hdfs.path</strong>包括时间格式，如下所示，可以改变数据在分区中的存储<br><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">agent1.sinks.sink1.hdfs.path = /tmp/flume/<span class="property">year</span>=%Y/<span class="property">month</span>=%m/<span class="property">day</span>=%d</span><br></pre></td></tr></table></figure></p>
+<p>这我们选择按日分区，但其它级别的颗粒度也可行，需要设置目录存储的schemes。完成格式参考<a href="http://flume.apache.org/FlumeUserGuide.html" target="_blank" rel="external">Flume User Guide</a></p>
+<p>Flume的事件写入分区由事件头部的<strong>timestamp</strong>决定。默认情况下，事件没有头部，但可以使用一个<em>interceptor</em>填加。<em>Interceptor</em>是可以在流中修改或者删除事件的组件，它们附加到sources，在事件被放到sources之前运行。以下的配置增加了一个时间拦截器到<strong>source1</strong>，增加了一个<strong>timestamp</strong>头到每个由source产生的事件中<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.interceptors</span> = interceptor1</span><br><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.interceptors</span><span class="class">.interceptor1</span><span class="class">.type</span> = timestamp</span><br></pre></td></tr></table></figure></p>
+<p>使用时间戳interceptor保证了时间戳反应事件创建的时间。对一些应用来说，当事件写入到HDFS中使用时间戳是充足的，尽管当Flume客户端是多个tiers通常创建时间和写入时间不同，尤其是客户端未运行时的事件。对于这种情况，HDFS sink有一个<strong>hdfs.useLocalTimeStamp</strong>设置，会使用一个运行HDFS sink的Flume客户端生成</p>
+<h2 id="u6587_u4EF6_u683C_u5F0F"><a href="#u6587_u4EF6_u683C_u5F0F" class="headerlink" title="文件格式"></a>文件格式</h2><p>通常来讲，使用二进制格式来存储数据是一个更好的主意，因为它比文本形式占用更少的空间。对HDFS sink来说，文件存储的格式由<em>hdfs.fileType</em>和其它的一些参数共同决定</p>
+<p><em>hdfs.fileType</em>的默认值为<em>SequenceFile</em>，将事件写入到sequence file中,<em>LongWritable</em>包括事件的时间(如果<em>timestamp</em>头部未设置，则包括当前时间戳），<em>BytesWritable</em>值包括事件主体。将<em>hdfs.writeFormat</em>设置为<em>Text</em>后，可以用Text Writable代替BytesWritable写入到sequence file中</p>
+<h1 id="Fan_Out"><a href="#Fan_Out" class="headerlink" title="Fan Out"></a>Fan Out</h1><p><em>Fan out</em>是将事件从一个source传输到多个channels，使它们能达到多个sinks的术语。例如下述配置，可以将事件传送到HDFS sink（通过channel1a传到sink1a）和一个日志sink（channel1b传到sink1b）<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">agent1<span class="class">.sources</span> = source1</span><br><span class="line">agent1<span class="class">.sinks</span> = sink1a sink1b</span><br><span class="line">agent1<span class="class">.channels</span> = channel1a channel1b</span><br><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.channels</span> = channel1a channel1b</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1a</span><span class="class">.channel</span> = channel1a</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1b</span><span class="class">.channel</span> = channel1b</span><br><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.type</span> = spooldir</span><br><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.spoolDir</span> = /tmp/spooldir</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1a</span><span class="class">.type</span> = hdfs</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1a</span><span class="class">.hdfs</span><span class="class">.path</span> = /tmp/flume</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1a</span><span class="class">.hdfs</span><span class="class">.filePrefix</span> = events</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1a</span><span class="class">.hdfs</span><span class="class">.fileSuffix</span> = <span class="class">.log</span></span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1a</span><span class="class">.hdfs</span><span class="class">.fileType</span> = DataStream</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1b</span><span class="class">.type</span> = logger</span><br><span class="line">agent1<span class="class">.channels</span><span class="class">.channel1a</span><span class="class">.type</span> = file</span><br><span class="line">agent1<span class="class">.channels</span><span class="class">.channel1b</span><span class="class">.type</span> = memory</span><br></pre></td></tr></table></figure></p>
+<p>关键改变在于source被配置成传输到多个channels，通过将<strong>agent1.sources.source1.channels</strong>设置成一个channel names之间用空格分隔的列表 ，本例中为channel1a和channel1b。现在，传到logger sink（channel1b）的channel是一个memory channel，因为我们仅为了做测试传输日志事件，并不关心客户端重启时丢失的事件。同样和前述例子相同，每个channel配置一个sink，如下图所示：</p>
+<p><img src="/images/flume_2.JPG" alt="flume_2.JPG"></p>
+<h2 id="Delivery_Guarantees_uFF08_u4F20_u8F93_u4FDD_u8BC1_uFF09"><a href="#Delivery_Guarantees_uFF08_u4F20_u8F93_u4FDD_u8BC1_uFF09" class="headerlink" title="Delivery Guarantees（传输保证）"></a>Delivery Guarantees（传输保证）</h2><p>Flume从spooling directory source到每一个channel使用分离的事务传送定量的事件。在本例中，通过channel传到HDFS sink使用一个事务，另一个事务传送相同的事件量到logger sink的channel。如果这两个事务有任何一个失败了（例如一个channel已满），则事件将从sources中移出，过段时间再重试。</p>
+<p>在本例中，因为我们不在乎是否有事件没有传送到logger sink，所以可以将它的channel设置为一个<em>optional</em>的channel，这样如果和它相关的事务失败了，不会导致事件留在source并重试。（注意如果客户端在两个事务均提交完成之前宕机，有关的事件会在客户端重启之后重新传输，即使未提交的事务channel被标记为<em>optional</em>）为了达到这个目的，设置source中的<em>selector.optional</em>属性，值为用空格分割的channels列表<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.selector</span><span class="class">.optional</span> = channel1b</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<h1 id="near-real-time_indexing"><a href="#near-real-time_indexing" class="headerlink" title="near-real-time indexing"></a>near-real-time indexing</h1><p>给事件加索引是实践中使用fan out的一个很好示例。一个单独的事件source被发送到HDFS sink（主要的事件仓库，故使用了一个必需的channel）和一个Solr（或者Elasticesarch）sink，建立一个搜索索引（使用可选的channel）。<br>MorphlineSolrSink将fileds从Flume事件提取出来将传输到一个Solr文档（使用一个Morphline配置文件），然后载入到一个实时Solr搜索服务中。这个处理过程称作<em>near real time</em>，因为只需要几秒就可以将数据处理并展示到搜索结果中。</p>
+</blockquote>
+<h2 id="u590D_u5236_u548C_u591A_u8DEF_u9009_u62E9_u5668"><a href="#u590D_u5236_u548C_u591A_u8DEF_u9009_u62E9_u5668" class="headerlink" title="复制和多路选择器"></a>复制和多路选择器</h2><p>在通常的fan-our流中，事件被复制到所有的channels——但是更多选择是更可取的，以至一些事件被发送到某个channel，其它事件被发送到其它channel。这可以通过设置source的<em>multiplexing</em>选择器实现，也能定义路由规则引导指定的事件头部到channels中，参见<a href="http://flume.apache.org/FlumeUserGuide.html" target="_blank" rel="external">官方文档</a></p>
+<h1 id="u5206_u5E03_u5F0F_uFF1AAgent_Tiers"><a href="#u5206_u5E03_u5F0F_uFF1AAgent_Tiers" class="headerlink" title="分布式：Agent Tiers"></a>分布式：Agent Tiers</h1><p>如果设置大规模Flume客户端？如果有一个客户端在每一个节点产生新的原始数据，到目前为止的配置，任何时刻每个文件都从一个节点持续性写入到HDFS。如果能够将事件从一组节点聚合到一个文件会更好，这样会产生更少更大的文件（伴随着减少HDFS的压力，并且更有效的处理MapReduce）。同样，如果有必要，文件可以更频繁的回滚因为被更大数量的节点提前数据，导致了从一个事件的建立到可提供分析之间的时间间隔。</p>
+<p>将Flume客户端事件聚合是由Flume客户端的<em>tiers</em>实现的。第一个<em>tier</em>收集原始sources（例如web服务器），将它们发送到第二个<em>tier</em>的更小的客户端集合，第二<em>tier</em>在写入HDFS之前将第一个<em>tier</em>的事件聚合。如果source节点足够多，则需要更多的<em>tiers</em></p>
+<p><img src="/images/flume_3.JPG" alt="flume_3.JPG"></p>
+<p><em>Tiers</em>使用一个特殊的sink将事件通过网络发送，一个对应的<em>source</em>接收事件。<em>Avro sink</em>通过<em>Avro RPC</em>将事件发送到运行在另一个Flume客户端的<em>Avro source</em>。也有一个<em>Thrift sink</em>通过<em>Thrift RPC</em>与一个<em>Thrift source</em>协同做同样的事。</p>
+<blockquote>
+<p>不要被名字困扰：<em>Avro sinks</em>和<em>source</em>不能够写入（或读取）<em>Avro files</em>。它们只用来在客户端的<em>tiers</em>分发事件，并且为了这样做它们使用<em>Avro RPC</em>沟通（注意此处用词）。如果需要将事件写入到<em>Avro files</em>，使用HDFS sink</p>
+</blockquote>
+<p>下列展示了two-tier Flume配置。该配置文件中有两个客户端，分别叫agent1和agent2。一个类型为agent1的客户端运行在第一个tier，有一个<em>spooldir</em>源和一个<em>Avro sink</em>通过一个文件channel连接。agent2运行在第二个tier，有一个<em>Avro source</em>监听<strong>agent1’s</strong>的<em>Avro sink</em>发送事件的端口。<strong>agent2</strong>的sink使用相同的HDFS sink配置，如上例（The HDFS Sink章节例子）所示</p>
+<p>注意在同一台机器上有两个file channels运行，它们被配置指向不同的数据和检查目录（默认在用户的家目录下）。因此，它们不试图将各自的文件写入到对方中。</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><span class="line"><span class="preprocessor">####A two-tier Flume configuration using a spooling directory source and an</span></span><br><span class="line"><span class="type">HDFS</span> sink</span><br><span class="line"><span class="preprocessor"># First-tier agent</span></span><br><span class="line"><span class="title">agent1</span>.sources = source1</span><br><span class="line"><span class="title">agent1</span>.sinks = sink1</span><br><span class="line"><span class="title">agent1</span>.channels = channel1</span><br><span class="line"><span class="title">agent1</span>.sources.source1.channels = channel1</span><br><span class="line"><span class="title">agent1</span>.sinks.sink1.channel = channel1</span><br><span class="line"><span class="title">agent1</span>.sources.source1.<span class="typedef"><span class="keyword">type</span> = spooldir</span></span><br><span class="line"><span class="title">agent1</span>.sources.source1.spoolDir = /tmp/spooldir</span><br><span class="line"><span class="title">agent1</span>.sinks.sink1.<span class="typedef"><span class="keyword">type</span> = avro</span></span><br><span class="line"><span class="title">agent1</span>.sinks.sink1.hostname = localhost</span><br><span class="line"><span class="title">agent1</span>.sinks.sink1.port = <span class="number">10000</span></span><br><span class="line"><span class="title">agent1</span>.channels.channel1.<span class="typedef"><span class="keyword">type</span> = file</span></span><br><span class="line"><span class="title">agent1</span>.channels.channel1.checkpointDir=/tmp/agent1/file-channel/checkpoint</span><br><span class="line"><span class="title">agent1</span>.channels.channel1.dataDirs=/tmp/agent1/file-channel/<span class="typedef"><span class="keyword">data</span></span></span><br><span class="line"><span class="preprocessor"># Second-tier agent</span></span><br><span class="line"><span class="title">agent2</span>.sources = source2</span><br><span class="line"><span class="title">agent2</span>.sinks = sink2</span><br><span class="line"><span class="title">agent2</span>.channels = channel2</span><br><span class="line"><span class="title">agent2</span>.sources.source2.channels = channel2</span><br><span class="line"><span class="title">agent2</span>.sinks.sink2.channel = channel2</span><br><span class="line"><span class="title">agent2</span>.sources.source2.<span class="typedef"><span class="keyword">type</span> = avro</span></span><br><span class="line"><span class="title">agent2</span>.sources.source2.bind = localhost</span><br><span class="line"><span class="title">agent2</span>.sources.source2.port = <span class="number">10000</span></span><br><span class="line"><span class="title">agent2</span>.sinks.sink2.<span class="typedef"><span class="keyword">type</span> = hdfs</span></span><br><span class="line"><span class="title">agent2</span>.sinks.sink2.hdfs.path = /tmp/flume</span><br><span class="line"><span class="title">agent2</span>.sinks.sink2.hdfs.filePrefix = events</span><br><span class="line"><span class="title">agent2</span>.sinks.sink2.hdfs.fileSuffix = .log</span><br><span class="line"><span class="title">agent2</span>.sinks.sink2.hdfs.fileType = <span class="type">DataStream</span></span><br><span class="line"><span class="title">agent2</span>.channels.channel2.<span class="typedef"><span class="keyword">type</span> = file</span></span><br><span class="line"><span class="title">agent2</span>.channels.channel2.checkpointDir=/tmp/agent2/file-channel/checkpoint</span><br><span class="line"><span class="title">agent2</span>.channels.channel2.dataDirs=/tmp/agent2/file-channel/<span class="typedef"><span class="keyword">data</span></span></span><br></pre></td></tr></table></figure>
+<p>如下图所示：</p>
+<p><img src="/images/flume_4.JPG" alt="flume_4.JPG"></p>
+<p>每一个客户客户端独立运行，使用相同的<strong>–conf-file</strong>配置文件，但是不同的客户端<strong>–name</strong>变量：<br><figure class="highlight sqf"><table><tr><td class="code"><pre><span class="line">% flume-ng <span class="built_in">agent</span> --conf-file spool-<span class="keyword">to</span>-hdfs-tiered.properties --<span class="built_in">name</span> agent1 ...</span><br></pre></td></tr></table></figure></p>
+<p>和<br><figure class="highlight sqf"><table><tr><td class="code"><pre><span class="line">% flume-ng <span class="built_in">agent</span> --conf-file spool-<span class="keyword">to</span>-hdfs-tiered.properties --<span class="built_in">name</span> agent2 ...</span><br></pre></td></tr></table></figure></p>
+<h2 id="u4F20_u8F93_u4FDD_u8BC1"><a href="#u4F20_u8F93_u4FDD_u8BC1" class="headerlink" title="传输保证"></a>传输保证</h2><p>Flume使用事务保证每一份定量的事件从一个source传送到一个channel，再从channel传到sink。在上文中的<em>Avro sink-source</em>连接中，事件保证事件从一个客户端传到下一个。</p>
+<p>通过Avro sink读取<strong>agent1</strong>的文件<em>channel</em>中定量的事件被包括在一整个事务中。只有在Avro sink（同步）确认写到Avro source的RPC成功结束，整个事务才会被提交。</p>
+<h1 id="Sink_Groups"><a href="#Sink_Groups" class="headerlink" title="Sink Groups"></a>Sink Groups</h1><p>一个sink组将多个sinks看作一个整体，如下图，用负载均衡做故障转移。如果第二tier不可用，事件会被发送到另一个第二tier，并可不间断的传送到HDFS</p>
+<p><img src="/images/flume_5.JPG" alt="flume_5.JPG"></p>
+<p>为了配置一个sink组，客户端<strong>sinkgroups</strong>属性设置sink组的名字，然后sink组列出组内所有的sink，包括sink处理的类型，这决定了处理sink的方式。下例展示两个Avro端点的负载均衡配置<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">##<span class="id">#A</span> Flume configuration <span class="keyword">for</span> load balancing between two Avro endpoints</span><br><span class="line">using <span class="tag">a</span> sink group</span><br><span class="line">agent1<span class="class">.sources</span> = source1</span><br><span class="line">agent1<span class="class">.sinks</span> = sink1a sink1b</span><br><span class="line">agent1<span class="class">.sinkgroups</span> = sinkgroup1</span><br><span class="line">agent1<span class="class">.channels</span> = channel1</span><br><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.channels</span> = channel1</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1a</span><span class="class">.channel</span> = channel1</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1b</span><span class="class">.channel</span> = channel1</span><br><span class="line">agent1<span class="class">.sinkgroups</span><span class="class">.sinkgroup1</span><span class="class">.sinks</span> = sink1a sink1b</span><br><span class="line">agent1<span class="class">.sinkgroups</span><span class="class">.sinkgroup1</span><span class="class">.processor</span><span class="class">.type</span> = load_balance</span><br><span class="line">agent1<span class="class">.sinkgroups</span><span class="class">.sinkgroup1</span><span class="class">.processor</span><span class="class">.backoff</span> = true</span><br><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.type</span> = spooldir</span><br><span class="line">agent1<span class="class">.sources</span><span class="class">.source1</span><span class="class">.spoolDir</span> = /tmp/spooldir</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1a</span><span class="class">.type</span> = avro</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1a</span><span class="class">.hostname</span> = localhost</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1a</span><span class="class">.port</span> = <span class="number">10000</span></span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1b</span><span class="class">.type</span> = avro</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1b</span><span class="class">.hostname</span> = localhost</span><br><span class="line">agent1<span class="class">.sinks</span><span class="class">.sink1b</span><span class="class">.port</span> = <span class="number">10001</span></span><br><span class="line">agent1<span class="class">.channels</span><span class="class">.channel1</span><span class="class">.type</span> = file</span><br></pre></td></tr></table></figure></p>
+<p>此例定义了两个Avro sinks，<strong>sink1a</strong>和<strong>sink1b</strong>，区别在于连接的Avro端点不同（因为在localhost中运行所有例子，故只有端口不同，在一个分布式系统中，应该host不同，端口相同）。定义了<strong>sinkgroup1</strong>，把它sink连接到<strong>sink1a</strong>和<strong>sink1b</strong></p>
+<p>处理类型被设置为<strong>load_balance</strong>，会在组内的sink尝试传送事件流，使用一个轮询选择机制（可以通过改变<strong>processor.selector</strong>属性来改）。如果一个sink不可用，则会尝试下一个；如果均不可用，事件不会从channel移除，就像单独sink的情况。默认情况下，sink不可用不会被sink处理器记录，所以失败的sink会重新尝试已经在传送的定量的事件。这样是效率低下的，所以设置<strong>processor.backoff</strong>属性改这种行为，使得失败的sink在一个指数增长地中断时间（最大值30秒，由<strong>processor.selector.maxTimeOut</strong>决定）内被列入黑名单</p>
+<p>第二tier客户端其中的一个<strong>agent2a</strong>配置如下所示：<br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">agent2a<span class="class">.sources</span> = source2a</span><br><span class="line">agent2a<span class="class">.sinks</span> = sink2a</span><br><span class="line">agent2a<span class="class">.channels</span> = channel2a</span><br><span class="line">agent2a<span class="class">.sources</span><span class="class">.source2a</span><span class="class">.channels</span> = channel2a</span><br><span class="line">agent2a<span class="class">.sinks</span><span class="class">.sink2a</span><span class="class">.channel</span> = channel2a</span><br><span class="line">agent2a<span class="class">.sources</span><span class="class">.source2a</span><span class="class">.type</span> = avro</span><br><span class="line">agent2a<span class="class">.sources</span><span class="class">.source2a</span><span class="class">.bind</span> = localhost</span><br><span class="line">agent2a<span class="class">.sources</span><span class="class">.source2a</span><span class="class">.port</span> = <span class="number">10000</span></span><br><span class="line">agent2a<span class="class">.sinks</span><span class="class">.sink2a</span><span class="class">.type</span> = hdfs</span><br><span class="line">agent2a<span class="class">.sinks</span><span class="class">.sink2a</span><span class="class">.hdfs</span><span class="class">.path</span> = /tmp/flume</span><br><span class="line">agent2a<span class="class">.sinks</span><span class="class">.sink2a</span><span class="class">.hdfs</span><span class="class">.filePrefix</span> = events-<span class="tag">a</span></span><br><span class="line">agent2a<span class="class">.sinks</span><span class="class">.sink2a</span><span class="class">.hdfs</span><span class="class">.fileSuffix</span> = <span class="class">.log</span></span><br><span class="line">agent2a<span class="class">.sinks</span><span class="class">.sink2a</span><span class="class">.hdfs</span><span class="class">.fileType</span> = DataStream</span><br><span class="line">agent2a<span class="class">.channels</span><span class="class">.channel2a</span><span class="class">.type</span> = file</span><br></pre></td></tr></table></figure></p>
+<p><strong>agent2b</strong>的配置文件是相同的，除了Avro source的端口（因为所有例子运行在localhost）和HDFS sink创建的文件前缀。这个文件前缀是确保由second-tier客户端同时创建的HDFS文件不会发生冲突。</p>
+<p>在更多情况下，客户端运行在不同的服务器上，hostname可以用来独立区分文件名字通过配置一个host intercepter，包手<strong>%{host}</strong>转义序列在文件路径或前缀中：<br><figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">agent2.sinks.sink2.hdfs.filePrefix = <span class="keyword">events</span>-<span class="comment">%&#123;host&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>如下图所示：</p>
+<p><img src="/images/flume_6.JPG" alt="flume_6.JPG"></p>
+<h1 id="Flumey_u5E94_u7528_u6574_u5408"><a href="#Flumey_u5E94_u7528_u6574_u5408" class="headerlink" title="Flumey应用整合"></a>Flumey应用整合</h1><p>一个Avro source是一个接收Flume事件的RPC端点，能够将一个RPC客户端发送事件到端点，嵌入到任何想要将事件介绍到Flume的应用。</p>
+<p><em>Flume SDK</em>是一个模块，提供了Java RpcClient类，用作发送事件对象到一个Avro端点（一个Avro source在Flume客户端上运行，通常在另一个tier）。客户端可以配置为两个端点之间故障处理或负载均衡，Thrift端点（Thrift sources）同样支持。</p>
+<p>Flume <em>embedded agent</em>提供相似的功能：一个运行在Java应用上的缩减版的Flume客户端。有一个独立的特殊source，通过调用一个叫做<em>EmbeddedAgent</em>对象的方法发送Flume <strong>Event</strong>对象；只有Avro sinks支持该特性，但其他sinks可以配置为故障转移或者负载均衡。</p>
+<p>SDK和嵌入客户端更多信息参见官方开发者<a href="http://flume.apache.org/FlumeDeveloperGuide.html" target="_blank" rel="external">文档</a></p>
+<h1 id="u7EC4_u4EF6_u76EE_u5F55"><a href="#u7EC4_u4EF6_u76EE_u5F55" class="headerlink" title="组件目录"></a>组件目录</h1><p>上文只使用到少量的Flume组件，它还有更多组件简述如下。参考官方<a href="http://flume.apache.org/FlumeUserGuide.html" target="_blank" rel="external">文档</a>获得更多信息。</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>组件</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source</td>
+<td>Avro</td>
+<td>Listens on a port for events sent over Avro RPC by an Avro sink or the Flume SDK.  </td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Exec</td>
+<td>Runs a Unix command (e.g., tail -F/path/to/file) and converts lines read from standard output into events. Note that this source cannot guarantee delivery of events to the channel; see the spooling directory source or the Flume SDK for better alternatives.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>HTTP</td>
+<td>Listens on a port and converts HTTP requests into events using a pluggable handler (e.g., a JSON handler or binary blob handler).</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>JMS</td>
+<td>Reads messages from a JMS queue or topic and converts them into events.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Netcat</td>
+<td>Listens on a port and converts each line of text into an event.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Sequence generator</td>
+<td>Generates events from an incrementing counter. Useful for testing.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Spooling directory</td>
+<td>Reads lines from files placed in a spooling directory and converts them into events.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Syslog</td>
+<td>Reads lines from syslog and converts them into events.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Thrift</td>
+<td>Listens on a port for events sent over Thrift RPC by a Thrift sink or the Flume SDK.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Twitter</td>
+<td>Connects to Twitter’s streaming API (1% of the firehose) and converts tweets into events.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Avro</td>
+<td>Sends events over Avro RPC to an Avro source.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Elasticsearch</td>
+<td>Writes events to an Elasticsearch cluster using the Logstash format.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>File roll</td>
+<td>Writes events to the local filesystem.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>HBase</td>
+<td>Writes events to HBase using a choice of serializer.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>HDFS</td>
+<td>Writes events to HDFS in text, sequence file, Avro, or a custom format.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>IRC</td>
+<td>Sends events to an IRC channel.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Logger</td>
+<td>Logs events at INFO level using SLF4J. Useful for testing.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Morphline (Solr)</td>
+<td>Runs events through an in-process chain of Morphline commands. Typically used to load data into Solr.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Null</td>
+<td>Discards all events.</td>
+</tr>
+<tr>
+<td>Sink</td>
+<td>Thrift</td>
+<td>Sends events over Thrift RPC to a Thrift source</td>
+</tr>
+<tr>
+<td>Channel</td>
+<td>File</td>
+<td>Stores events in a transaction log stored on the local filesystem.</td>
+</tr>
+<tr>
+<td>Channel</td>
+<td>JDBC</td>
+<td>Stores events in a database (embedded Derby).</td>
+</tr>
+<tr>
+<td>Channel</td>
+<td>Memory</td>
+<td>Stores events in an in-memory queue.</td>
+</tr>
+<tr>
+<td>Interceptor</td>
+<td>Host</td>
+<td>Sets a host header containing the agent’s hostname or IP address on all events.</td>
+</tr>
+<tr>
+<td>Interceptor</td>
+<td>Morphline</td>
+<td>Filters events through a Morphline configuration file. Useful for conditionally dropping events or adding headers based on pattern matching or content extraction.</td>
+</tr>
+<tr>
+<td>Interceptor</td>
+<td>Regex extractor</td>
+<td>Sets headers extracted from the event body as text using a specified regular expression.</td>
+</tr>
+<tr>
+<td>Interceptor</td>
+<td>Regex filtering</td>
+<td>Includes or excludes events by matching the event body as text against a specified regular expression.</td>
+</tr>
+<tr>
+<td>Interceptor</td>
+<td>Static</td>
+<td>Sets a fixed header and value on all events.</td>
+</tr>
+<tr>
+<td>Interceptor</td>
+<td>Timestamp</td>
+<td>Sets a timestamp header containing the time in milliseconds at which the agent processes the event.</td>
+</tr>
+<tr>
+<td>Interceptor</td>
+<td>UUID</td>
+<td>Sets an id header containing a universally unique identifier on all events. Useful for later deduplication.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="u6DF1_u5165_u4E86_u89E3"><a href="#u6DF1_u5165_u4E86_u89E3" class="headerlink" title="深入了解"></a>深入了解</h1><p>本文只是简述了Flume，了解更多请参阅<a href="http://shop.oreilly.com/product/0636920030348.do" target="_blank" rel="external">Using Flume</a>。更多生产中的实践及搭建Hadoop应用请参见<a href="http://shop.oreilly.com/product/0636920033196.do" target="_blank" rel="external">Hadoop Application Architectures</a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hadoop/" rel="tag">#Hadoop</a>
+          
+            <a href="/tags/flume/" rel="tag">#flume</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hadoop-cluster-setup-en_US/" rel="next" title="Hadoop Cluster Setup">
+                <i class="fa fa-chevron-left"></i> Hadoop Cluster Setup
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="flume-introduction/"
+           data-title="flume introduction" data-url="http://yoursite.com/flume-introduction/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/touxiang.jpg" alt="xiuyanduan" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">xiuyanduan</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">DevOps</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">categories</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiuyanduan" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/xiuyanduan" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 新浪微博
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u5B89_u88C5Flume"><span class="nav-number">1.</span> <span class="nav-text">安装Flume</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u793A_u4F8B"><span class="nav-number">2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u4E8B_u52A1_u548C_u53EF_u9760_u6027"><span class="nav-number">3.</span> <span class="nav-text">事务和可靠性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Batching_uFF08_u5B9A_u91CF_uFF1F_uFF09"><span class="nav-number">3.1.</span> <span class="nav-text">Batching（定量？）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The_HDFS_Sink"><span class="nav-number">4.</span> <span class="nav-text">The HDFS Sink</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5206_u533A_u548C_u62E6_u622A_u5668"><span class="nav-number">4.1.</span> <span class="nav-text">分区和拦截器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6587_u4EF6_u683C_u5F0F"><span class="nav-number">4.2.</span> <span class="nav-text">文件格式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fan_Out"><span class="nav-number">5.</span> <span class="nav-text">Fan Out</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Delivery_Guarantees_uFF08_u4F20_u8F93_u4FDD_u8BC1_uFF09"><span class="nav-number">5.1.</span> <span class="nav-text">Delivery Guarantees（传输保证）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#near-real-time_indexing"><span class="nav-number">6.</span> <span class="nav-text">near-real-time indexing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u590D_u5236_u548C_u591A_u8DEF_u9009_u62E9_u5668"><span class="nav-number">6.1.</span> <span class="nav-text">复制和多路选择器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u5206_u5E03_u5F0F_uFF1AAgent_Tiers"><span class="nav-number">7.</span> <span class="nav-text">分布式：Agent Tiers</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u4F20_u8F93_u4FDD_u8BC1"><span class="nav-number">7.1.</span> <span class="nav-text">传输保证</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sink_Groups"><span class="nav-number">8.</span> <span class="nav-text">Sink Groups</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flumey_u5E94_u7528_u6574_u5408"><span class="nav-number">9.</span> <span class="nav-text">Flumey应用整合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u7EC4_u4EF6_u76EE_u5F55"><span class="nav-number">10.</span> <span class="nav-text">组件目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u6DF1_u5165_u4E86_u89E3"><span class="nav-number">11.</span> <span class="nav-text">深入了解</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiuyanduan</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xiuyanduan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+     
+  	  <script type="text/javascript">
+  		var duoshuo_user_ID = 6228038773616150000
+      var duoshuo_admin_nickname="博主"
+  	  </script>
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

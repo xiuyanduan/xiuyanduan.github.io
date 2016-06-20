@@ -215,15 +215,6 @@
 
     
     
-      
-      
-        
-        
-        
-      
-
-      
-    
 
     
       
@@ -247,8 +238,8 @@
             
               
                 
-                <a class="post-title-link" href="/hadoop-cluster-setup-zh_CN/" itemprop="url">
-                  Hadoop集群设置
+                <a class="post-title-link" href="/flume-introduction/" itemprop="url">
+                  flume introduction
                 </a>
               
             
@@ -258,8 +249,8 @@
         <div class="post-meta">
           <span class="post-time">
             Posted on
-            <time itemprop="dateCreated" datetime="2016-05-30T00:00:00+08:00" content="2016-05-30">
-              2016-05-30
+            <time itemprop="dateCreated" datetime="2016-06-20T00:00:00+08:00" content="2016-06-20">
+              2016-06-20
             </time>
           </span>
 
@@ -269,8 +260,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/hadoop-cluster-setup-zh_CN/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="hadoop-cluster-setup-zh_CN/" itemprop="commentsCount"></span>
+                <a href="/flume-introduction/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="flume-introduction/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -290,11 +281,11 @@
 
       
         
-          <p>原创翻译自Hadoop官方<a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/ClusterSetup.html">文档</a></p>
-<h2 id="u76EE_u7684"><a href="#u76EE_u7684" class="headerlink" title="目的"></a>目的</h2><p>本文描述了如何在几个节点到成千上万节点的环境中安装和配置Hadoop集群。为了更好的使用Hadoop，首先应该在单节点服务器上安装（参考<a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SingleCluster.html">单节点安装Hadoop</a>）。</p>
-<p>本文未包括进阶主题，例如<a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SecureMode.html">Security</a>和高可用。<br>
+          <p>原创翻译自<a href="http://shop.oreilly.com/product/0636920033448.do">Hadoop: The Definitive Guide, 4th Edition</a></p>
+<p>Hadoop被设计用来处理很大量的数据。通常认为这些数据已经存储在HDFS，或者可以大量复制。然而，很多系统不满足这些假设。这些系统产生大量的数据流需要使用Hadoop结构化、存储、分析，Apache Flume就是被设计用来做这些工作的。</p>
+<p>Flume被设计用来将大量数据驱动的数据传入Hadoop，典型应用场景是使用Flume收集银行web服务器的日志，然后将这些日志聚合到新的汇总文件并传入HDFS处理。通常的传输目的地(在Flume中的sink)是HDFS。然而，Flume足够灵活也能够写入到其他系统，例如HBase和Solr。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/hadoop-cluster-setup-zh_CN/#more" rel="contents">
+            <a class="btn" href="/flume-introduction/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -384,6 +375,96 @@
 <h2 id="Purpose"><a href="#Purpose" class="headerlink" title="Purpose"></a>Purpose</h2><p>This document describes how to install and configure Hadoop clusters ranging<br>from a few nodes to extremely large clusters with thousands of nodes. To play<br>with Hadoop, you may first want to install it on a single machine (see <a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SingleCluster.html">Single<br>Node Setup</a>).<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/hadoop-cluster-setup-en_US/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/hadoop-cluster-setup-zh_CN/" itemprop="url">
+                  Hadoop集群设置
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-05-30T00:00:00+08:00" content="2016-05-30">
+              2016-05-30
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/hadoop-cluster-setup-zh_CN/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="hadoop-cluster-setup-zh_CN/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>原创翻译自Hadoop官方<a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/ClusterSetup.html">文档</a></p>
+<h2 id="u76EE_u7684"><a href="#u76EE_u7684" class="headerlink" title="目的"></a>目的</h2><p>本文描述了如何在几个节点到成千上万节点的环境中安装和配置Hadoop集群。为了更好的使用Hadoop，首先应该在单节点服务器上安装（参考<a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SingleCluster.html">单节点安装Hadoop</a>）。</p>
+<p>本文未包括进阶主题，例如<a href="http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SecureMode.html">Security</a>和高可用。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/hadoop-cluster-setup-zh_CN/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1030,98 +1111,6 @@ This project is being migrated to GitLab: https://gitlab.com/rosarior/awesome-dj
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/add-UNIX-timestamp-to-Apache-access-log/" itemprop="url">
-                  add UNIX timestamp to Apache access log
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2016-01-12T00:00:00+08:00" content="2016-01-12">
-              2016-01-12
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/add-UNIX-timestamp-to-Apache-access-log/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="add-UNIX-timestamp-to-Apache-access-log/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <span itemprop="articleBody">
-            
-            change LogFormat in Apache confLogFormat "%h %l %u %t \"%r\" %&gt;s %b \"%&#123;Referer&#125;i\" \"%&#123;User-Agent&#125;i\" %&#123;%s&#125;t" newcom
-            ...
-          </span>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/add-UNIX-timestamp-to-Apache-access-log/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
 
   </section>
 
@@ -1168,7 +1157,7 @@ This project is being migrated to GitLab: https://gitlab.com/rosarior/awesome-dj
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1182,7 +1171,7 @@ This project is being migrated to GitLab: https://gitlab.com/rosarior/awesome-dj
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
