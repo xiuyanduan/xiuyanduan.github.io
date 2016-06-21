@@ -69,7 +69,7 @@ Flume被设计用来将大量数据驱动的数据传入Hadoop，典型应">
 <meta property="og:image" content="http://yoursite.com/images/flume_4.JPG">
 <meta property="og:image" content="http://yoursite.com/images/flume_5.JPG">
 <meta property="og:image" content="http://yoursite.com/images/flume_6.JPG">
-<meta property="og:updated_time" content="2016-06-20T02:23:19.000Z">
+<meta property="og:updated_time" content="2016-06-21T01:22:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flume introduction">
 <meta name="twitter:description" content="原创翻译自Hadoop: The Definitive Guide, 4th Edition
@@ -382,47 +382,47 @@ Flume被设计用来将大量数据驱动的数据传入Hadoop，典型应">
 <td>Listens on a port for events sent over Avro RPC by an Avro sink or the Flume SDK.  </td>
 </tr>
 <tr>
-<td>Sink</td>
+<td>Source</td>
 <td>Exec</td>
 <td>Runs a Unix command (e.g., tail -F/path/to/file) and converts lines read from standard output into events. Note that this source cannot guarantee delivery of events to the channel; see the spooling directory source or the Flume SDK for better alternatives.</td>
 </tr>
 <tr>
-<td>Sink</td>
+<td>Source</td>
 <td>HTTP</td>
 <td>Listens on a port and converts HTTP requests into events using a pluggable handler (e.g., a JSON handler or binary blob handler).</td>
 </tr>
 <tr>
-<td>Sink</td>
+<td>Source</td>
 <td>JMS</td>
 <td>Reads messages from a JMS queue or topic and converts them into events.</td>
 </tr>
 <tr>
-<td>Sink</td>
+<td>Source</td>
 <td>Netcat</td>
 <td>Listens on a port and converts each line of text into an event.</td>
 </tr>
 <tr>
-<td>Sink</td>
+<td>Source</td>
 <td>Sequence generator</td>
 <td>Generates events from an incrementing counter. Useful for testing.</td>
 </tr>
 <tr>
-<td>Sink</td>
+<td>Source</td>
 <td>Spooling directory</td>
 <td>Reads lines from files placed in a spooling directory and converts them into events.</td>
 </tr>
 <tr>
-<td>Sink</td>
+<td>Source</td>
 <td>Syslog</td>
 <td>Reads lines from syslog and converts them into events.</td>
 </tr>
 <tr>
-<td>Sink</td>
+<td>Source</td>
 <td>Thrift</td>
 <td>Listens on a port for events sent over Thrift RPC by a Thrift sink or the Flume SDK.</td>
 </tr>
 <tr>
-<td>Sink</td>
+<td>Source</td>
 <td>Twitter</td>
 <td>Connects to Twitter’s streaming API (1% of the firehose) and converts tweets into events.</td>
 </tr>
