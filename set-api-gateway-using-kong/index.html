@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Python,django,mezzanine," />
+  <meta name="keywords" content="nginx,Lua," />
 
 
 
@@ -53,34 +53,19 @@
 
 
 
-<meta name="description" content="Tested in Ubuntu 14.04 LTS
-
-mezzanine
-djangoCMS
-stackoverflow
-
-mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)bleach (1.4.2)chardet (2.3.0)dj-database-url (0.3.0)Django (1">
+<meta name="description" content="开源软件kong已可实现api gateway，即作为api网关，转发至后端各api，可以减少后端api认证，访问次数限制等的开发，减少端口暴露。该软件主要由Lua和nginx实现，后端数据库连接可选Cassandra和PostgreSQL
+本文测试环境kong连接的为本机的Cassandra（注:kong版本为0.9.0,Cassandra版本为2.2.7。kong目前仅支持2.1,2.2版本的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="virtualenv of django-CMS and mezzanine">
-<meta property="og:url" content="http://yoursite.com/virtualenv-djangoCMS-mezzanine/index.html">
+<meta property="og:title" content="set api gateway using kong">
+<meta property="og:url" content="http://yoursite.com/set-api-gateway-using-kong/index.html">
 <meta property="og:site_name" content="xyduan">
-<meta property="og:description" content="Tested in Ubuntu 14.04 LTS
-
-mezzanine
-djangoCMS
-stackoverflow
-
-mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)bleach (1.4.2)chardet (2.3.0)dj-database-url (0.3.0)Django (1">
-<meta property="og:updated_time" content="2016-02-01T02:11:48.000Z">
+<meta property="og:description" content="开源软件kong已可实现api gateway，即作为api网关，转发至后端各api，可以减少后端api认证，访问次数限制等的开发，减少端口暴露。该软件主要由Lua和nginx实现，后端数据库连接可选Cassandra和PostgreSQL
+本文测试环境kong连接的为本机的Cassandra（注:kong版本为0.9.0,Cassandra版本为2.2.7。kong目前仅支持2.1,2.2版本的">
+<meta property="og:updated_time" content="2017-01-12T02:29:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="virtualenv of django-CMS and mezzanine">
-<meta name="twitter:description" content="Tested in Ubuntu 14.04 LTS
-
-mezzanine
-djangoCMS
-stackoverflow
-
-mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)bleach (1.4.2)chardet (2.3.0)dj-database-url (0.3.0)Django (1">
+<meta name="twitter:title" content="set api gateway using kong">
+<meta name="twitter:description" content="开源软件kong已可实现api gateway，即作为api网关，转发至后端各api，可以减少后端api认证，访问次数限制等的开发，减少端口暴露。该软件主要由Lua和nginx实现，后端数据库连接可选Cassandra和PostgreSQL
+本文测试环境kong连接的为本机的Cassandra（注:kong版本为0.9.0,Cassandra版本为2.2.7。kong目前仅支持2.1,2.2版本的">
 
 
 
@@ -92,7 +77,7 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
   };
 </script>
 
-  <title> virtualenv of django-CMS and mezzanine | xyduan </title>
+  <title> set api gateway using kong | xyduan </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +233,7 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
             
             
               
-                virtualenv of django-CMS and mezzanine
+                set api gateway using kong
               
             
           </h1>
@@ -257,8 +242,8 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
         <div class="post-meta">
           <span class="post-time">
             Posted on
-            <time itemprop="dateCreated" datetime="2016-01-07T00:00:00+08:00" content="2016-01-07">
-              2016-01-07
+            <time itemprop="dateCreated" datetime="2016-09-06T00:00:00+08:00" content="2016-09-06">
+              2016-09-06
             </time>
           </span>
 
@@ -268,8 +253,8 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/virtualenv-djangoCMS-mezzanine/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="virtualenv-djangoCMS-mezzanine/" itemprop="commentsCount"></span>
+                <a href="/set-api-gateway-using-kong/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="set-api-gateway-using-kong/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -288,15 +273,27 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
       
 
       
-        <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04 LTS</code></p>
-<ol>
-<li><a href="http://mezzanine.jupo.org/" target="_blank" rel="external">mezzanine</a></li>
-<li><a href="http://www.django-cms.org/en/" target="_blank" rel="external">djangoCMS</a></li>
-<li><a href="http://stackoverflow.com/questions/31504606/error-starting-django-cms-project-in-ubuntu-14-04-lts" target="_blank" rel="external">stackoverflow</a></li>
-</ol>
-<h1 id="mezzanine"><a href="#mezzanine" class="headerlink" title="mezzanine"></a>mezzanine</h1><p><code>source env/bin/active</code><br><code>pip list</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">argparse (<span class="number">1.2</span>.<span class="number">1</span>)</span><br><span class="line">beautifulsoup4 (<span class="number">4.4</span>.<span class="number">1</span>)</span><br><span class="line">bleach (<span class="number">1.4</span>.<span class="number">2</span>)</span><br><span class="line">chardet (<span class="number">2.3</span>.<span class="number">0</span>)</span><br><span class="line">dj-database-url (<span class="number">0.3</span>.<span class="number">0</span>)</span><br><span class="line">Django (<span class="number">1.8</span>.<span class="number">8</span>)</span><br><span class="line">django-contrib-comments (<span class="number">1.6</span>.<span class="number">2</span>)</span><br><span class="line">filebrowser-safe (<span class="number">0.4</span>.<span class="number">0</span>)</span><br><span class="line">future (<span class="number">0.15</span>.<span class="number">2</span>)</span><br><span class="line">grappelli-safe (<span class="number">0.4</span>.<span class="number">1</span>)</span><br><span class="line">html5lib (<span class="number">0.9999999</span>)</span><br><span class="line">Mezzanine (<span class="number">4.0</span>.<span class="number">1</span>)</span><br><span class="line">oauthlib (<span class="number">1.0</span>.<span class="number">3</span>)</span><br><span class="line">Pillow (<span class="number">3.1</span>.<span class="number">0</span>)</span><br><span class="line">pip (<span class="number">1.5</span>.<span class="number">4</span>)</span><br><span class="line">pytz (<span class="number">2015.7</span>)</span><br><span class="line">requests (<span class="number">2.9</span>.<span class="number">1</span>)</span><br><span class="line">requests-oauthlib (<span class="number">0.6</span>.<span class="number">0</span>)</span><br><span class="line">setuptools (<span class="number">2.2</span>)</span><br><span class="line">six (<span class="number">1.10</span>.<span class="number">0</span>)</span><br><span class="line">tzlocal (<span class="number">1.2</span>)</span><br><span class="line">wsgiref (<span class="number">0.1</span>.<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
-<h1 id="djangoCMS"><a href="#djangoCMS" class="headerlink" title="djangoCMS"></a>djangoCMS</h1><p><code>pip list</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">argparse (<span class="number">1.2</span>.<span class="number">1</span>)</span><br><span class="line">beautifulsoup4 (<span class="number">4.4</span>.<span class="number">1</span>)</span><br><span class="line">bleach (<span class="number">1.4</span>.<span class="number">2</span>)</span><br><span class="line">chardet (<span class="number">2.3</span>.<span class="number">0</span>)</span><br><span class="line">dj-database-url (<span class="number">0.3</span>.<span class="number">0</span>)</span><br><span class="line">Django (<span class="number">1.8</span>.<span class="number">7</span>)</span><br><span class="line">django-classy-tags (<span class="number">0.7</span>.<span class="number">0</span>)</span><br><span class="line">django-cms (<span class="number">3.2</span>.<span class="number">0</span>)</span><br><span class="line">django-contrib-comments (<span class="number">1.6</span>.<span class="number">2</span>)</span><br><span class="line">django-formtools (<span class="number">1.0</span>)</span><br><span class="line">django-reversion (<span class="number">1.8</span>.<span class="number">7</span>)</span><br><span class="line">django-sekizai (<span class="number">0.9</span>.<span class="number">0</span>)</span><br><span class="line">Django-Select2 (<span class="number">4.3</span>.<span class="number">2</span>)</span><br><span class="line">django-treebeard (<span class="number">3.0</span>)</span><br><span class="line">djangocms-admin-style (<span class="number">1.0</span>.<span class="number">7</span>)</span><br><span class="line">djangocms-column (<span class="number">1.6</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-file (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-googlemap (<span class="number">0.4</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-inherit (<span class="number">0.1</span>.<span class="number">1</span>)</span><br><span class="line">djangocms-installer (<span class="number">0.8</span>.<span class="number">5</span>)</span><br><span class="line">djangocms-link (<span class="number">1.7</span>.<span class="number">1</span>)</span><br><span class="line">djangocms-picture (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-style (<span class="number">1.6</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-teaser (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-text-ckeditor (<span class="number">2.8</span>.<span class="number">0</span>)</span><br><span class="line">djangocms-video (<span class="number">0.2</span>.<span class="number">0</span>)</span><br><span class="line">filebrowser-safe (<span class="number">0.4</span>.<span class="number">0</span>)</span><br><span class="line">future (<span class="number">0.15</span>.<span class="number">2</span>)</span><br><span class="line">grappelli-safe (<span class="number">0.4</span>.<span class="number">1</span>)</span><br><span class="line">html5lib (<span class="number">0.9999999</span>)</span><br><span class="line">Mezzanine (<span class="number">4.0</span>.<span class="number">1</span>)</span><br><span class="line">oauthlib (<span class="number">1.0</span>.<span class="number">3</span>)</span><br><span class="line">Pillow (<span class="number">3.0</span>.<span class="number">0</span>)</span><br><span class="line">pip (<span class="number">1.5</span>.<span class="number">4</span>)</span><br><span class="line">pytz (<span class="number">2015.7</span>)</span><br><span class="line">requests (<span class="number">2.9</span>.<span class="number">1</span>)</span><br><span class="line">requests-oauthlib (<span class="number">0.6</span>.<span class="number">0</span>)</span><br><span class="line">setuptools (<span class="number">2.2</span>)</span><br><span class="line">six (<span class="number">1.10</span>.<span class="number">0</span>)</span><br><span class="line">tzlocal (<span class="number">1.2</span>)</span><br><span class="line">wsgiref (<span class="number">0.1</span>.<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p>Somebody has the similar question in <a href="http://stackoverflow.com/questions/31504606/error-starting-django-cms-project-in-ubuntu-14-04-lts" target="_blank" rel="external">stackoverflow</a><br><code>Install related libraries:</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install -y libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev</span><br><span class="line">sudo apt-get install libjpeg8-dev liblcms2-dev libwebp-dev tcl8.<span class="number">6</span>-dev tk8.<span class="number">6</span>-dev python-tk</span><br><span class="line">sudo apt-get install libqd-dev</span><br><span class="line">sudo apt-get install libmysqlclient-dev</span><br></pre></td></tr></table></figure></p>
+        <span itemprop="articleBody"><p>开源软件<a href="http://getkong.org" target="_blank" rel="external">kong</a>已可实现api gateway，即作为api网关，转发至后端各api，可以减少后端api认证，访问次数限制等的开发，减少端口暴露。该软件主要由<code>Lua</code>和<code>nginx</code>实现，后端数据库连接可选<code>Cassandra</code>和<code>PostgreSQL</code></p>
+<p>本文测试环境<a href="http://getkong.org" target="_blank" rel="external">kong</a>连接的为本机的<code>Cassandra</code>（注:<code>kong</code>版本为<code>0.9.0</code>,<code>Cassandra</code>版本为<code>2.2.7</code>。<code>kong</code>目前仅支持<code>2.1</code>,<code>2.2</code>版本的<code>Cassandra</code>，参见<a href="https://github.com/Mashape/kong/issues/1524" target="_blank" rel="external">issue</a>）</p>
+<a id="more"></a>
+<p><a href="http://getkong.org" target="_blank" rel="external">kong</a>安装在l<code>10.10.10.52</code></p>
+<p>启动<code>kong</code>后，默认新增两个端口<code>8000</code>(用来转发api)<code>8001</code>(用来设置)<br>以下示例如何将发送到<code>http://10.10.10.52:8000</code>的api转发至<code>http://10.10.10.37</code></p>
+<p>其中<code>http</code>命令为开源软件<code>httpie</code>用来发送<code>HTTP</code>请求</p>
+<h3 id="add_api"><a href="#add_api" class="headerlink" title="add api"></a>add api</h3><p>设置命令如下：</p>
+<p><code>http POST 10.10.10.52:8001/apis name=demo3 request_host=10.10.10.37 upstream_url=&quot;http://10.10.10.37&quot;</code></p>
+<p>测试结果（注:<code>root:root1234</code>为<code>10.10.10.37</code>需要的用户认证）<br><code>http 10.10.10.52:8000 Host:10.10.10.37 --auth root:root1234</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">HTTP/1.1 200 OK</div><div class="line">Allow: GET, HEAD, OPTIONS</div><div class="line">Connection: keep-alive</div><div class="line">Content-Type: application/json</div><div class="line">Date: Thu, 01 Sep 2016 08:29:49 GMT</div><div class="line">Server: gunicorn/17.5</div><div class="line">Transfer-Encoding: chunked</div><div class="line">Vary: Accept, Cookie</div><div class="line">Via: kong/0.9.0</div><div class="line">X-Frame-Options: SAMEORIGIN</div><div class="line">X-Kong-Proxy-Latency: 0</div><div class="line">X-Kong-Upstream-Latency: 472</div><div class="line">jjkre: hello</div><div class="line"></div><div class="line">&#123;</div><div class="line">    &quot;groups&quot;: &quot;http://10.10.10.37/groups/&quot;,</div><div class="line">    &quot;reports&quot;: &quot;http://10.10.10.37/reports/&quot;,</div><div class="line">    &quot;users&quot;: &quot;http://10.10.10.37/users/&quot;,</div><div class="line">    &quot;zpassword&quot;: &quot;http://10.10.10.37/zpassword/&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="u589E_u52A0_u7528_u6237_u8BA4_u8BC1"><a href="#u589E_u52A0_u7528_u6237_u8BA4_u8BC1" class="headerlink" title="增加用户认证"></a>增加用户认证</h3><p>1.<code>http POST 10.10.10.52:8001/apis/demo3/plugins name=key-auth config.key_names=X-AUTH</code></p>
+<p>通过插件开启认证</p>
+<p>2.<code>http 10.10.10.52:8000 Host:10.10.10.37 --auth root:root1234</code></p>
+<p>此时通过之前的方法发送请求，会提示未认证</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">HTTP/1.1 401 Unauthorized</div><div class="line">Connection: keep-alive</div><div class="line">Content-Type: application/json; charset=utf-8</div><div class="line">Date: Thu, 01 Sep 2016 08:48:19 GMT</div><div class="line">Server: kong/0.9.0</div><div class="line">Transfer-Encoding: chunked</div><div class="line">WWW-Authenticate: Key realm=&quot;kong&quot;</div><div class="line"></div><div class="line">&#123;</div><div class="line">    &quot;message&quot;: &quot;No API key found in headers or querystring&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>3.新增consumers, <code>http POST 10.10.10.52:8001/consumers username=Lily</code></p>
+<p>4.设置密码, <code>http POST 10.10.10.52:8001/consumers/Lily/key-auth key=Lily1234</code></p>
+<p>5.发送api，<code>http 10.10.10.52:8000 Host:10.10.10.37 X-AUTH:Lily1234 --auth root:root1234</code></p>
+<p>此时可以正常发送请求，并得到返回值，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">HTTP/1.1 200 OK</div><div class="line">Allow: GET, HEAD, OPTIONS</div><div class="line">Connection: keep-alive</div><div class="line">Content-Type: application/json</div><div class="line">Date: Thu, 01 Sep 2016 08:56:25 GMT</div><div class="line">Server: gunicorn/17.5</div><div class="line">Transfer-Encoding: chunked</div><div class="line">Vary: Accept, Cookie</div><div class="line">Via: kong/0.9.0</div><div class="line">X-Frame-Options: SAMEORIGIN</div><div class="line">X-Kong-Proxy-Latency: 0</div><div class="line">X-Kong-Upstream-Latency: 335</div><div class="line">jjkre: hello</div><div class="line">&#123;</div><div class="line">    &quot;groups&quot;: &quot;http://10.10.10.37/groups/&quot;,</div><div class="line">    &quot;reports&quot;: &quot;http://10.10.10.37/reports/&quot;,</div><div class="line">    &quot;users&quot;: &quot;http://10.10.10.37/users/&quot;,</div><div class="line">    &quot;zpassword&quot;: &quot;http://10.10.10.37/zpassword/&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此软件还有其它功能，例如限制api请求次数等，请查阅<a href="https://getkong.org/docs/" target="_blank" rel="external">官方文档</a></p>
 </span>
       
     </div>
@@ -305,11 +302,9 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag">#Python</a>
+            <a href="/tags/nginx/" rel="tag">#nginx</a>
           
-            <a href="/tags/django/" rel="tag">#django</a>
-          
-            <a href="/tags/mezzanine/" rel="tag">#mezzanine</a>
+            <a href="/tags/Lua/" rel="tag">#Lua</a>
           
         </div>
       
@@ -318,16 +313,16 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/logstash-catalina/" rel="next" title="logstash demo conf">
-                <i class="fa fa-chevron-left"></i> logstash demo conf
+              <a href="/generate-pdf-by-pylatex/" rel="next" title="generate PDF by PyLaTex">
+                <i class="fa fa-chevron-left"></i> generate PDF by PyLaTex
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Awesome-Python/" rel="prev" title="Awesome Python">
-                Awesome Python <i class="fa fa-chevron-right"></i>
+              <a href="/python-decorator-notes/" rel="prev" title="Python decorator notes">
+                Python decorator notes <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -355,8 +350,8 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
         
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="virtualenv-djangoCMS-mezzanine/"
-           data-title="virtualenv of django-CMS and mezzanine" data-url="http://yoursite.com/virtualenv-djangoCMS-mezzanine/">
+      <div class="ds-thread" data-thread-key="set-api-gateway-using-kong/"
+           data-title="set api gateway using kong" data-url="http://yoursite.com/set-api-gateway-using-kong/">
       </div>
     
   </div>
@@ -400,7 +395,7 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -414,7 +409,7 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
@@ -464,7 +459,7 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mezzanine"><span class="nav-number">1.</span> <span class="nav-text">mezzanine</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#djangoCMS"><span class="nav-number">2.</span> <span class="nav-text">djangoCMS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#add_api"><span class="nav-number">1.</span> <span class="nav-text">add api</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u589E_u52A0_u7528_u6237_u8BA4_u8BC1"><span class="nav-number">2.</span> <span class="nav-text">增加用户认证</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -485,7 +480,7 @@ mezzaninesource env/bin/activepip listargparse (1.2.1)beautifulsoup4 (4.4.1)blea
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

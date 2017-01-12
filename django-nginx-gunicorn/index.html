@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Python,django,gunicorn,nginx,supervisord," />
+  <meta name="keywords" content="Python,django,nginx,gunicorn,supervisord," />
 
 
 
@@ -274,15 +274,15 @@ djangorun django in debug modecd">
 
       
         <span itemprop="articleBody"><p>Tested in <code>Ubuntu 14.04 LTS</code>, <code>django 1.9</code>, <code>gunicorn 17.5</code>, <code>supervisord 3.0b2</code>, <code>nginx 1.4.6</code><br>Reference: <a href="https://docs.djangoproject.com/en/1.9/howto/static-files/" target="_blank" rel="external">django</a>  <a href="http://docs.gunicorn.org/en/latest/index.html" target="_blank" rel="external">gunicorn</a>  <a href="http://supervisord.org/index.html" target="_blank" rel="external">supervisord</a>  <a href="http://nginx.org/en/docs/" target="_blank" rel="external">nginx</a><br>Demo django project <code>/tmp/myproject</code></p>
-<h1 id="django"><a href="#django" class="headerlink" title="django"></a>django</h1><h2 id="run_django_in_debug_mode"><a href="#run_django_in_debug_mode" class="headerlink" title="run django in debug mode"></a>run django in debug mode</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">cd /tmp/myproject</span><br><span class="line">python manage.py runserver <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">9999</span></span><br></pre></td></tr></table></figure>
-<h2 id="static_files"><a href="#static_files" class="headerlink" title="static files"></a>static files</h2><p><code>vim /tmp/myproject/myproject/settings</code><br>add <code>STATIC_ROOT= os.path.join(BASE_DIR,&#39;static&#39;)</code><br><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">python manage<span class="class">.py</span> collectstatic</span><br></pre></td></tr></table></figure></p>
+<h1 id="django"><a href="#django" class="headerlink" title="django"></a>django</h1><h2 id="run_django_in_debug_mode"><a href="#run_django_in_debug_mode" class="headerlink" title="run django in debug mode"></a>run django in debug mode</h2><figure class="highlight vim"><table><tr><td class="code"><pre><div class="line"><span class="keyword">cd</span> /tmp/myproject</div><div class="line"><span class="keyword">python</span> manage.<span class="keyword">py</span> runserver <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">9999</span></div></pre></td></tr></table></figure>
+<h2 id="static_files"><a href="#static_files" class="headerlink" title="static files"></a>static files</h2><p><code>vim /tmp/myproject/myproject/settings</code><br>add <code>STATIC_ROOT= os.path.join(BASE_DIR,&#39;static&#39;)</code><br><figure class="highlight stylus"><table><tr><td class="code"><pre><div class="line">python manage<span class="selector-class">.py</span> collectstatic</div></pre></td></tr></table></figure></p>
 <p>Generate a directory named <code>static</code>in <code>/tmp/myproject/myproject</code></p>
-<h1 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h1><p><code>vim /etc/nginx/sites-available/myproject.conf</code><br><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="title">server</span> &#123;</span><br><span class="line">  <span class="title">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="title">server_name</span> yourip;</span><br><span class="line">  <span class="title">root</span> /tmp/myproject;</span><br><span class="line"></span><br><span class="line">  <span class="title">access_log</span> /var/log/nginx/myproject.log;</span><br><span class="line"></span><br><span class="line">  <span class="title">location</span> /static &#123;</span><br><span class="line">    <span class="title">alias</span> /tmp/myproject/myproject/static;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title">location</span> / &#123;</span><br><span class="line">    <span class="title">proxy_pass_header</span> Server;</span><br><span class="line">    <span class="title">proxy_set_header</span> Host <span class="variable">$http_host</span>;</span><br><span class="line">    <span class="title">proxy_redirect</span> <span class="built_in">off</span>;</span><br><span class="line">    <span class="title">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">    <span class="title">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">    <span class="title">proxy_connect_timeout</span> <span class="number">6000</span>;</span><br><span class="line">    <span class="title">proxy_read_timeout</span> <span class="number">6000</span>;</span><br><span class="line">    <span class="title">proxy_pass</span> <span class="url">http://127.0.0.1:9999/</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">cd <span class="regexp">/etc/</span>nginx/sites-enabled</span><br><span class="line">ln -s <span class="regexp">/etc/</span>nginx<span class="regexp">/sites-available/</span>myproject.conf ./</span><br><span class="line">service nginx reload</span><br></pre></td></tr></table></figure>
-<h1 id="gunicorn"><a href="#gunicorn" class="headerlink" title="gunicorn"></a>gunicorn</h1><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="tag">gunicorn</span> <span class="tag">myproject</span><span class="class">.wsgi</span> <span class="tag">-b</span> 0<span class="class">.0</span><span class="class">.0</span><span class="class">.0</span><span class="pseudo">:9999</span></span><br></pre></td></tr></table></figure>
+<h1 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h1><p><code>vim /etc/nginx/sites-available/myproject.conf</code><br><figure class="highlight nginx"><table><tr><td class="code"><pre><div class="line"><span class="section">server</span> &#123;</div><div class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</div><div class="line">  <span class="attribute">server_name</span> yourip;</div><div class="line">  <span class="attribute">root</span> /tmp/myproject;</div><div class="line"></div><div class="line">  <span class="attribute">access_log</span> /var/log/nginx/myproject.log;</div><div class="line"></div><div class="line">  <span class="attribute">location</span> /static &#123;</div><div class="line">    <span class="attribute">alias</span> /tmp/myproject/myproject/static;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="attribute">location</span> / &#123;</div><div class="line">    <span class="attribute">proxy_pass_header</span> Server;</div><div class="line">    <span class="attribute">proxy_set_header</span> Host <span class="variable">$http_host</span>;</div><div class="line">    <span class="attribute">proxy_redirect</span> <span class="literal">off</span>;</div><div class="line">    <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</div><div class="line">    <span class="attribute">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</div><div class="line">    <span class="attribute">proxy_connect_timeout</span> <span class="number">6000</span>;</div><div class="line">    <span class="attribute">proxy_read_timeout</span> <span class="number">6000</span>;</div><div class="line">    <span class="attribute">proxy_pass</span> http://127.0.0.1:9999/;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><div class="line">cd <span class="meta-keyword">/etc/</span>nginx/sites-enabled</div><div class="line">ln -s <span class="meta-keyword">/etc/</span>nginx<span class="meta-keyword">/sites-available/</span>myproject.conf ./</div><div class="line">service nginx reload</div></pre></td></tr></table></figure>
+<h1 id="gunicorn"><a href="#gunicorn" class="headerlink" title="gunicorn"></a>gunicorn</h1><figure class="highlight css"><table><tr><td class="code"><pre><div class="line"><span class="selector-tag">gunicorn</span> <span class="selector-tag">myproject</span><span class="selector-class">.wsgi</span> <span class="selector-tag">-b</span> 0<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-pseudo">:9999</span></div></pre></td></tr></table></figure>
 <p>Must excuted in /tmp/myproject</p>
-<h1 id="supervisor"><a href="#supervisor" class="headerlink" title="supervisor"></a>supervisor</h1><p><code>cat /etc/supervisor/conf.d/myproject.conf</code><br><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="title">[program:myproject]</span></span><br><span class="line"><span class="setting">command=<span class="value">gunicorn myproject.wsgi -b <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">9999</span></span></span></span><br><span class="line"><span class="setting">directory=<span class="value">/tmp/myproject</span></span></span><br><span class="line"><span class="setting">autostart=<span class="value"><span class="keyword">true</span></span></span></span><br><span class="line"><span class="setting">autorestart=<span class="value"><span class="keyword">true</span></span></span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line">supervisorctl reread</span><br><span class="line">service supervisor restart</span><br><span class="line">supervisorctl <span class="keyword">status</span> myproject</span><br></pre></td></tr></table></figure>
+<h1 id="supervisor"><a href="#supervisor" class="headerlink" title="supervisor"></a>supervisor</h1><p><code>cat /etc/supervisor/conf.d/myproject.conf</code><br><figure class="highlight ini"><table><tr><td class="code"><pre><div class="line"><span class="section">[program:myproject]</span></div><div class="line"><span class="attr">command</span>=gunicorn myproject.wsgi -b <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">9999</span></div><div class="line"><span class="attr">directory</span>=/tmp/myproject</div><div class="line"><span class="attr">autostart</span>=<span class="literal">true</span></div><div class="line"><span class="attr">autorestart</span>=<span class="literal">true</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight maxima"><table><tr><td class="code"><pre><div class="line">supervisorctl reread</div><div class="line">service supervisor <span class="built_in">restart</span></div><div class="line">supervisorctl <span class="built_in">status</span> myproject</div></pre></td></tr></table></figure>
 </span>
       
     </div>
@@ -295,9 +295,9 @@ djangorun django in debug modecd">
           
             <a href="/tags/django/" rel="tag">#django</a>
           
-            <a href="/tags/gunicorn/" rel="tag">#gunicorn</a>
-          
             <a href="/tags/nginx/" rel="tag">#nginx</a>
+          
+            <a href="/tags/gunicorn/" rel="tag">#gunicorn</a>
           
             <a href="/tags/supervisord/" rel="tag">#supervisord</a>
           
@@ -308,8 +308,8 @@ djangorun django in debug modecd">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/zabbix-triggers-demo/" rel="next" title="zabbix triggers demo">
-                <i class="fa fa-chevron-left"></i> zabbix triggers demo
+              <a href="/apache-mod_dumpio-log-post-data/" rel="next" title="Add post data to Apache log by mod_dumpio">
+                <i class="fa fa-chevron-left"></i> Add post data to Apache log by mod_dumpio
               </a>
             
           </div>
@@ -390,7 +390,7 @@ djangorun django in debug modecd">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -404,7 +404,7 @@ djangorun django in debug modecd">
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
@@ -475,7 +475,7 @@ djangorun django in debug modecd">
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

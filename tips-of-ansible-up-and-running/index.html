@@ -1,0 +1,831 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="QvqfId7mK9l-1Cz8SD88-JrVJVMPRfZdeIhfUAOPMKI" />
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux,Ansible," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="Some tips learning from “Ansible Up &amp;amp; Running”.The repo of this book https://github.com/lorin/ansiblebook">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tips of Ansible Up and Running">
+<meta property="og:url" content="http://yoursite.com/tips-of-ansible-up-and-running/index.html">
+<meta property="og:site_name" content="xyduan">
+<meta property="og:description" content="Some tips learning from “Ansible Up &amp;amp; Running”.The repo of this book https://github.com/lorin/ansiblebook">
+<meta property="og:updated_time" content="2017-01-12T02:27:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tips of Ansible Up and Running">
+<meta name="twitter:description" content="Some tips learning from “Ansible Up &amp;amp; Running”.The repo of this book https://github.com/lorin/ansiblebook">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> Tips of Ansible Up and Running | xyduan </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0f6ac7dc052641b1a15dd123d65de6f8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xyduan</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'wW5A5ZBWFntDM79FcGFk','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Tips of Ansible Up and Running
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-10-12T00:00:00+08:00" content="2016-10-12">
+              2016-10-12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/tips-of-ansible-up-and-running/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="tips-of-ansible-up-and-running/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>Some tips learning from “Ansible Up &amp; Running”.<br>The repo of this book <a href="https://github.com/lorin/ansiblebook" target="_blank" rel="external">https://github.com/lorin/ansiblebook</a></p>
+<a id="more"></a>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><blockquote>
+<p>In a way, YAML is to JSON what Markdown is to HTML.</p>
+</blockquote>
+<h2 id="Installing_Ansible"><a href="#Installing_Ansible" class="headerlink" title="Installing Ansible"></a>Installing Ansible</h2><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ sudo pip install ansible</div></pre></td></tr></table></figure>
+<h2 id="ansible-cfg"><a href="#ansible-cfg" class="headerlink" title="ansible.cfg"></a>ansible.cfg</h2><p>Ansible looks for an ansible.cfg file in the following places, in this order:</p>
+<ol>
+<li>File specified by the ANSIBLE_CONFIG environment variable </li>
+<li>./ansible.cfg (ansible.cfg in the current directory)</li>
+<li>~/.ansible.cfg (.ansible.cfg in your home directory)</li>
+<li>/etc/ansible/ansible.cfg</li>
+</ol>
+<h1 id="Playbooks_3AA_Beginning"><a href="#Playbooks_3AA_Beginning" class="headerlink" title="Playbooks:A Beginning"></a>Playbooks:A Beginning</h1><p><a href="https://github.com/lorin/ansiblebook/blob/master/ch02/playbooks/web-notls.yml" target="_blank" rel="external"><em>web-notls.yml</em></a><br><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="meta">---</span></div><div class="line"><span class="attr">- name:</span> Configure webserver with nginx</div><div class="line"><span class="attr">  hosts:</span> webservers</div><div class="line"><span class="attr">  sudo:</span> <span class="literal">True</span></div><div class="line"><span class="attr">  tasks:</span></div><div class="line"><span class="attr">    - name:</span> install nginx</div><div class="line"><span class="attr">      apt:</span> name=nginx update_cache=<span class="literal">yes</span></div><div class="line"><span class="attr">    - name:</span> copy nginx config file</div><div class="line"><span class="attr">      copy:</span> src=files/nginx.conf dest=/etc/nginx/sites-available/default</div><div class="line"><span class="attr">    - name:</span> enable configuration</div><div class="line"><span class="attr">      file:</span> <span class="string">&gt;</span></div><div class="line">        dest=/etc/nginx/sites-enabled/default</div><div class="line">        src=/etc/nginx/sites-available/default</div><div class="line">        state=link</div><div class="line"><span class="attr">    - name:</span> copy index.html</div><div class="line"><span class="attr">      template:</span> src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html mode=<span class="number">0644</span></div><div class="line"><span class="attr">    - name:</span> restart nginx</div><div class="line"><span class="attr">      service:</span> name=nginx state=restarted</div></pre></td></tr></table></figure></p>
+<h2 id="YAML_truthy_and_falsey"><a href="#YAML_truthy_and_falsey" class="headerlink" title="YAML truthy and falsey"></a>YAML truthy and falsey</h2><ul>
+<li>YAML truthy</li>
+</ul>
+<p>true, True, TRUE, yes, Yes, YES, on, On, ON, y, Y</p>
+<ul>
+<li>YAML falsey</li>
+</ul>
+<p>false, False, FALSE, no, No, NO, off, Off, OFF, n, N</p>
+<h2 id="Cowsay"><a href="#Cowsay" class="headerlink" title="Cowsay"></a>Cowsay</h2><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">apt-get install cowsay</div></pre></td></tr></table></figure>
+<p>Disable cowsay be setting the ANSIBLE_NOCOWS environment variable like this:<br><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ <span class="built_in">export</span> ANSIBLE_NOCOWS=1</div></pre></td></tr></table></figure></p>
+<p>Also add the following in <em>ansible.cfg</em> file<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[defaults]</div><div class="line">nocows = 1</div></pre></td></tr></table></figure></p>
+<h2 id="Playbooks_Are_YAML"><a href="#Playbooks_Are_YAML" class="headerlink" title="Playbooks Are YAML"></a>Playbooks Are YAML</h2><blockquote>
+<p>Ansible playbooks are written in YAML syntax. YAML is a file format similar in intent to JSON, but generally easier for humans to read and write. Before we go over the playbook, let’s cover the concepts of YAML that are most important for writing playbooks.</p>
+</blockquote>
+<p>the JSON equivalent of <a href="https://github.com/lorin/ansiblebook/blob/master/ch02/playbooks/web-notls.yml" target="_blank" rel="external"><em>web-notls.yml</em></a><br><figure class="highlight json"><table><tr><td class="code"><pre><div class="line">[</div><div class="line">  &#123;</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"Configure webserver with nginx"</span>,</div><div class="line">    <span class="attr">"hosts"</span>: <span class="string">"webservers"</span>,</div><div class="line">    <span class="attr">"sudo"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">"task"</span>: [</div><div class="line">     &#123;</div><div class="line">       <span class="attr">"name"</span>: <span class="string">"Install nginx"</span>,</div><div class="line">       <span class="attr">"apt"</span>: <span class="string">"name=nginx update_cache=yes"</span></div><div class="line">     &#125;,</div><div class="line">     &#123;</div><div class="line">       <span class="attr">"name"</span>: <span class="string">"copy nginx config file"</span>,</div><div class="line">       <span class="attr">"template"</span>: <span class="string">"src=files/nginx.conf dest=/etc/nginx/sites-availabe/default"</span></div><div class="line">     &#125;,</div><div class="line">     &#123;</div><div class="line">       <span class="attr">"name"</span>: <span class="string">"enable configuration"</span>,</div><div class="line">       <span class="attr">"file"</span>: <span class="string">"dest=/etc/nginx/sites-enabled/default src=/etc/nginx/sites-available/default state=link"</span></div><div class="line">     &#125;,</div><div class="line">     &#123;</div><div class="line">       <span class="attr">"name"</span>: <span class="string">"copy index.html"</span>,</div><div class="line">       <span class="attr">"template"</span>: <span class="string">"src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html mode=0644"</span></div><div class="line">     &#125;,</div><div class="line">     &#123;</div><div class="line">       <span class="attr">"name"</span>: <span class="string">"restart nginx"</span>,</div><div class="line">       <span class="attr">"service"</span>: <span class="string">"name=nginx state=restarted"</span></div><div class="line">     &#125;</div><div class="line">   ]</div><div class="line">  &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<h2 id="Handlers"><a href="#Handlers" class="headerlink" title="Handlers"></a>Handlers</h2><p>Handlers are one of the conditional forms that Ansible supports. A handler is similar to a task, but it runs only if it has been notified by a task. A task will fire the notifica‐ tion if Ansible recognizes that the task has changed the state of the system.<br><a href="https://github.com/lorin/ansiblebook/blob/master/ch02/playbooks/web-tls.yml" target="_blank" rel="external"><em>web-tls.yml</em></a><br><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="meta">---</span></div><div class="line"><span class="attr">- name:</span> Configure webserver with nginx and tls</div><div class="line"><span class="attr">  hosts:</span> webservers</div><div class="line"><span class="attr">  sudo:</span> <span class="literal">True</span></div><div class="line"><span class="attr">  vars:</span></div><div class="line"><span class="attr">    key_file:</span> /etc/nginx/ssl/nginx.key</div><div class="line"><span class="attr">    cert_file:</span> /etc/nginx/ssl/nginx.crt</div><div class="line"><span class="attr">    conf_file:</span> /etc/nginx/sites-available/default</div><div class="line"><span class="attr">    server_name:</span> localhost</div><div class="line"><span class="attr">  tasks:</span></div><div class="line"><span class="attr">    - name:</span> Install nginx</div><div class="line"><span class="attr">      apt:</span> name=nginx update_cache=<span class="literal">yes</span> cache_valid_time=<span class="number">3600</span></div><div class="line"><span class="attr">    - name:</span> create directories for TLS certificates</div><div class="line"><span class="attr">      file:</span> path=/etc/nginx/ssl state=directory</div><div class="line"><span class="attr">    - name:</span> copy TLS key</div><div class="line"><span class="attr">      copy:</span> src=files/nginx.key dest=&#123;&#123; key_file &#125;&#125; owner=root mode=<span class="number">0600</span></div><div class="line"><span class="attr">      notify:</span> restart nginx</div><div class="line"><span class="attr">    - name:</span> copy TLS certificate</div><div class="line"><span class="attr">      copy:</span> src=files/nginx.crt dest=&#123;&#123; cert_file &#125;&#125;</div><div class="line"><span class="attr">      notify:</span> restart nginx</div><div class="line"><span class="attr">    - name:</span> copy nginx config file</div><div class="line"><span class="attr">      template:</span> src=templates/nginx.conf.j2 dest=&#123;&#123; conf_file &#125;&#125;</div><div class="line"><span class="attr">      notify:</span> restart nginx</div><div class="line"><span class="attr">    - name:</span> enable configuration</div><div class="line"><span class="attr">      file:</span> dest=/etc/nginx/sites-enabled/default src=&#123;&#123; conf_file &#125;&#125; state=link</div><div class="line"><span class="attr">      notify:</span> restart nginx</div><div class="line"><span class="attr">    - name:</span> copy index.html</div><div class="line"><span class="attr">      template:</span> src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html mode=<span class="number">0644</span></div><div class="line"><span class="attr">  handlers:</span></div><div class="line"><span class="attr">    - name:</span> restart nginx</div><div class="line"><span class="attr">      service:</span> name=nginx state=restarted</div></pre></td></tr></table></figure></p>
+<h1 id="Inventory_3A_Describing_Your_Servers"><a href="#Inventory_3A_Describing_Your_Servers" class="headerlink" title="Inventory: Describing Your Servers"></a>Inventory: Describing Your Servers</h1><h2 id="Behavioral_Inventory_Parameters"><a href="#Behavioral_Inventory_Parameters" class="headerlink" title="Behavioral Inventory Parameters"></a>Behavioral Inventory Parameters</h2><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ansible_ssh_host</td>
+<td>name of host</td>
+<td>Hostname or IP address to SSH to</td>
+</tr>
+<tr>
+<td>ansible_ssh_port</td>
+<td>22</td>
+<td>Port to SSH to</td>
+</tr>
+<tr>
+<td>ansible_ssh_user</td>
+<td>root</td>
+<td>User to SSH to</td>
+</tr>
+<tr>
+<td>ansible_ssh_pass</td>
+<td><em>none</em></td>
+<td>Password to use for SSH authentication</td>
+</tr>
+<tr>
+<td>ansible_connection</td>
+<td>smart</td>
+<td>How Ansible will connect to host</td>
+</tr>
+<tr>
+<td>ansible_ssh_private_key_file</td>
+<td><em>none</em></td>
+<td>SSH private key to use for SSH authentication</td>
+</tr>
+<tr>
+<td>ansible_shell_type</td>
+<td>sh</td>
+<td>Shell to use for commands</td>
+</tr>
+<tr>
+<td>ansible_python_interpreter</td>
+<td><em>/usr/bin/python</em></td>
+<td>Pyhton interpreter on host</td>
+</tr>
+<tr>
+<td>ansible_*_interpreter</td>
+<td><em>none</em></td>
+<td>Like ansible_python_interpreter for other languages</td>
+</tr>
+</tbody>
+</table>
+<h2 id="The_Interface_for_a_Dynamic_Inventory_Script"><a href="#The_Interface_for_a_Dynamic_Inventory_Script" class="headerlink" title="The Interface for a Dynamic Inventory Script"></a>The Interface for a Dynamic Inventory Script</h2><p>An Ansible dynamic inventory script must support two command-line flags:</p>
+<ul>
+<li>–host=<hostname> for showing host details</hostname></li>
+<li>–list for listing groups</li>
+</ul>
+<h2 id="Adding_Entries_at_Runtime_with_add_host_and_group_by"><a href="#Adding_Entries_at_Runtime_with_add_host_and_group_by" class="headerlink" title="Adding Entries at Runtime with add_host and group_by"></a>Adding Entries at Runtime with add_host and group_by</h2><h3 id="add_by"><a href="#add_by" class="headerlink" title="add_by"></a>add_by</h3><p>The <em>add_host</em> module adds a host to the inventory. This module is useful if you’re using Ansible to provision new virtual machine instances inside of an infrastructure- as-a-service cloud.</p>
+<h3 id="group_by"><a href="#group_by" class="headerlink" title="group_by"></a>group_by</h3><p>Use the <em>ansible_distribution</em> fact to group hosts by Linux distribution(e.g., Ubuntu, CentOS)<br><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">- name:</span> create groups based on Linux distribution</div><div class="line"><span class="attr">  group_by:</span> key=&#123;&#123; ansible_distribution &#125;&#125;</div></pre></td></tr></table></figure></p>
+<p>Example. Creating ad-hoc（点对点） groups based on Linux distribution<br><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">- name:</span> group hosts by distribution</div><div class="line"><span class="attr">  hosts:</span> myhosts</div><div class="line"><span class="attr">  gather_facts:</span> <span class="literal">True</span></div><div class="line"><span class="attr">  tasks:</span></div><div class="line"><span class="attr">   - name:</span> create groups based on distro</div><div class="line"><span class="attr">     group_by:</span> key=&#123;&#123; ansible_distribution &#125;&#125;</div><div class="line"><span class="attr">- name:</span> do something to Ubuntu hosts</div><div class="line"><span class="attr">  hosts:</span> Ubuntu</div><div class="line"><span class="attr">  tasks:</span></div><div class="line"><span class="attr">   - name:</span> install htop</div><div class="line"><span class="attr">     apt:</span> name=htop</div><div class="line">   <span class="comment"># ...</span></div><div class="line"><span class="attr">- name:</span> do something to CentOS hosts</div><div class="line"><span class="attr">  hosts:</span> CentOS</div><div class="line"><span class="attr">  tasks:</span></div><div class="line"><span class="attr">   - name:</span> install htop</div><div class="line"><span class="attr">     yum:</span> name=htop</div><div class="line">   <span class="comment"># ...</span></div></pre></td></tr></table></figure></p>
+<h1 id="Variables_and_Facts"><a href="#Variables_and_Facts" class="headerlink" title="Variables and Facts"></a>Variables and Facts</h1><h2 id="Defining_Variables_in_Playbooks"><a href="#Defining_Variables_in_Playbooks" class="headerlink" title="Defining Variables in Playbooks"></a>Defining Variables in Playbooks</h2><p>The simplest way to define variables is to put a <em>vars</em> section in your playbook with the names and values of variables.<br><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">vars:</span></div><div class="line"><span class="attr">  key_file:</span> /etc/nginx/ssl/nginx.key</div><div class="line"><span class="attr">  cert_file:</span> /etc/nginx/ssl/nginx.crt</div><div class="line"><span class="attr">  conf_file:</span> /etc/nginx/sites-available/default</div><div class="line"><span class="attr">  server_name:</span> localhost</div></pre></td></tr></table></figure></p>
+<p>Ansible also allows you to put variables into one or more files, using a section called <em>vars_files</em>.<br><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">vars_files:</span></div><div class="line"><span class="bullet"> -</span> nginx.yml</div></pre></td></tr></table></figure></p>
+<p>The <em>nginx.yml</em> file would look like:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">key_file: /etc/nginx/ssl/nginx.key</div><div class="line">cert_file: /etc/nginx/ssl/nginx.crt</div><div class="line">conf_file: /etc/nginx/sites-available/default</div><div class="line">server_name: localhost</div></pre></td></tr></table></figure></p>
+<h2 id="Registering_Variables"><a href="#Registering_Variables" class="headerlink" title="Registering Variables"></a>Registering Variables</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">- name:</span> capture output of id command</div><div class="line"><span class="attr">  command:</span> id -un</div><div class="line"><span class="attr">  register:</span> login</div><div class="line"><span class="attr">- debug:</span> msg=<span class="string">"Logged in as user <span class="template-variable">&#123;&#123; login.stdout &#125;&#125;</span>"</span></div></pre></td></tr></table></figure>
+<h2 id="Facts"><a href="#Facts" class="headerlink" title="Facts"></a>Facts</h2><h3 id="Viewing_All_Facts_Associated_with_a_Server"><a href="#Viewing_All_Facts_Associated_with_a_Server" class="headerlink" title="Viewing All Facts Associated with a Server"></a>Viewing All Facts Associated with a Server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ ansible server1 -m setup</div></pre></td></tr></table></figure>
+<h3 id="Viewing_a_Subset_of_Facts"><a href="#Viewing_a_Subset_of_Facts" class="headerlink" title="Viewing a Subset of Facts"></a>Viewing a Subset of Facts</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ ansible web -m setup <span class="_">-a</span> <span class="string">'filter=ansible_eth*'</span></div></pre></td></tr></table></figure>
+<h3 id="Local_Facts"><a href="#Local_Facts" class="headerlink" title="Local Facts"></a>Local Facts</h3><p>Ansible also provides an additional mechanism for associating facts with a host. You can place one or more files on the host machine in the <em>/etc/ansible/facts.d</em> directory. Ansible will recognize the file if it’s:</p>
+<ul>
+<li>In <em>.ini</em> format</li>
+<li>In JSON format</li>
+<li>An executable that takes no arguments and outputs JSON on standard out<br><a href="http://docs.ansible.com/ansible/playbooks_variables.html#local-facts-facts-d" target="_blank" rel="external">http://docs.ansible.com/ansible/playbooks_variables.html#local-facts-facts-d</a></li>
+</ul>
+<h1 id="Deploying_Mezzanine_with_Ansible"><a href="#Deploying_Mezzanine_with_Ansible" class="headerlink" title="Deploying Mezzanine with Ansible"></a>Deploying Mezzanine with Ansible</h1><h2 id="Listing_Tasks_in_a_Playbook"><a href="#Listing_Tasks_in_a_Playbook" class="headerlink" title="Listing Tasks in a Playbook"></a>Listing Tasks in a Playbook</h2><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ ansible-playbook --list-tasks mezzanine.yml</div></pre></td></tr></table></figure>
+<h2 id="Using_Iteration_28with_items_29_to_Install_Multiple_Packages"><a href="#Using_Iteration_28with_items_29_to_Install_Multiple_Packages" class="headerlink" title="Using Iteration(with_items) to Install Multiple Packages"></a>Using Iteration(with_items) to Install Multiple Packages</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">- name:</span> install apt packages</div><div class="line"><span class="attr">  apt:</span> pkg=&#123;&#123; item &#125;&#125; update_cache=<span class="literal">yes</span> cache_valid_time=<span class="number">3600</span></div><div class="line"><span class="attr">  sudo:</span> <span class="literal">True</span></div><div class="line"><span class="attr">  with_items:</span></div><div class="line"><span class="bullet">    -</span> git</div><div class="line"><span class="bullet">    -</span> libjpeg-dev</div><div class="line"><span class="bullet">    -</span> libpq-dev</div><div class="line"><span class="bullet">    -</span> memcached</div><div class="line">   <span class="comment">#- ...</span></div></pre></td></tr></table></figure>
+<p>equal to below:<br><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">- name:</span> install git</div><div class="line"><span class="attr">  apt:</span> pkg=git</div><div class="line"><span class="attr">- name:</span> install libjpeg-dev</div><div class="line"><span class="attr">  apt:</span> pkg=libjpeg-dev</div><div class="line"><span class="comment"># ...</span></div></pre></td></tr></table></figure></p>
+<h2 id="Installing_Packages_into_a_virtualenv"><a href="#Installing_Packages_into_a_virtualenv" class="headerlink" title="Installing Packages into a virtualenv"></a>Installing Packages into a virtualenv</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">- name:</span> install required python packages</div><div class="line"><span class="attr">  pip:</span> name=&#123;&#123; item &#125;&#125; virtualenv=&#123;&#123; venv_path &#125;&#125;</div><div class="line"><span class="attr">  with_items:</span></div><div class="line"><span class="bullet">    -</span> gunicorn</div><div class="line"><span class="bullet">    -</span> setproctitle</div></pre></td></tr></table></figure>
+<p>directory of <em>requirements</em> is in remote host(client host)，也可以写成virtualenv路径的相对路径<br><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">- name:</span> install requirements.txt</div><div class="line"><span class="attr">  pip:</span> requirements=&#123;&#123; proj_path &#125;&#125;/&#123;&#123; reqs_path &#125;&#125; virtualenv=&#123;&#123; venv_path &#125;&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="Complex_Arguments_in_Tasks"><a href="#Complex_Arguments_in_Tasks" class="headerlink" title="Complex Arguments in Tasks"></a>Complex Arguments in Tasks</h2><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">- name:</span> python packages</div><div class="line"><span class="attr">  pip:</span> name=&#123;&#123; item.name &#125;&#125; version=&#123;&#123; item.version &#125;&#125; virtualenv=&#123;&#123; venv_path &#125;&#125;</div><div class="line"><span class="attr">  with_items:</span></div><div class="line"><span class="bullet">    -</span> &#123;name: mezzanine, version: <span class="number">3.1</span><span class="number">.10</span> &#125;</div><div class="line"><span class="bullet">    -</span> &#123;name: gunicorn, version: <span class="number">19.1</span><span class="number">.1</span> &#125;</div><div class="line"><span class="bullet">    -</span> &#123;name: setproctitle, version: <span class="number">1.1</span><span class="number">.8</span> &#125;</div><div class="line"><span class="bullet">    -</span> &#123;name: south, version: <span class="number">1.0</span><span class="number">.1</span> &#125;</div></pre></td></tr></table></figure>
+<h1 id="Complex_Playbooks"><a href="#Complex_Playbooks" class="headerlink" title="Complex Playbooks"></a>Complex Playbooks</h1><h2 id="Running_a_Task_on_a_Machine_Other_Than_the_Host"><a href="#Running_a_Task_on_a_Machine_Other_Than_the_Host" class="headerlink" title="Running a Task on a Machine Other Than the Host"></a>Running a Task on a Machine Other Than the Host</h2><p><em>delegate_to</em><br><figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">- name:</span> enable alerts for web servers</div><div class="line"><span class="attr">  hosts:</span> web</div><div class="line"><span class="attr">  tasks:</span></div><div class="line"><span class="attr">    - name:</span> enable alerts</div><div class="line"><span class="attr">      nagios:</span> action=enable_alerts service=web host=&#123;&#123; inventory_hostname &#125;&#125;</div><div class="line"><span class="attr">      delegate_to:</span> nagios.example.com</div></pre></td></tr></table></figure></p>
+<p>In this example, Ansible would execute the nagios task on nagios.example.com, but the inventory_hostname variable referenced in the play would evaluate to the web host.</p>
+<h2 id="Encrypting_Sensitive_Data_with_Vault"><a href="#Encrypting_Sensitive_Data_with_Vault" class="headerlink" title="Encrypting Sensitive Data with Vault"></a>Encrypting Sensitive Data with Vault</h2><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ ansible-vault encrypt secrets.yml</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ ansible-vault decrypt secrets.yml</div></pre></td></tr></table></figure>
+<h1 id="Roles_3AScaling_Up_Playbooks"><a href="#Roles_3AScaling_Up_Playbooks" class="headerlink" title="Roles:Scaling Up Playbooks"></a>Roles:Scaling Up Playbooks</h1><h2 id="Basic_Structure_of_a_Role"><a href="#Basic_Structure_of_a_Role" class="headerlink" title="Basic Structure of a Role"></a>Basic Structure of a Role</h2><p><em>roles/database/tasks/main.yml</em><br>Tasks</p>
+<p><em>roles/database/files/</em><br>Holds files to be uploaded to hosts</p>
+<p><em>roles/database/templates/</em><br>Holds Jinja2 template files</p>
+<p><em>roles/database/handlers/main.yml</em><br>Handlers</p>
+<p><em>roles/database/vars/main.yml</em><br>Variables that shouldn’t be overridden</p>
+<p><em>roles/database/defaults/main.yml</em><br>Default variables that can be overridden</p>
+<p><em>roles/database/meta/main.yml</em><br>Dependency information about a role</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+            <a href="/tags/Ansible/" rel="tag">#Ansible</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/python-decorator-notes/" rel="next" title="Python decorator notes">
+                <i class="fa fa-chevron-left"></i> Python decorator notes
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="tips-of-ansible-up-and-running/"
+           data-title="Tips of Ansible Up and Running" data-url="http://yoursite.com/tips-of-ansible-up-and-running/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/touxiang.jpg" alt="xiuyanduan" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">xiuyanduan</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">DevOps</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">categories</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiuyanduan" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/xiuyanduan" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 新浪微博
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Installing_Ansible"><span class="nav-number">1.1.</span> <span class="nav-text">Installing Ansible</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ansible-cfg"><span class="nav-number">1.2.</span> <span class="nav-text">ansible.cfg</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Playbooks_3AA_Beginning"><span class="nav-number">2.</span> <span class="nav-text">Playbooks:A Beginning</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#YAML_truthy_and_falsey"><span class="nav-number">2.1.</span> <span class="nav-text">YAML truthy and falsey</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cowsay"><span class="nav-number">2.2.</span> <span class="nav-text">Cowsay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Playbooks_Are_YAML"><span class="nav-number">2.3.</span> <span class="nav-text">Playbooks Are YAML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handlers"><span class="nav-number">2.4.</span> <span class="nav-text">Handlers</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inventory_3A_Describing_Your_Servers"><span class="nav-number">3.</span> <span class="nav-text">Inventory: Describing Your Servers</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Behavioral_Inventory_Parameters"><span class="nav-number">3.1.</span> <span class="nav-text">Behavioral Inventory Parameters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The_Interface_for_a_Dynamic_Inventory_Script"><span class="nav-number">3.2.</span> <span class="nav-text">The Interface for a Dynamic Inventory Script</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adding_Entries_at_Runtime_with_add_host_and_group_by"><span class="nav-number">3.3.</span> <span class="nav-text">Adding Entries at Runtime with add_host and group_by</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#add_by"><span class="nav-number">3.3.1.</span> <span class="nav-text">add_by</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#group_by"><span class="nav-number">3.3.2.</span> <span class="nav-text">group_by</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Variables_and_Facts"><span class="nav-number">4.</span> <span class="nav-text">Variables and Facts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Defining_Variables_in_Playbooks"><span class="nav-number">4.1.</span> <span class="nav-text">Defining Variables in Playbooks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Registering_Variables"><span class="nav-number">4.2.</span> <span class="nav-text">Registering Variables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Facts"><span class="nav-number">4.3.</span> <span class="nav-text">Facts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Viewing_All_Facts_Associated_with_a_Server"><span class="nav-number">4.3.1.</span> <span class="nav-text">Viewing All Facts Associated with a Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Viewing_a_Subset_of_Facts"><span class="nav-number">4.3.2.</span> <span class="nav-text">Viewing a Subset of Facts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Local_Facts"><span class="nav-number">4.3.3.</span> <span class="nav-text">Local Facts</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Deploying_Mezzanine_with_Ansible"><span class="nav-number">5.</span> <span class="nav-text">Deploying Mezzanine with Ansible</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Listing_Tasks_in_a_Playbook"><span class="nav-number">5.1.</span> <span class="nav-text">Listing Tasks in a Playbook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using_Iteration_28with_items_29_to_Install_Multiple_Packages"><span class="nav-number">5.2.</span> <span class="nav-text">Using Iteration(with_items) to Install Multiple Packages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installing_Packages_into_a_virtualenv"><span class="nav-number">5.3.</span> <span class="nav-text">Installing Packages into a virtualenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Complex_Arguments_in_Tasks"><span class="nav-number">5.4.</span> <span class="nav-text">Complex Arguments in Tasks</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Complex_Playbooks"><span class="nav-number">6.</span> <span class="nav-text">Complex Playbooks</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Running_a_Task_on_a_Machine_Other_Than_the_Host"><span class="nav-number">6.1.</span> <span class="nav-text">Running a Task on a Machine Other Than the Host</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Encrypting_Sensitive_Data_with_Vault"><span class="nav-number">6.2.</span> <span class="nav-text">Encrypting Sensitive Data with Vault</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Roles_3AScaling_Up_Playbooks"><span class="nav-number">7.</span> <span class="nav-text">Roles:Scaling Up Playbooks</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic_Structure_of_a_Role"><span class="nav-number">7.1.</span> <span class="nav-text">Basic Structure of a Role</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiuyanduan</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xiuyanduan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+     
+  	  <script type="text/javascript">
+  		var duoshuo_user_ID = 6228038773616150000
+      var duoshuo_admin_nickname="博主"
+  	  </script>
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>

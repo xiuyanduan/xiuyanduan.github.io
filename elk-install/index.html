@@ -277,10 +277,10 @@ add">
 
       
         <span itemprop="articleBody"><p>This articale has been test successful in <code>Ubuntu 14.04 LTS</code></p>
-<h2 id="install_key"><a href="#install_key" class="headerlink" title="install key"></a>install key</h2><p>Download and install the Public Signing Key:<br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">wget -qO - http<span class="variable">s:</span>//packages.elastic.<span class="keyword">co</span>/GPG-KEY-elasticsearch | sudo apt-key <span class="built_in">add</span> -</span><br></pre></td></tr></table></figure></p>
-<h2 id="add_to_the_repository"><a href="#add_to_the_repository" class="headerlink" title="add to the repository"></a>add to the repository</h2><figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line">root<span class="variable">@test</span>:<span class="regexp">/# cat /etc</span><span class="regexp">/apt/sources</span>.list.d/elk.list </span><br><span class="line">deb <span class="symbol">https:</span>/<span class="regexp">/packages.elastic.co/beats</span><span class="regexp">/apt stable main</span><br><span class="line">deb http:/</span><span class="regexp">/packages.elastic.co/elasticsearch</span><span class="regexp">/2.x/debian</span> stable main</span><br><span class="line">deb <span class="symbol">http:</span>/<span class="regexp">/packages.elastic.co/logstash</span><span class="regexp">/2.1/debian</span> stable main</span><br></pre></td></tr></table></figure>
-<h2 id="install_elasticsearch"><a href="#install_elasticsearch" class="headerlink" title="install elasticsearch"></a>install elasticsearch</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sudo apt-get <span class="operator"><span class="keyword">update</span></span><br><span class="line">sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> elasticsearch</span><br><span class="line">sudo <span class="keyword">update</span>-rc.<span class="keyword">d</span> elasticsearch <span class="keyword">defaults</span> <span class="number">95</span> <span class="number">10</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="install_logstash"><a href="#install_logstash" class="headerlink" title="install logstash"></a>install logstash</h2><figure class="highlight q"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> <span class="keyword">update</span></span><br><span class="line">sudo apt-<span class="built_in">get</span> install logstash</span><br></pre></td></tr></table></figure>
+<h2 id="install_key"><a href="#install_key" class="headerlink" title="install key"></a>install key</h2><p>Download and install the Public Signing Key:<br><figure class="highlight vim"><table><tr><td class="code"><pre><div class="line">wget -qO - http<span class="variable">s:</span>//packages.elastic.<span class="keyword">co</span>/GPG-KEY-elasticsearch | sudo apt-key <span class="built_in">add</span> -</div></pre></td></tr></table></figure></p>
+<h2 id="add_to_the_repository"><a href="#add_to_the_repository" class="headerlink" title="add to the repository"></a>add to the repository</h2><figure class="highlight vim"><table><tr><td class="code"><pre><div class="line">root@tes<span class="variable">t:</span>/# <span class="keyword">cat</span> /etc/apt/sources.<span class="keyword">list</span>.d/elk.<span class="keyword">list</span> </div><div class="line"><span class="keyword">deb</span> http<span class="variable">s:</span>//packages.elastic.<span class="keyword">co</span>/beats/apt stable main</div><div class="line"><span class="keyword">deb</span> http://packages.elastic.<span class="keyword">co</span>/elasticsearch/<span class="number">2</span>.<span class="keyword">x</span>/debian stable main</div><div class="line"><span class="keyword">deb</span> http://packages.elastic.<span class="keyword">co</span>/logstash/<span class="number">2.1</span>/debian stable main</div></pre></td></tr></table></figure>
+<h2 id="install_elasticsearch"><a href="#install_elasticsearch" class="headerlink" title="install elasticsearch"></a>install elasticsearch</h2><figure class="highlight sql"><table><tr><td class="code"><pre><div class="line">sudo apt-get <span class="keyword">update</span></div><div class="line">sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> elasticsearch</div><div class="line">sudo <span class="keyword">update</span>-rc.d elasticsearch <span class="keyword">defaults</span> <span class="number">95</span> <span class="number">10</span></div></pre></td></tr></table></figure>
+<h2 id="install_logstash"><a href="#install_logstash" class="headerlink" title="install logstash"></a>install logstash</h2><figure class="highlight q"><table><tr><td class="code"><pre><div class="line">sudo apt-<span class="built_in">get</span> <span class="keyword">update</span></div><div class="line">sudo apt-<span class="built_in">get</span> install logstash</div></pre></td></tr></table></figure>
 <h2 id="download_kibana"><a href="#download_kibana" class="headerlink" title="download kibana"></a>download kibana</h2><p><a href="https://www.elastic.co/downloads/kibana" target="_blank" rel="external"> download </a></p>
 </span>
       
@@ -299,7 +299,7 @@ add">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/MySQL-forget-password/" rel="next" title="MySQL forget password of root">
+              <a href="/mysql-forget-password/" rel="next" title="MySQL forget password of root">
                 <i class="fa fa-chevron-left"></i> MySQL forget password of root
               </a>
             
@@ -381,7 +381,7 @@ add">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -395,7 +395,7 @@ add">
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
@@ -466,7 +466,7 @@ add">
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

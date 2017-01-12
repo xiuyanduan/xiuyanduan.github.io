@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ELK,elasticsearch,linux," />
+  <meta name="keywords" content="linux,ELK,elasticsearch," />
 
 
 
@@ -270,7 +270,7 @@
       
 
       
-        <span itemprop="articleBody"><p><code>Ubuntu 14.04 LTS</code> <code>elasticsearch 2.1.0</code> <code>logstash 2.1.1</code> <code>kibana 4.3.0</code> ELK works well for a couple of days, and then becomes unusable. <code>curl localhost:9200</code> has no response.<br><a id="more"></a><br><code>kibana4</code> shows <strong>RED</strong>.The error message of logstash looks like:<br><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">&#123;<span class="symbol">:timestamp=&gt;<span class="string">"2016-05-24T06:42:14.489000+0800"</span></span>, <span class="symbol">:message=&gt;<span class="string">"retrying failed action with response code: 503"</span></span>, <span class="symbol">:level=&gt;</span><span class="symbol">:warn</span>&#125;</span><br></pre></td></tr></table></figure></p>
+        <span itemprop="articleBody"><p><code>Ubuntu 14.04 LTS</code> <code>elasticsearch 2.1.0</code> <code>logstash 2.1.1</code> <code>kibana 4.3.0</code> ELK works well for a couple of days, and then becomes unusable. <code>curl localhost:9200</code> has no response.<br><a id="more"></a><br><code>kibana4</code> shows <strong>RED</strong>.The error message of logstash looks like:<br><figure class="highlight elixir"><table><tr><td class="code"><pre><div class="line">&#123;<span class="symbol">:timestamp=&gt;<span class="string">"2016-05-24T06:42:14.489000+0800"</span></span>, <span class="symbol">:message=&gt;<span class="string">"retrying failed action with response code: 503"</span></span>, <span class="symbol">:level=&gt;</span><span class="symbol">:warn</span>&#125;</div></pre></td></tr></table></figure></p>
 <h1 id="Refs_3A"><a href="#Refs_3A" class="headerlink" title="Refs:"></a>Refs:</h1><p><a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/_limiting_memory_usage.html" target="_blank" rel="external">official doc</a><br><a href="https://discuss.elastic.co/t/cluster-deteriorates-after-a-couple-of-days/1285/1" target="_blank" rel="external">discuss.elastic.co</a><br><a href="http://stackoverflow.com/questions/18132719/how-to-change-elasticsearch-max-memory-size" target="_blank" rel="external">stackoverflow</a></p>
 <h1 id="Reason"><a href="#Reason" class="headerlink" title="Reason"></a>Reason</h1><p>Once analyzed strings have been loaded into fielddata, they will sit there until evicted (or your node crashes). For that reason it is important to keep an eye on this memory usage, understand how and when it loads, and how you can limit the impact on your cluster.</p>
 <p>Fielddata is loaded lazily. If you never aggregate on an analyzed string, you’ll never load fielddata into memory. Furthermore, fielddata is loaded on a per-field basis, meaning only actively used fields will incur the “fielddata tax”.</p>
@@ -281,7 +281,7 @@
 <h1 id="Choosing_a_Heap_Size"><a href="#Choosing_a_Heap_Size" class="headerlink" title="Choosing a Heap Size"></a>Choosing a Heap Size</h1><p>There are two rules to apply when setting the Elasticsearch heap size, with the $ES_HEAP_SIZE environment variable:</p>
 <h2 id="No_more_than_50_25_of_available_RAM"><a href="#No_more_than_50_25_of_available_RAM" class="headerlink" title="No more than 50% of available RAM"></a>No more than 50% of available RAM</h2><p>Lucene makes good use of the filesystem caches, which are managed by the kernel. Without enough filesystem cache space, performance will suffer. Furthermore, the more memory dedicated to the heap means less available for all your other fields using doc values.</p>
 <h2 id="No_more_than_32_GB"><a href="#No_more_than_32_GB" class="headerlink" title="No more than 32 GB"></a>No more than 32 GB</h2><p>If the heap is less than 32 GB, the JVM can use compressed pointers, which saves a lot of memory: 4 bytes per pointer instead of 8 bytes.<br>For a longer and more complete discussion of heap sizing, see Heap: Sizing and Swapping</p>
-<h1 id="Setting_config"><a href="#Setting_config" class="headerlink" title="Setting config"></a>Setting config</h1><p><code>/etc/init.d/elasticsearch</code><br><figure class="highlight objectivec"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> ES_HEAP_SIZE</span><br><span class="line"><span class="keyword">export</span> ES_HEAP_NEWSIZE</span><br><span class="line"><span class="keyword">export</span> ES_DIRECT_SIZE</span><br><span class="line"><span class="keyword">export</span> ES_J<span class="built_in">AVA_OPTS</span></span><br><span class="line"><span class="keyword">export</span> J<span class="built_in">AVA_HOME</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="Setting_config"><a href="#Setting_config" class="headerlink" title="Setting config"></a>Setting config</h1><p><code>/etc/init.d/elasticsearch</code><br><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="built_in">export</span> ES_HEAP_SIZE</div><div class="line"><span class="built_in">export</span> ES_HEAP_NEWSIZE</div><div class="line"><span class="built_in">export</span> ES_DIRECT_SIZE</div><div class="line"><span class="built_in">export</span> ES_JAVA_OPTS</div><div class="line"><span class="built_in">export</span> JAVA_HOME</div></pre></td></tr></table></figure></p>
 <p><code>export ES_HEAP_SIZE=1G</code></p>
 <h1 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h1><p><code>curl -XDELETE http://localhost:9200/.kibana</code></p>
 </span>
@@ -292,11 +292,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
             <a href="/tags/ELK/" rel="tag">#ELK</a>
           
             <a href="/tags/elasticsearch/" rel="tag">#elasticsearch</a>
-          
-            <a href="/tags/linux/" rel="tag">#linux</a>
           
         </div>
       
@@ -305,7 +305,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/deploy-gitlab-by-Docker/" rel="next" title="deploy gitlab by Docker">
+              <a href="/deploy-gitlab-by-docker/" rel="next" title="deploy gitlab by Docker">
                 <i class="fa fa-chevron-left"></i> deploy gitlab by Docker
               </a>
             
@@ -387,7 +387,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -401,7 +401,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
@@ -472,7 +472,7 @@
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

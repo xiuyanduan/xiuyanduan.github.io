@@ -37,7 +37,7 @@
 <link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Latex,PyLaTex,Python," />
+  <meta name="keywords" content="Python,Latex,PyLaTex," />
 
 
 
@@ -282,21 +282,21 @@ merge PDFs by pdftk">
 <li>merge PDFs by <code>pdftk</code><a id="more"></a>
 </li>
 </ol>
-<h1 id="install_texlive"><a href="#install_texlive" class="headerlink" title="install texlive"></a>install texlive</h1><h2 id="ubuntu"><a href="#ubuntu" class="headerlink" title="ubuntu"></a>ubuntu</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt-get install texlive-full</span><br></pre></td></tr></table></figure>
+<h1 id="install_texlive"><a href="#install_texlive" class="headerlink" title="install texlive"></a>install texlive</h1><h2 id="ubuntu"><a href="#ubuntu" class="headerlink" title="ubuntu"></a>ubuntu</h2><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">apt-get install texlive-full</div></pre></td></tr></table></figure>
 <h2 id="centos"><a href="#centos" class="headerlink" title="centos"></a>centos</h2><p>no yum repo to install texlive full</p>
 <p>Ref:<a href="https://seisman.info/install-texlive-under-linux.html" target="_blank" rel="external">https://seisman.info/install-texlive-under-linux.html</a></p>
 <h3 id="download_texlive2016-iso"><a href="#download_texlive2016-iso" class="headerlink" title="download texlive2016.iso"></a>download texlive2016.iso</h3><p>official url: <a href="http://mirrors.ctan.org/systems/texlive/Images/texlive2016.iso" target="_blank" rel="external">http://mirrors.ctan.org/systems/texlive/Images/texlive2016.iso</a></p>
-<h3 id="mount_iso"><a href="#mount_iso" class="headerlink" title="mount iso"></a>mount iso</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ su</span><br><span class="line"><span class="comment"># mount -o loop texlive2016.iso  /mnt/</span></span><br><span class="line"><span class="comment"># cd /mnt</span></span><br><span class="line"><span class="comment"># ./install-tl</span></span><br></pre></td></tr></table></figure>
+<h3 id="mount_iso"><a href="#mount_iso" class="headerlink" title="mount iso"></a>mount iso</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ su</div><div class="line"><span class="comment"># mount -o loop texlive2016.iso  /mnt/</span></div><div class="line"><span class="comment"># cd /mnt</span></div><div class="line"><span class="comment"># ./install-tl</span></div></pre></td></tr></table></figure>
 <p>print <code>I</code></p>
-<h3 id="update_texlive"><a href="#update_texlive" class="headerlink" title="update texlive"></a>update texlive</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ su</span><br><span class="line"><span class="comment"># tlmgr update --self</span></span><br><span class="line"><span class="comment"># tlmgr update --all</span></span><br></pre></td></tr></table></figure>
-<p>using repo of aliyun<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># tlmgr update --self --repository http://mirrors.aliyun.com/CTAN/systems/texlive/tlnet/</span></span><br><span class="line"><span class="comment"># tlmgr update --all --repository http://mirrors.aliyun.com/CTAN/systems/texlive/tlnet/</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="update_texlive"><a href="#update_texlive" class="headerlink" title="update texlive"></a>update texlive</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ su</div><div class="line"><span class="comment"># tlmgr update --self</span></div><div class="line"><span class="comment"># tlmgr update --all</span></div></pre></td></tr></table></figure>
+<p>using repo of aliyun<br><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="comment"># tlmgr update --self --repository http://mirrors.aliyun.com/CTAN/systems/texlive/tlnet/</span></div><div class="line"><span class="comment"># tlmgr update --all --repository http://mirrors.aliyun.com/CTAN/systems/texlive/tlnet/</span></div></pre></td></tr></table></figure></p>
 <h1 id="add_fonts_to_Linux"><a href="#add_fonts_to_Linux" class="headerlink" title="add fonts to Linux"></a>add fonts to Linux</h1><h2 id="copy_fonts"><a href="#copy_fonts" class="headerlink" title="copy fonts"></a>copy fonts</h2><p>directory of windows <code>C:\Windows\Fonts</code></p>
 <p>copy to linux <code>/usr/share/fonts</code></p>
 <h2 id="update_fonts"><a href="#update_fonts" class="headerlink" title="update fonts"></a>update fonts</h2><p>show all fonts <code>fc-list</code></p>
 <p>update cache <code>fc-cache -f -s -v</code></p>
-<h1 id="tips_of_tex_compiled_by_xelatex"><a href="#tips_of_tex_compiled_by_xelatex" class="headerlink" title="tips of <code>tex</code> compiled by <code>xelatex</code>"></a>tips of <code>tex</code> compiled by <code>xelatex</code></h1><h2 id="demo_settings_of_preamble"><a href="#demo_settings_of_preamble" class="headerlink" title="demo settings of preamble"></a>demo settings of preamble</h2><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="command">\documentclass</span><span class="special">[</span>11pt,a4paper<span class="special">]</span><span class="special">&#123;</span>article<span class="special">&#125;</span></span><br><span class="line"><span class="command">\usepackage</span><span class="special">&#123;</span>xeCJK<span class="special">&#125;</span> <span class="comment">%xeCJK包</span></span><br><span class="line"><span class="command">\usepackage</span><span class="special">[</span>left=0cm,bottom=0cm<span class="special">]</span><span class="special">&#123;</span>geometry<span class="special">&#125;</span></span><br><span class="line"><span class="command">\usepackage</span><span class="special">&#123;</span>ulem<span class="special">&#125;</span>   <span class="comment">% 下划线</span></span><br><span class="line"><span class="command">\usepackage</span><span class="special">&#123;</span>color<span class="special">&#125;</span>  <span class="comment">%  设置文字RGB值</span></span><br><span class="line"><span class="command">\usepackage</span><span class="special">&#123;</span>type1cm<span class="special">&#125;</span></span><br><span class="line"><span class="command">\newcommand</span><span class="command">\username</span><span class="special">&#123;</span>someone<span class="special">&#125;</span> <span class="comment">% 设置变量 \username可以代替someone</span></span><br><span class="line"><span class="command">\definecolor</span><span class="special">&#123;</span>ColorName<span class="special">&#125;</span><span class="special">&#123;</span>RGB<span class="special">&#125;</span><span class="special">&#123;</span>76,73,72<span class="special">&#125;</span>  <span class="comment">% 设置字体颜色</span></span><br><span class="line"><span class="command">\setCJKmainfont</span><span class="special">&#123;</span>SimHei<span class="special">&#125;</span> <span class="comment">%设置默认中文字体黑体</span></span><br><span class="line"><span class="command">\setCJKmonofont</span><span class="special">&#123;</span>KaiTi<span class="special">&#125;</span>  <span class="comment">%用作另外一种字体设置</span></span><br><span class="line"><span class="command">\setmainfont</span><span class="special">&#123;</span>Times New Roman<span class="special">&#125;</span> <span class="comment">%设置英文字体</span></span><br><span class="line"><span class="command">\begin</span><span class="special">&#123;</span>document<span class="special">&#125;</span></span><br><span class="line"><span class="command">\pagestyle</span><span class="special">&#123;</span>empty<span class="special">&#125;</span>   <span class="comment">% 去掉页码</span></span><br><span class="line"><span class="command">\color</span><span class="special">&#123;</span>ColorName<span class="special">&#125;</span>   <span class="comment">% 使用上文定义的字体颜色</span></span><br></pre></td></tr></table></figure>
-<h2 id="set_location"><a href="#set_location" class="headerlink" title="set location"></a>set location</h2><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="command">\vspace</span><span class="special">&#123;</span>17.634mm<span class="special">&#125;</span><span class="command">\hspace*</span><span class="special">&#123;</span>54.314mm<span class="special">&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="using_fonts_set_in_preamble"><a href="#using_fonts_set_in_preamble" class="headerlink" title="using fonts set in preamble"></a>using fonts set in preamble</h2><figure class="highlight tex"><table><tr><td class="code"><pre><span class="line"><span class="command">\ttfamily</span></span><br></pre></td></tr></table></figure>
+<h1 id="tips_of_tex_compiled_by_xelatex"><a href="#tips_of_tex_compiled_by_xelatex" class="headerlink" title="tips of <code>tex</code> compiled by <code>xelatex</code>"></a>tips of <code>tex</code> compiled by <code>xelatex</code></h1><h2 id="demo_settings_of_preamble"><a href="#demo_settings_of_preamble" class="headerlink" title="demo settings of preamble"></a>demo settings of preamble</h2><figure class="highlight tex"><table><tr><td class="code"><pre><div class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">[11pt,a4paper]</span><span class="string">&#123;article&#125;</span></span></div><div class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;xeCJK&#125;</span></span> <span class="comment">%xeCJK包</span></div><div class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">[left=0cm,bottom=0cm]</span><span class="string">&#123;geometry&#125;</span></span></div><div class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;ulem&#125;</span></span>   <span class="comment">% 下划线</span></div><div class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;color&#125;</span></span>  <span class="comment">%  设置文字RGB值</span></div><div class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;type1cm&#125;</span></span></div><div class="line"><span class="tag">\<span class="name">newcommand</span></span><span class="tag">\<span class="name">username</span><span class="string">&#123;someone&#125;</span></span> <span class="comment">% 设置变量 \username可以代替someone</span></div><div class="line"><span class="tag">\<span class="name">definecolor</span><span class="string">&#123;ColorName&#125;</span><span class="string">&#123;RGB&#125;</span><span class="string">&#123;76,73,72&#125;</span></span>  <span class="comment">% 设置字体颜色</span></div><div class="line"><span class="tag">\<span class="name">setCJKmainfont</span><span class="string">&#123;SimHei&#125;</span></span> <span class="comment">%设置默认中文字体黑体</span></div><div class="line"><span class="tag">\<span class="name">setCJKmonofont</span><span class="string">&#123;KaiTi&#125;</span></span>  <span class="comment">%用作另外一种字体设置</span></div><div class="line"><span class="tag">\<span class="name">setmainfont</span><span class="string">&#123;Times New Roman&#125;</span></span> <span class="comment">%设置英文字体</span></div><div class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span></div><div class="line"><span class="tag">\<span class="name">pagestyle</span><span class="string">&#123;empty&#125;</span></span>   <span class="comment">% 去掉页码</span></div><div class="line"><span class="tag">\<span class="name">color</span><span class="string">&#123;ColorName&#125;</span></span>   <span class="comment">% 使用上文定义的字体颜色</span></div></pre></td></tr></table></figure>
+<h2 id="set_location"><a href="#set_location" class="headerlink" title="set location"></a>set location</h2><figure class="highlight tex"><table><tr><td class="code"><pre><div class="line"><span class="tag">\<span class="name">vspace</span><span class="string">&#123;17.634mm&#125;</span></span><span class="tag">\<span class="name">hspace*</span><span class="string">&#123;54.314mm&#125;</span></span></div></pre></td></tr></table></figure>
+<h2 id="using_fonts_set_in_preamble"><a href="#using_fonts_set_in_preamble" class="headerlink" title="using fonts set in preamble"></a>using fonts set in preamble</h2><figure class="highlight tex"><table><tr><td class="code"><pre><div class="line"><span class="tag">\<span class="name">ttfamily</span></span></div></pre></td></tr></table></figure>
 <p>Refs: </p>
 <ol>
 <li><p><a href="http://www.cs.pu.edu.tw/~wckuo/doc/latex123/node1.html" target="_blank" rel="external">http://www.cs.pu.edu.tw/~wckuo/doc/latex123/node1.html</a></p>
@@ -307,8 +307,8 @@ merge PDFs by pdftk">
 </li>
 </ol>
 <h1 id="tips_of_using_PyLaTex"><a href="#tips_of_using_PyLaTex" class="headerlink" title="tips of using <code>PyLaTex</code>"></a>tips of using <code>PyLaTex</code></h1><p><code>PyLaTex</code> 1.0.0<br><a href="https://github.com/JelteF/PyLaTeX" target="_blank" rel="external">https://github.com/JelteF/PyLaTeX</a></p>
-<h2 id="NoEscape"><a href="#NoEscape" class="headerlink" title="NoEscape"></a>NoEscape</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pylatex.utils <span class="keyword">import</span> NoEscape</span><br><span class="line"><span class="comment">#doc.append(NoEscape(r'\color&#123;ColorName&#125;'))</span></span><br></pre></td></tr></table></figure>
-<h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pylatex <span class="keyword">import</span> Command</span><br><span class="line"><span class="comment">#doc.preamble.append(Command('newcommand\\username',arguments=username))</span></span><br></pre></td></tr></table></figure>
+<h2 id="NoEscape"><a href="#NoEscape" class="headerlink" title="NoEscape"></a>NoEscape</h2><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> pylatex.utils <span class="keyword">import</span> NoEscape</div><div class="line"><span class="comment">#doc.append(NoEscape(r'\color&#123;ColorName&#125;'))</span></div></pre></td></tr></table></figure>
+<h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> pylatex <span class="keyword">import</span> Command</div><div class="line"><span class="comment">#doc.preamble.append(Command('newcommand\\username',arguments=username))</span></div></pre></td></tr></table></figure>
 <p><a href="https://github.com/JelteF/PyLaTeX/issues/128" target="_blank" rel="external">issue</a></p>
 <h1 id="merge_PDF"><a href="#merge_PDF" class="headerlink" title="merge PDF"></a>merge PDF</h1><p>using <code>pdftk</code><br>Ref: <a href="http://seisman.info/introduction-to-pdftk.html" target="_blank" rel="external">http://seisman.info/introduction-to-pdftk.html</a></p>
 </span>
@@ -319,11 +319,11 @@ merge PDFs by pdftk">
       
         <div class="post-tags">
           
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
             <a href="/tags/Latex/" rel="tag">#Latex</a>
           
             <a href="/tags/PyLaTex/" rel="tag">#PyLaTex</a>
-          
-            <a href="/tags/Python/" rel="tag">#Python</a>
           
         </div>
       
@@ -339,6 +339,10 @@ merge PDFs by pdftk">
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/set-api-gateway-using-kong/" rel="prev" title="set api gateway using kong">
+                set api gateway using kong <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -410,7 +414,7 @@ merge PDFs by pdftk">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -424,7 +428,7 @@ merge PDFs by pdftk">
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
@@ -495,7 +499,7 @@ merge PDFs by pdftk">
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
