@@ -1,0 +1,812 @@
+<!doctype html>
+<html class="theme-next   use-motion ">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="QvqfId7mK9l-1Cz8SD88-JrVJVMPRfZdeIhfUAOPMKI" />
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.4.5.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hadoop,Kylin,Hive,HBase,ZooKeeper," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+
+
+
+<meta name="description" content="本文主要记录了安装hadoop，hive，zookeeper，hbase，kylin的整个过程，其中各软件的版本如下：
+
+hadoop-2.7.3.tar.gz
+apache-hive-2.1.1-bin.tar.gz
+hbase-1.2.4-bin.tar.gz
+zookeeper-3.4.9.tar.gz
+apache-hive-2.1.1-bin.tar.gz">
+<meta property="og:type" content="article">
+<meta property="og:title" content="install kylin hive hbase hadoop">
+<meta property="og:url" content="http://yoursite.com/install-kylin-hive-hbase-hadoop/index.html">
+<meta property="og:site_name" content="xyduan">
+<meta property="og:description" content="本文主要记录了安装hadoop，hive，zookeeper，hbase，kylin的整个过程，其中各软件的版本如下：
+
+hadoop-2.7.3.tar.gz
+apache-hive-2.1.1-bin.tar.gz
+hbase-1.2.4-bin.tar.gz
+zookeeper-3.4.9.tar.gz
+apache-hive-2.1.1-bin.tar.gz">
+<meta property="og:image" content="http://yoursite.com/images/install-kylin-hive-hbase-hadoop-0.png">
+<meta property="og:image" content="http://yoursite.com/images/install-kylin-hive-hbase-hadoop-1.png">
+<meta property="og:updated_time" content="2017-01-25T15:47:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="install kylin hive hbase hadoop">
+<meta name="twitter:description" content="本文主要记录了安装hadoop，hive，zookeeper，hbase，kylin的整个过程，其中各软件的版本如下：
+
+hadoop-2.7.3.tar.gz
+apache-hive-2.1.1-bin.tar.gz
+hbase-1.2.4-bin.tar.gz
+zookeeper-3.4.9.tar.gz
+apache-hive-2.1.1-bin.tar.gz">
+<meta name="twitter:image" content="http://yoursite.com/images/install-kylin-hive-hbase-hadoop-0.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post',
+    motion: true
+  };
+</script>
+
+  <title> install kylin hive hbase hadoop | xyduan </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0f6ac7dc052641b1a15dd123d65de6f8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xyduan</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'wW5A5ZBWFntDM79FcGFk','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                install kylin hive hbase hadoop
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2017-01-20T00:00:00+08:00" content="2017-01-20">
+              2017-01-20
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/install-kylin-hive-hbase-hadoop/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="install-kylin-hive-hbase-hadoop/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>本文主要记录了安装<a href="http://hadoop.apache.org/" target="_blank" rel="external">hadoop</a>，<a href="http://hive.apache.org/" target="_blank" rel="external">hive</a>，<a href="http://zookeeper.apache.org/" target="_blank" rel="external">zookeeper</a>，<a href="http://hbase.apache.org/" target="_blank" rel="external">hbase</a>，<a href="http://kylin.apache.org/" target="_blank" rel="external">kylin</a>的整个过程，其中各软件的版本如下：</p>
+<ul>
+<li>hadoop-2.7.3.tar.gz</li>
+<li>apache-hive-2.1.1-bin.tar.gz</li>
+<li>hbase-1.2.4-bin.tar.gz</li>
+<li>zookeeper-3.4.9.tar.gz</li>
+<li>apache-hive-2.1.1-bin.tar.gz</li>
+</ul>
+<a id="more"></a>
+<p>直接在各官网下载较慢，可使用<a href="http://mirrors.cnnic.cn/apache/" target="_blank" rel="external">中国互联网络信息中心开源镜</a>寻找各软件</p>
+<ol>
+<li>操作系统使用的为<code>Ubuntu 14.04.4 LTS</code>，<code>java version</code>为<code>1.8.0_111</code></li>
+<li>MySQL使用操作系统自带的tasksel安装，版本号为<code>5.5.53-0ubuntu0.14.04.1</code></li>
+<li>为避免权限问题，以下全部使用<code>root</code>用户执行</li>
+<li>各软件包均下载至<code>/usr/local/src</code>，为简便起见，均解压至<code>/opt</code>，例如<code>/opt/hadoop-2.7.3</code></li>
+<li>本文提到的服务器<code>hostname</code>为<code>master.xyduan.com</code>，也通过域名解析到<code>master.xyduan.com</code>，ssh生成的秘钥对已将公钥加入自己的<code>authorized_keys</code>，以下截屏涉及到的显示为<code>root@master</code>由<code>PS1</code>值默认设置决定</li>
+</ol>
+<h1 id="u8BBE_u7F6EJAVA_u76F8_u5173_u73AF_u5883_u53D8_u91CF"><a href="#u8BBE_u7F6EJAVA_u76F8_u5173_u73AF_u5883_u53D8_u91CF" class="headerlink" title="设置JAVA相关环境变量"></a>设置JAVA相关环境变量</h1><ol>
+<li>下载jdk8，<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">地址</a>，此处以下载<code>jdk-8u111-linux-x64.tar.gz</code>为例</li>
+<li>将下载的<code>jdk-8u111-linux-x64.tar.gz</code>解压至<code>/usr/local/jdk1.8.0_111</code></li>
+<li>在<code>/etc/profile</code>中增加<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/jdk1.8.0_111</div><div class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</div><div class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>执行<code>source /etc/profile</code></p>
+<p>此时执行<code>java -version</code>命令若出现类似以下页面，则java环境安装正常<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">root@master:/opt# java -version</div><div class="line">java version &quot;1.8.0_111&quot;</div><div class="line">Java(TM) SE Runtime Environment (build 1.8.0_111-b14)</div><div class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.111-b14, mixed mode)</div></pre></td></tr></table></figure></p>
+<h1 id="u5B89_u88C5HDFS"><a href="#u5B89_u88C5HDFS" class="headerlink" title="安装HDFS"></a>安装HDFS</h1><h2 id="u589E_u52A0_u73AF_u5883_u53D8_u91CF"><a href="#u589E_u52A0_u73AF_u5883_u53D8_u91CF" class="headerlink" title="增加环境变量"></a>增加环境变量</h2><ol>
+<li><p><code>/etc/profile</code>中增加以下内容，并<code>source /etc/profile</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line"><span class="built_in">export</span> HADOOP_HOME=/opt/hadoop-2.7.3</div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/bin</div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/sbin</div><div class="line"><span class="built_in">export</span> HADOOP_MAPARED_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></div><div class="line"><span class="built_in">export</span> HADOOP_COMMON_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></div><div class="line"><span class="built_in">export</span> HADOOP_HDFS_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></div><div class="line"><span class="built_in">export</span> HADOOP_MAPRED_HOME=<span class="variable">$HADOOP_HOME</span></div><div class="line"><span class="built_in">export</span> HADOOP_YARN_HOME=<span class="variable">$HADOOP_HOME</span></div><div class="line"><span class="built_in">export</span> HADOOP_CMD=<span class="variable">$HADOOP_HOME</span>/bin/hadoop</div><div class="line"><span class="built_in">export</span> HADOOP_STREAMING=<span class="variable">$HADOOP_HOME</span>/share/hadoop/tools/lib/hadoop-streaming-2.7.1.jar</div><div class="line"><span class="built_in">export</span> YARN_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></div><div class="line"><span class="built_in">export</span> HADOOP_CONF_DIR=<span class="variable">$&#123;HADOOP_HOME&#125;</span>/etc/hadoop</div><div class="line"><span class="built_in">export</span> HDFS_CONF_DIR=<span class="variable">$&#123;HADOOP_HOME&#125;</span>/etc/hadoop</div><div class="line"><span class="built_in">export</span> YARN_CONF_DIR=<span class="variable">$&#123;HADOOP_HOME&#125;</span>/etc/hadoop</div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/bin</div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/sbin</div><div class="line"><span class="built_in">export</span> JAVA_LIBRARY_PATH=<span class="variable">$HADOOP_HOME</span>/lib/native</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>/opt/hadoop-2.7.3/etc/hadoop/hadoop-env.sh</code>中增加<code>export JAVA_HOME=/usr/local/jdk1.8.0_111</code>，并<code>source</code></p>
+</li>
+</ol>
+<h2 id="u4FEE_u6539_u914D_u7F6E_u6587_u4EF6"><a href="#u4FEE_u6539_u914D_u7F6E_u6587_u4EF6" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><h3 id="core-site-xml"><a href="#core-site-xml" class="headerlink" title="core-site.xml"></a>core-site.xml</h3><p>路径<code>/opt/hadoop-2.7.3/etc/hadoop/core-site.xml</code><br>在<code>&lt;configuration&gt;</code>中增加以下配置<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/opt/data/hadoop/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">description</span>&gt;</span>Abase for other temporary directories.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://localhost:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="hdfs-site-xml"><a href="#hdfs-site-xml" class="headerlink" title="hdfs-site.xml"></a>hdfs-site.xml</h3><p>路径 <code>/opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml</code><br>在<code>&lt;configuration&gt;</code>中增加以下配置<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/opt/data/hadoop/name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/opt/data/hadoop/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="yarn-site-xml"><a href="#yarn-site-xml" class="headerlink" title="yarn-site.xml"></a>yarn-site.xml</h3><p>路径 <code>/opt/hadoop-2.7.3/etc/hadoop/yarn-site.xml</code><br>在<code>&lt;configuration&gt;</code>中增加以下配置<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="mapred-site-xml"><a href="#mapred-site-xml" class="headerlink" title="mapred-site.xml"></a>mapred-site.xml</h3><p>路径 <code>/opt/hadoop-2.7.3/etc/hadoop/mapred-site.xml</code><br>在<code>&lt;configuration&gt;</code>中增加以下配置<br><figure class="highlight xml"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">           <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                  <span class="tag">&lt;<span class="name">value</span>&gt;</span>master.xyduan.com:10020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">          <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>master.xyduan.com:19888<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">       <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="u542F_u52A8HDFS"><a href="#u542F_u52A8HDFS" class="headerlink" title="启动HDFS"></a>启动HDFS</h2><ol>
+<li>执行命令<code>hdfs namenode -format</code>格式化namenode</li>
+<li><p>执行<code>start-all.sh</code>启动，再执行<code>mr-jobhistory-daemon.sh start historyserver</code>，正常结果使用<code>jps</code>命令，会出现以下内容（pid不固定）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">5043 DataNode</div><div class="line">5478 NodeManager</div><div class="line">5372 ResourceManager</div><div class="line">5756 Jps</div><div class="line">5213 SecondaryNameNode</div><div class="line">4911 NameNode</div></pre></td></tr></table></figure>
+</li>
+<li><p>能正常访问<code>http://master.xyduan.com:50070</code>及<code>http://master.xyduan.com:8088</code></p>
+</li>
+<li>执行测试mapreduced程序，<code>hadoop jar /opt/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.3.jar pi 5 100</code>，观察<code>http://master.xyduan.com:8088</code>能否正常显示</li>
+</ol>
+<h1 id="u5B89_u88C5ZooKeeper"><a href="#u5B89_u88C5ZooKeeper" class="headerlink" title="安装ZooKeeper"></a>安装ZooKeeper</h1><h2 id="u4FEE_u6539_u73AF_u5883_u53D8_u91CF"><a href="#u4FEE_u6539_u73AF_u5883_u53D8_u91CF" class="headerlink" title="修改环境变量"></a>修改环境变量</h2><p>在<code>/etc/profile</code>中增加以下内容，并执行<code>source /etc/profile</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">export ZOOKEEPER=/opt/zookeeper-3.4.9</div><div class="line">export PATH=$PATH:$ZOOKEEPER/bin</div></pre></td></tr></table></figure></p>
+<h2 id="u4FEE_u6539_u914D_u7F6E_u6587_u4EF6-1"><a href="#u4FEE_u6539_u914D_u7F6E_u6587_u4EF6-1" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>将<code>/opt/zookeeper-3.4.9/conf/zoo.cfg</code>编辑为以下内容<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">tickTime=2000</div><div class="line">initLimit=10</div><div class="line">syncLimit=5</div><div class="line">dataDir=/opt/data/zookeeper</div><div class="line">clientPort=2181</div></pre></td></tr></table></figure></p>
+<h2 id="u542F_u52A8zookeeper"><a href="#u542F_u52A8zookeeper" class="headerlink" title="启动zookeeper"></a>启动zookeeper</h2><p><code>zkServer.sh start</code>即可启动，此时<code>jps</code>命令会增加<code>QuorumPeerMain</code>，通过<code>zkCli.sh</code>可进入，并执行<code>ls /</code>验证是否正常启动</p>
+<h1 id="u5B89_u88C5HBase"><a href="#u5B89_u88C5HBase" class="headerlink" title="安装HBase"></a>安装HBase</h1><h2 id="u4FEE_u6539_u73AF_u5883_u53D8_u91CF-1"><a href="#u4FEE_u6539_u73AF_u5883_u53D8_u91CF-1" class="headerlink" title="修改环境变量"></a>修改环境变量</h2><p>在<code>/etc/profile</code>中增加以下内容，并执行<code>source /etc/profile</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">export ZOOKEEPER=/opt/zookeeper-3.4.9</div><div class="line">export PATH=$PATH:$ZOOKEEPER/bin</div></pre></td></tr></table></figure></p>
+<p>在<code>/opt/hbase-1.2.4/conf/hbase-env.sh</code>中增加<code>export JAVA_HOME=/usr/local/jdk1.8.0_111</code>并<code>source</code></p>
+<h2 id="u4FEE_u6539_u914D_u7F6E_u6587_u4EF6-2"><a href="#u4FEE_u6539_u914D_u7F6E_u6587_u4EF6-2" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>路径 <code>/opt/hbase-1.2.4/conf/hbase-site.xml</code>，在<code>&lt;configuration&gt;</code>中增加以下配置<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;hbase.rootdir&lt;/name&gt;</div><div class="line">    &lt;value&gt;hdfs://localhost:9000/hbase&lt;/value&gt;</div><div class="line">  &lt;/property&gt;</div><div class="line">  &lt;property&gt;</div><div class="line">    &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;</div><div class="line">    &lt;value&gt;/opt/data/zookeeper&lt;/value&gt;</div><div class="line">  &lt;/property&gt;</div><div class="line"> &lt;property&gt;</div><div class="line">    &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</div><div class="line">    &lt;value&gt;true&lt;/value&gt;</div><div class="line">  &lt;/property&gt;</div></pre></td></tr></table></figure></p>
+<p>确保<code>/opt/hbase-1.2.4/conf/regionservers</code>内容为<code>localhost</code></p>
+<h2 id="u542F_u52A8HBase"><a href="#u542F_u52A8HBase" class="headerlink" title="启动HBase"></a>启动HBase</h2><ol>
+<li>执行<code>start-hbase.sh</code>，正常启动后<code>jps</code>会增加<code>HMaster</code>和<code>HRegionServer</code></li>
+<li><code>hbase shell</code>进入后，分别执行以下命令，以验证HBase是否正常启动，参见<a href="http://hbase.apache.org/book.html#quickstart" target="_blank" rel="external">http://hbase.apache.org/book.html#quickstart</a></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">hbase(main):001:0&gt; create &apos;test&apos;, &apos;cf&apos;</div><div class="line">0 row(s) in 0.4170 seconds</div><div class="line"></div><div class="line">=&gt; Hbase::Table - test</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">hbase(main):002:0&gt; list &apos;test&apos;</div><div class="line">TABLE</div><div class="line">test</div><div class="line">1 row(s) in 0.0180 seconds</div><div class="line"></div><div class="line">=&gt; [&quot;test&quot;]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">hbase(main):003:0&gt; put &apos;test&apos;, &apos;row1&apos;, &apos;cf:a&apos;, &apos;value1&apos;</div><div class="line">0 row(s) in 0.0850 seconds</div><div class="line"></div><div class="line">hbase(main):004:0&gt; put &apos;test&apos;, &apos;row2&apos;, &apos;cf:b&apos;, &apos;value2&apos;</div><div class="line">0 row(s) in 0.0110 seconds</div><div class="line"></div><div class="line">hbase(main):005:0&gt; put &apos;test&apos;, &apos;row3&apos;, &apos;cf:c&apos;, &apos;value3&apos;</div><div class="line">0 row(s) in 0.0100 seconds</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">hbase(main):006:0&gt; scan &apos;test&apos;</div><div class="line">ROW                                COLUMN+CELL</div><div class="line"> row1                              column=cf:a, timestamp=1484897590018, value=value1</div><div class="line"> row2                              column=cf:b, timestamp=1484897595294, value=value2</div><div class="line"> row3                              column=cf:c, timestamp=1484897599617, value=value3</div><div class="line">3 row(s) in 0.4040 seconds</div></pre></td></tr></table></figure>
+<h1 id="u5B89_u88C5Hive"><a href="#u5B89_u88C5Hive" class="headerlink" title="安装Hive"></a>安装Hive</h1><h2 id="u65B0_u5EFAMySQL_u6570_u636E_u5E93_u53CA_u7528_u6237"><a href="#u65B0_u5EFAMySQL_u6570_u636E_u5E93_u53CA_u7528_u6237" class="headerlink" title="新建MySQL数据库及用户"></a>新建MySQL数据库及用户</h2><p>用于存储Hive元数据<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql&gt; create database hive;</div><div class="line">mysql&gt; grant all privileges on hive.* to hive@&apos;%&apos; identified by &apos;hive&apos;;</div></pre></td></tr></table></figure></p>
+<p>此处使用的数据库及用户，密码，均设为hive，hive的核心配置文件会使用到此处的配置</p>
+<h2 id="u521D_u59CB_u5316_u6570_u636E_u5E93_u8868_u7ED3_u6784"><a href="#u521D_u59CB_u5316_u6570_u636E_u5E93_u8868_u7ED3_u6784" class="headerlink" title="初始化数据库表结构"></a>初始化数据库表结构</h2><p>选择对应的hive版本号<br><code>mysql hive -uhive -p &lt; /opt/apache-hive-2.1.1-bin/scripts/metastore/upgrade/mysql/hive-schema-2.1.0.mysql.sql</code></p>
+<h2 id="u4FEE_u6539_u73AF_u5883_u53D8_u91CF-2"><a href="#u4FEE_u6539_u73AF_u5883_u53D8_u91CF-2" class="headerlink" title="修改环境变量"></a>修改环境变量</h2><p>在<code>/etc/profile</code>中增加以下内容，并执行<code>source /etc/profile</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">export HIVE_HOME=/opt/apache-hive-2.1.1-bin</div><div class="line">export HIVE_CONF_DIR=$HIVE_HOME/conf</div><div class="line">export PATH=$HIVE_HOME/bin:$HIVE_HOME/conf:$HIVE_HOME/hcatalog/bin:$HIVE_HOME/hcatalog/sbin:$PATH</div></pre></td></tr></table></figure></p>
+<h2 id="u4FEE_u6539_u914D_u7F6E_u6587_u4EF6-3"><a href="#u4FEE_u6539_u914D_u7F6E_u6587_u4EF6-3" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>从模板中复制配置文件为<code>hive-site.xml</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">cp /opt/apache-hive-2.1.1-bin/conf/hive-default.xml.template /opt/apache-hive-2.1.1-bin/conf/hive-site.xml</div></pre></td></tr></table></figure></p>
+<p>修改以下配置段<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;hive.exec.local.scratchdir&lt;/name&gt;</div><div class="line">    &lt;value&gt;/opt/hive/iotmp/root&lt;/value&gt;</div><div class="line">    &lt;!--&lt;value&gt;$&#123;system:java.io.tmpdir&#125;/$&#123;system:user.name&#125;&lt;/value&gt;--&gt;</div><div class="line">    &lt;description&gt;Local scratch space for Hive jobs&lt;/description&gt;</div><div class="line">  &lt;/property&gt;</div><div class="line">  &lt;property&gt;</div><div class="line">    &lt;name&gt;hive.downloaded.resources.dir&lt;/name&gt;</div><div class="line">    &lt;value&gt;/opt/hive/iotmp/$&#123;hive.session.id&#125;_resources&lt;/value&gt;</div><div class="line">    &lt;!--&lt;value&gt;$&#123;system:java.io.tmpdir&#125;/$&#123;hive.session.id&#125;_resources&lt;/value&gt;--&gt;</div><div class="line">    &lt;description&gt;Temporary local directory for added resources in the remote file system.&lt;/description&gt;</div><div class="line">  &lt;/property&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;</div><div class="line">  &lt;value&gt;hive&lt;/value&gt;</div><div class="line">  &lt;description&gt;password to use against metastore database&lt;/description&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;hive.metastore.ds.connection.url.hook&lt;/name&gt;</div><div class="line">  &lt;value/&gt;</div><div class="line">  &lt;description&gt;Name of the hook to use for retrieving the JDO connection URL. If empty, the value in javax.jdo.option.ConnectionURL is used&lt;/description&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;javax.jdo.option.Multithreaded&lt;/name&gt;</div><div class="line">  &lt;value&gt;true&lt;/value&gt;</div><div class="line">  &lt;description&gt;Set this to true if multiple threads access metastore through JDO concurrently.&lt;/description&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;</div><div class="line">  &lt;value&gt;jdbc:mysql://localhost/hive?createDatabaseIfNotExist=true&lt;/value&gt;</div><div class="line">  &lt;!--&lt;value&gt;jdbc:derby:;databaseName=metastore_db;create=true&lt;/value&gt;--&gt;</div><div class="line">  &lt;description&gt;</div><div class="line">    JDBC connect string for a JDBC metastore.</div><div class="line">    To use SSL to encrypt/authenticate the connection, provide database-specific SSL flag in the connection URL.</div><div class="line">    For example, jdbc:postgresql://myhost/db?ssl=true for postgres database.</div><div class="line">  &lt;/description&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;hive.metastore.schema.verification&lt;/name&gt;</div><div class="line">    &lt;value&gt;false&lt;/value&gt;</div><div class="line">    &lt;!--&lt;value&gt;true&lt;/value&gt;--&gt;</div><div class="line">    &lt;description&gt;</div><div class="line">      Enforce metastore schema version consistency.</div><div class="line">      True: Verify that version information stored in is compatible with one from Hive jars.  Also disable automatic</div><div class="line">            schema migration attempt. Users are required to manually migrate schema after Hive upgrade which ensures</div><div class="line">            proper metastore schema migration. (Default)</div><div class="line">      False: Warn if the version information stored in metastore doesn&apos;t match with one from in Hive jars.</div><div class="line">    &lt;/description&gt;</div><div class="line">  &lt;/property&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;</div><div class="line">  &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</div><div class="line">  &lt;!--&lt;value&gt;org.apache.derby.jdbc.EmbeddedDriver&lt;/value&gt;--&gt;</div><div class="line">  &lt;description&gt;Driver class name for a JDBC metastore&lt;/description&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;</div><div class="line">  &lt;value&gt;hive&lt;/value&gt;</div><div class="line">  &lt;description&gt;Username to use against metastore database&lt;/description&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">    &lt;name&gt;hive.querylog.location&lt;/name&gt;</div><div class="line">    &lt;value&gt;/opt/hive/iotmp/root&lt;/value&gt;</div><div class="line">    &lt;!--&lt;value&gt;$&#123;system:java.io.tmpdir&#125;/$&#123;system:user.name&#125;&lt;/value&gt;--&gt;</div><div class="line">    &lt;description&gt;Location of Hive run time structured log file&lt;/description&gt;</div><div class="line">  &lt;/property&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">   &lt;name&gt;hive.server2.logging.operation.log.location&lt;/name&gt;</div><div class="line">   &lt;value&gt;/opt/hive/iotmp/root/operation_logs&lt;/value&gt;</div><div class="line">   &lt;!--&lt;value&gt;$&#123;system:java.io.tmpdir&#125;/$&#123;system:user.name&#125;/operation_logs&lt;/value&gt;--&gt;</div><div class="line">   &lt;description&gt;Top level directory where operation logs are stored if logging functionality is enabled&lt;/description&gt;</div><div class="line"> &lt;/property&gt;</div></pre></td></tr></table></figure>
+<h2 id="u542F_u52A8hive"><a href="#u542F_u52A8hive" class="headerlink" title="启动hive"></a>启动hive</h2><p>拷贝<code>mysql-connector-java-5.1.7-bin.jar</code>至<code>/opt/apache-hive-2.1.1-bin/lib</code>中，<a href="https://dev.mysql.com/downloads/connector/j/" target="_blank" rel="external">链接</a><br><code>hive --service metastore &amp;</code><br>正常启动后，<code>jps</code>会增加<code>RunJar</code></p>
+<h1 id="u5B89_u88C5kylin"><a href="#u5B89_u88C5kylin" class="headerlink" title="安装kylin"></a>安装kylin</h1><h2 id="u4FEE_u6539_u73AF_u5883_u53D8_u91CF-3"><a href="#u4FEE_u6539_u73AF_u5883_u53D8_u91CF-3" class="headerlink" title="修改环境变量"></a>修改环境变量</h2><p>在<code>/etc/profile</code>中增加以下内容，并执行<code>source /etc/profile</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">export KYLIN_HOME=/opt/apache-kylin-1.6.0-hbase1.x-bin</div><div class="line">export PATH=$PATH:$KYLIN_HOME/bin</div></pre></td></tr></table></figure></p>
+<h2 id="u542F_u52A8kylin"><a href="#u542F_u52A8kylin" class="headerlink" title="启动kylin"></a>启动kylin</h2><p><code>kylin.sh start</code></p>
+<h2 id="u542F_u52A8_u81EA_u5E26_u4F8B_u5B50"><a href="#u542F_u52A8_u81EA_u5E26_u4F8B_u5B50" class="headerlink" title="启动自带例子"></a>启动自带例子</h2><p><code>sample.sh</code>，web页面重新载入</p>
+<p><img src="/images/install-kylin-hive-hbase-hadoop-0.png" alt="install-kylin-hive-hbase-hadoop-0.png"><br><img src="/images/install-kylin-hive-hbase-hadoop-1.png" alt="install-kylin-hive-hbase-hadoop-1.png"></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hadoop/" rel="tag">#Hadoop</a>
+          
+            <a href="/tags/Kylin/" rel="tag">#Kylin</a>
+          
+            <a href="/tags/Hive/" rel="tag">#Hive</a>
+          
+            <a href="/tags/HBase/" rel="tag">#HBase</a>
+          
+            <a href="/tags/ZooKeeper/" rel="tag">#ZooKeeper</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tips-of-ansible-up-and-running/" rel="next" title="Tips of Ansible Up and Running">
+                <i class="fa fa-chevron-left"></i> Tips of Ansible Up and Running
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+        </div>
+
+        
+
+
+        
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="install-kylin-hive-hbase-hadoop/"
+           data-title="install kylin hive hbase hadoop" data-url="http://yoursite.com/install-kylin-hive-hbase-hadoop/">
+      </div>
+    
+  </div>
+
+
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/touxiang.jpg" alt="xiuyanduan" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">xiuyanduan</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">DevOps</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">categories</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiuyanduan" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/xiuyanduan" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 新浪微博
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u8BBE_u7F6EJAVA_u76F8_u5173_u73AF_u5883_u53D8_u91CF"><span class="nav-number">1.</span> <span class="nav-text">设置JAVA相关环境变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u5B89_u88C5HDFS"><span class="nav-number">2.</span> <span class="nav-text">安装HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u589E_u52A0_u73AF_u5883_u53D8_u91CF"><span class="nav-number">2.1.</span> <span class="nav-text">增加环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u6539_u914D_u7F6E_u6587_u4EF6"><span class="nav-number">2.2.</span> <span class="nav-text">修改配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#core-site-xml"><span class="nav-number">2.2.1.</span> <span class="nav-text">core-site.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hdfs-site-xml"><span class="nav-number">2.2.2.</span> <span class="nav-text">hdfs-site.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yarn-site-xml"><span class="nav-number">2.2.3.</span> <span class="nav-text">yarn-site.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mapred-site-xml"><span class="nav-number">2.2.4.</span> <span class="nav-text">mapred-site.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u542F_u52A8HDFS"><span class="nav-number">2.3.</span> <span class="nav-text">启动HDFS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u5B89_u88C5ZooKeeper"><span class="nav-number">3.</span> <span class="nav-text">安装ZooKeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u6539_u73AF_u5883_u53D8_u91CF"><span class="nav-number">3.1.</span> <span class="nav-text">修改环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u6539_u914D_u7F6E_u6587_u4EF6-1"><span class="nav-number">3.2.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u542F_u52A8zookeeper"><span class="nav-number">3.3.</span> <span class="nav-text">启动zookeeper</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u5B89_u88C5HBase"><span class="nav-number">4.</span> <span class="nav-text">安装HBase</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u6539_u73AF_u5883_u53D8_u91CF-1"><span class="nav-number">4.1.</span> <span class="nav-text">修改环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u6539_u914D_u7F6E_u6587_u4EF6-2"><span class="nav-number">4.2.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u542F_u52A8HBase"><span class="nav-number">4.3.</span> <span class="nav-text">启动HBase</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u5B89_u88C5Hive"><span class="nav-number">5.</span> <span class="nav-text">安装Hive</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u65B0_u5EFAMySQL_u6570_u636E_u5E93_u53CA_u7528_u6237"><span class="nav-number">5.1.</span> <span class="nav-text">新建MySQL数据库及用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u521D_u59CB_u5316_u6570_u636E_u5E93_u8868_u7ED3_u6784"><span class="nav-number">5.2.</span> <span class="nav-text">初始化数据库表结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u6539_u73AF_u5883_u53D8_u91CF-2"><span class="nav-number">5.3.</span> <span class="nav-text">修改环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u6539_u914D_u7F6E_u6587_u4EF6-3"><span class="nav-number">5.4.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u542F_u52A8hive"><span class="nav-number">5.5.</span> <span class="nav-text">启动hive</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u5B89_u88C5kylin"><span class="nav-number">6.</span> <span class="nav-text">安装kylin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u4FEE_u6539_u73AF_u5883_u53D8_u91CF-3"><span class="nav-number">6.1.</span> <span class="nav-text">修改环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u542F_u52A8kylin"><span class="nav-number">6.2.</span> <span class="nav-text">启动kylin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u542F_u52A8_u81EA_u5E26_u4F8B_u5B50"><span class="nav-number">6.3.</span> <span class="nav-text">启动自带例子</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiuyanduan</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xiuyanduan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+     
+  	  <script type="text/javascript">
+  		var duoshuo_user_ID = 6228038773616150000
+      var duoshuo_admin_nickname="博主"
+  	  </script>
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+
+    
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+<script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+<script type="text/javascript" src="/js/motion.js?v=0.4.5.2" id="motion.global"></script>
+
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+  
+  
+
+  
+  
+
+</body>
+</html>
